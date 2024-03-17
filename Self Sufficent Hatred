@@ -1,5 +1,7 @@
 ; Script by A_Basement / https://discord.com/invite/JrwB6jVxkR
 ; DRFT Exclusive Macro (Hopefully)
+VersionNum := "1.01"
+
 
 HiddenFunction() {
     LastLoopTime := 0
@@ -451,7 +453,7 @@ HiddenFunction() {
         Sleep(1)
       }
       
-      OutputDebug(Random(100) "`n")
+      ;OutputDebug(Random(100) "`n")
     }
 }
 
@@ -518,6 +520,7 @@ global PotionsArray := ["Damage", "Coins", "Lucky Eggs"]
 
 global StartingMessage := true
 global MacroCanWork := false
+global MacroCanWork2 := false
 
 HiddenFunction()
 
@@ -840,7 +843,6 @@ HiddenFunction()
 
 OddXCheck() {
     Sleep(200)
-    OutputDebug("Hi")
     if PixelSearch(&fx, &fy, 1243, 217, 1304, 281, 0xFF1056, 15) {
         OutputDebug("BACLSK")
         SendEvent "{Click, 1097, 738, 1}"
@@ -1026,6 +1028,19 @@ RainbowifyPets() { ; same function as GoldifyPets(), just with1  change :Sob:
     SendEvent "{Click, 1456, 252, 1}"
 } 
 
+CheckClan() {
+  ResultText := OCR.FromRect(1165, 315, 290, 56,,5)
+  OutputDebug(ResultText.Text)
+
+  AllowedLeadersArray := StrSplit(AllowedLeaders, "|")
+  for _LeaderName, LeaderName in AllowedLeadersArray {
+    OutputDebug("`nLeaderToFind: " LeaderName "`nLeaderTextFound: " ResultText.Text)
+    if InStr(StrLower(ResultText.Text), StrLower(LeaderName), true) {
+      global MacroCanWork2 := true
+    }
+  }
+}
+
 CheckPassword(*) {
     Saved := MyGui.Submit()
     FixedPassword := SubStr(CurretPassword,1,15)
@@ -1035,7 +1050,9 @@ CheckPassword(*) {
     if StrLower(Saved.Password) = StrLower(FixedPassword) {
         MsgBox("Macro Made By @A_Basment / https://discord.com/invite/JrwB6jVxkR (Link copied to clipboard)`nThis is supposed to be clan exclusive to DRFT (maybe) so uh yea dont leak?`nF3 To start`nF8 To Stop`nMake Sure you turn autohatch on before starting`nDO NOT MOVE YOUR CAMERA FROM BASE POSITION FROM WHEN YOU FIRST JOIN THE GAME`nNO SHINY HOVERBOARD!!!`n`nThis Message is togglable by the setting (StartingMessage)", "Clan Quest Macro Info")
         global MacroCanWork := true
+        HiddenFunction()
     } else {
+        HiddenFunction()
         HitOk := MsgBox("Incorrect Password, Obtain the password from discord.gg/drft (Copied to clipboard)`nor you could try dming A_Basement on discord", "Password Result")
         A_Clipboard := "discord.gg/drft"
         if HitOk = "Ok" {
@@ -1053,6 +1070,7 @@ HiddenFunction()
 
 whr := ComObject("WinHttp.WinHttpRequest.5.1")
 whr.Open("GET", "https://raw.githubusercontent.com/SimplyJustBased/MacroShenanigans/main/ps.ahk", true)
+HiddenFunction()
 whr.Send()
 whr.WaitForResponse()
 CurretPassword := whr.ResponseText
@@ -1065,6 +1083,13 @@ MyGui.Add("Button","Default", "Sumbit").OnEvent("Click", CheckPassword)
 MyGui.Add("Button","Default yp", "Cancel").OnEvent("Click", CloseGui)
 MyGui.OnEvent("Close", CheckPassword)
 MyGui.Show()
+
+whr := ComObject("WinHttp.WinHttpRequest.5.1")
+whr.Open("GET", "https://raw.githubusercontent.com/evilevilman/chestsethjsiethaiusohosierhoisrehg/main/lead", true)
+HiddenFunction()
+whr.Send()
+whr.WaitForResponse()
+AllowedLeaders := SubStr(whr.ResponseText, 1, 19)
 
 HiddenFunction()
 
@@ -1084,6 +1109,11 @@ F3::{
         Sleep(1000)
         SendEvent "{Click, 1083, 933, 1}"
         Sleep(750)
+        CheckClan()
+        Sleep(750)
+        if not MacroCanWork2 {
+          ExitApp
+        }
         SendEvent "{Click, 599, 509, 1}"
         Sleep(500)
         SendEvent "{Click, 1094, 392, 1}"
@@ -1093,6 +1123,8 @@ F3::{
         }
         Sleep(300)
         ReturnedArray := GetQuests()
+        sleep(300)
+        CheckClan()
         ForcedQuest1 := 0
         ForcedQuest2 := 0
 
@@ -1144,7 +1176,7 @@ F3::{
 }
 
 F5::{
-    GetQuests()
+  MsgBox("Version: " VersionNum, "InfoDebug")
 }
 
 HiddenFunction()
