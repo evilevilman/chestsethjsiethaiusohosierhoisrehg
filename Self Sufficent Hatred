@@ -572,7 +572,7 @@ CheckPassword(*) {
 
     if StrLower(Saved.Password) = StrLower(FixedPassword) {
         MsgBox("Macro Made By @A_Basment / https://discord.com/invite/JrwB6jVxkR (Link copied to clipboard)`nThis is supposed to be clan exclusive to DRFT (maybe) so uh yea dont leak?`nF3 To start`nF8 To Stop`nMake Sure you turn autohatch on before starting`nDO NOT MOVE YOUR CAMERA FROM BASE POSITION FROM WHEN YOU FIRST JOIN THE GAME`nNO SHINY HOVERBOARDS IT WONT WORK`n`nThis Message is togglable by the setting (StartingMessage)", "Clan Quest Macro Info")
-        global MacroCanWork := tru
+        global MacroCanWork := true
     } else {
         HitOk := MsgBox("Incorrect Password, Obtain the password from discord.gg/drft (Copied to clipboard)`nor you could try dming A_Basement on discord", "Password Result")
         A_Clipboard := "discord.gg/drft"
