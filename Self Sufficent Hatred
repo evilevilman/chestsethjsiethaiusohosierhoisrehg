@@ -1,0 +1,712 @@
+; Script by A_Basement / https://discord.com/invite/JrwB6jVxkR
+; DRFT Exclusive Macro (Hopefully)
+
+#Requires AutoHotkey v2.0 
+#Include UWBOCRLib.ahk
+#SingleInstance Force
+CoordMode "Mouse", "Screen"
+SetMouseDelay -1
+
+OffSetX := 10 ;68
+OffsetY := 10 ;174
+SwitchChange := false
+SizeX := 290 ;186
+SizeY := 440 ;28
+PushNum := 2
+
+Quests := Map()
+Quests["Coin Jars"] := "1"
+Quests["Comets"] := "3"
+Quests["PiNNNATEAS"] := "4"
+Quests["Lucky Block"] := "5"
+Quests["Rainbow Pets"] := "6"
+Quests["Pinfiata"] := "7"
+Quests["Breakables"] := "8"
+Quests["Best Eggs"] := "9"
+Quests["rare"] := "10"
+Quests["k Diamonds"] := "11"
+Quests["diamond breakables"] := "12"
+Quests["golden"] := "13"
+Quests["Mini"] := "14"
+
+QuestsValue := Map()
+QuestsValue["Coin Jars"] := "1"
+QuestsValue["Comets"] := "3"
+QuestsValue["PiNNNATEAS"] := "4"
+QuestsValue["Lucky Block"] := "5"
+QuestsValue["Rainbow Pets"] := "6"
+QuestsValue["Pinfiata"] := "7"
+QuestsValue["Breakables"] := "8"
+QuestsValue["Best Eggs"] := "9"
+QuestsValue["rare"] := "10"
+QuestsValue["k Diamonds"] := "11"
+QuestsValue["diamond breakables"] := "12"
+QuestsValue["golden"] := "13"
+QuestsValue["Mini"] := "14"
+
+
+
+global TpWaitTime := 7000
+global FailedQuestWaitTime := 120000
+global TimeSpentOnQuest := 120000
+global Do3StarQuest := false
+global Randomize3and4Star := true
+
+global ItemUseAmount := 10
+global DelayBetweenItemUse := 5500
+
+global PetMachineArray := ["Bleebo The Alien", "alien parasite", "alien axolotl"]
+global EggbackwardsDistance := 1025
+
+global PotionsArray := ["Damage", "Coins", "Lucky Eggs"]
+
+global StartingMessage := true
+global MacroCanWork := false
+
+GetQuests() {
+    FirstQuest := ""
+    SecondQuest := ""
+
+    Result1 := Ocr.FromRect(778, 500, 415, 40,,5)
+    Result2 := Ocr.FromRect(778, 630, 415, 40,,5)
+    ; OutputDebug("`n Quest1: " Result1.Text)
+    ; OutputDebug("`n Quest2: " Result2.Text)
+
+    for QuestFind, QuestValue in Quests {
+        if InStr(StrLower(Result1.Text), StrLower(QuestFind), false) {
+            ; OutputDebug("`nFound TrueQuest1 : " QuestFind)
+            FirstQuest := QuestFind
+        }
+        if InStr(StrLower(Result2.Text), StrLower(QuestFind), false) {
+            ; OutputDebug("`nFound TrueQuest2 : " QuestFind)
+            SecondQuest := QuestFind
+        }
+    }
+
+    return [FirstQuest, SecondQuest]
+}
+
+
+
+; Movement Functions
+MoveToFinalZone() {
+    OddXCheck()
+    Sleep(300)
+    SendEvent "{Click, 166, 390, 1}"
+    Sleep(500)
+    loop 3 {
+        SendEvent "{Click, 1115, 254, 1}"
+    }
+    Sleep(300)
+    SendText "Alien Lab"
+    Sleep(300)
+    SendEvent "{Click, 958, 356, 1}"
+    Sleep(TpWaitTime)
+    SendEvent "{Q Down}{Q Up}"
+    Sleep(100)
+    SendEvent "{S Down}"
+    Sleep(650)
+    SendEvent "{S Up}"
+}
+MoveToVipArea() {
+    OddXCheck()
+    Sleep(300)
+    SendEvent "{Click, 166, 390, 1}"
+    Sleep(500)
+    loop 3 {
+        SendEvent "{Click, 1115, 254, 1}"
+    }
+    Sleep(300)
+    SendText "Tech Spawn"
+    Sleep(300)
+    SendEvent "{Click, 958, 356, 1}"
+    Sleep(TpWaitTime)
+    SendEvent "{Q Down}{Q Up}"
+    Sleep(100)
+    SendEvent "{W Down}"
+    Sleep(100)
+    SendEvent "{W Up}"
+    Sleep(200)
+    SendEvent "{A Down}"
+    Sleep(3500)
+    SendEvent "{A Up}"
+    Sleep(500)
+    SendEvent "{W Down}"
+    Sleep(500)
+    SendEvent "{W Up}"
+    Sleep(200)
+    SendEvent "{A Down}"
+    Sleep(2000)
+    SendEvent "{A Up}"
+}
+MoveToBestEgg() {
+    OddXCheck()
+    Sleep(300)
+    SendEvent "{Click, 166, 390, 1}"
+    Sleep(500)
+    loop 3 {
+        SendEvent "{Click, 1115, 254, 1}"
+    }
+    Sleep(300)
+    SendText "Tech Spawn"
+    Sleep(300)
+    SendEvent "{Click, 958, 356, 1}"
+    Sleep(TpWaitTime)
+    SendEvent "{Q Down}{Q Up}"
+    Sleep(200)
+    SendEvent "{S Down}"
+    Sleep(900)
+    SendEvent "{S Up}"
+    Sleep(200)
+    SendEvent "{A Down}"
+    Sleep(1105)
+    SendEvent "{A Up}"
+    Sleep(250)
+    SendEvent "{S Down}"
+    Sleep(EggbackwardsDistance)
+    SendEvent "{S Up}"
+    Sleep(400)
+    SendEvent "{D Down}"
+    Sleep(1925)
+    SendEvent "{D Up}"
+    Sleep(500)
+}
+MoveToSecondBestEgg() {
+    OddXCheck()
+    Sleep(300)
+    SendEvent "{Click, 166, 390, 1}"
+    Sleep(500)
+    loop 3 {
+        SendEvent "{Click, 1115, 254, 1}"
+    }
+    Sleep(300)
+    SendText "Tech Spawn"
+    Sleep(300)
+    SendEvent "{Click, 958, 356, 1}"
+    Sleep(TpWaitTime)
+    SendEvent "{Q Down}{Q Up}"
+    Sleep(200)
+    SendEvent "{S Down}"
+    Sleep(900)
+    SendEvent "{S Up}"
+    Sleep(200)
+    SendEvent "{A Down}"
+    Sleep(1105)
+    SendEvent "{A Up}"
+    Sleep(250)
+    SendEvent "{S Down}"
+    Sleep(EggbackwardsDistance)
+    SendEvent "{S Up}"
+    Sleep(400)
+    SendEvent "{D Down}"
+    Sleep(2100)
+    SendEvent "{D Up}"
+    Sleep(500)
+}
+Escape() {
+    OddXCheck()
+    Sleep(300)
+    SendEvent "{Click, 166, 390, 1}"
+    Sleep(500)
+    loop 3 {
+        SendEvent "{Click, 1115, 254, 1}"
+    }
+    Sleep(300)
+    SendText "Mushroom Lab"
+    Sleep(300)
+    SendEvent "{Click, 958, 356, 1}"
+    Sleep(TpWaitTime)
+}
+MoveToComputerOfEVIL() {
+    OddXCheck()
+    Sleep(300)
+    SendEvent "{Click, 166, 390, 1}"
+    Sleep(500)
+    loop 3 {
+        SendEvent "{Click, 1115, 254, 1}"
+    }
+    Sleep(300)
+    SendText "Tech Spawn"
+    Sleep(300)
+    SendEvent "{Click, 958, 356, 1}"
+    Sleep(TpWaitTime)
+    SendEvent "{Q Down}{Q Up}"
+    Sleep(200)
+    SendEvent "{A Down}"
+    Sleep(2500)
+    SendEvent "{A Up}"
+    Sleep(100)
+    SendEvent "{W Down}"
+    Sleep(495)
+    SendEvent "{W Up}"
+    Sleep(500)
+}
+
+; Idknames anymreo Rahhhhhh
+QuestFunction(QuestNum) {
+    if QuestNum = 1 {
+        MoveToFinalZone()
+        EnableAutoFarm()
+        UseItem("Basic Coin Jar", ItemUseAmount, DelayBetweenItemUse)
+        Sleep(400)
+        OddXCheck
+        Escape()
+    }
+    if QuestNum = 2 {
+        MsgBox("How")
+    }
+    if QuestNum = 3 {
+        MoveToFinalZone()
+        EnableAutoFarm()
+        UseItem("Comet", ItemUseAmount, DelayBetweenItemUse)
+        Sleep(400)
+        OddXCheck
+        Escape()
+    }
+    if QuestNum = 4 or QuestNum = 7 {
+        MoveToFinalZone()
+        EnableAutoFarm()
+        UseItem("piñata", ItemUseAmount, DelayBetweenItemUse)
+        Sleep(400)
+        OddXCheck
+        Escape()
+    }
+    if QuestNum = 5 {
+        MoveToFinalZone()
+        EnableAutoFarm()
+        UseItem("Lucky Block", ItemUseAmount, DelayBetweenItemUse)
+        Sleep(400)
+        OddXCheck
+        Escape()
+    }
+    if QuestNum = 6 {
+        MoveToComputerOfEVIL()
+        RainbowifyPets()
+        SendEvent "{D Down}"
+        Sleep(400)
+        SendEvent "{D Up}"
+        Sleep(400)
+        Escape()
+    }
+    if QuestNum = 8 {
+        MoveToFinalZone()
+        EnableAutoFarm()
+        Sleep(TimeSpentOnQuest)
+        OddXCheck()
+        Escape()
+    }
+    if QuestNum = 9 {
+        MoveToBestEgg()
+        Sleep(300)
+        loop 5 {
+            SendEvent "{E Down}{E Up}"
+            Sleep(300)
+            SendEvent "{Click, 1191, 721, 1}"
+        }
+
+        StartTime := A_TickCount
+        loop {
+            if (A_TickCount - StartTime) >= TimeSpentOnQuest {
+                break
+            }
+
+            SendEvent "{Click, 1866, 823, 1}"
+            Sleep(10)
+        }
+        Sleep(300)
+        SendEvent "{W Down}"
+        Sleep(2000)
+        SendEvent "{W Up}"
+        Escape()
+    }
+    if QuestNum = 10 {
+        MoveToSecondBestEgg()
+        Sleep(300)
+        loop 5 {
+            SendEvent "{E Down}{E Up}"
+            Sleep(300)
+            SendEvent "{Click, 1191, 721, 1}"
+        }
+
+        StartTime := A_TickCount
+        loop {
+            if (A_TickCount - StartTime) >= TimeSpentOnQuest {
+                break
+            }
+
+            SendEvent "{Click, 1866, 823, 1}"
+            Sleep(10)
+        }
+        Sleep(300)
+        SendEvent "{W Down}"
+        Sleep(2000)
+        SendEvent "{W Up}"
+        Escape()
+    }
+    if QuestNum = 11 {
+        MoveToFinalZone()
+        EnableAutoFarm()
+        Sleep(TimeSpentOnQuest)
+        OddXCheck()
+        Escape()
+    }
+    if QuestNum = 12 {
+        MoveToVipArea()
+        EnableAutoFarm()
+        Sleep(TimeSpentOnQuest)
+        OddXCheck()
+        Escape()
+    }
+    if QuestNum = 13 {
+        MoveToComputerOfEVIL()
+        GoldifyPets()
+        SendEvent "{D Down}"
+        Sleep(400)
+        SendEvent "{D Up}"
+        Sleep(400)
+        Escape()
+    }
+    if QuestNum = 14 {
+        MoveToFinalZone()
+        EnableAutoFarm()
+        sleep(TimeSpentOnQuest)
+        OddXCheck()
+        Escape()
+    }
+}
+
+
+OddXCheck() {
+    Sleep(200)
+    OutputDebug("Hi")
+    if PixelSearch(&fx, &fy, 1243, 217, 1304, 281, 0xFF1056, 15) {
+        OutputDebug("BACLSK")
+        SendEvent "{Click, 1097, 738, 1}"
+    }
+}
+
+EnableAutoFarm() {
+    Sleep(200)
+    if PixelSearch(&lll, &ll2, 120, 437, 199, 526, 0x7AF50C, 20) {
+        OutputDebug("Green")
+        SendEvent "{Click, 169, 490, 1}"
+        Sleep(500)
+        SendEvent "{Click, 169, 490, 1}"
+    } else {
+        OutputDebug("Not Green")
+        SendEvent "{Click, 169, 490, 1}"
+    }
+}
+
+UseItem(ItemName, Amount, DelayBetween) { 
+    OddXCheck()
+    Sleep(200)
+    SendEvent "{Click, 968, 929, 1}"
+    Sleep(1000)
+    SendEvent "{Click, 414, 395, 1}"
+    StartTime := A_TickCount
+    loop ItemUseAmount {
+        if (A_TickCount - StartTime) >= TimeSpentOnQuest {
+            break
+        }
+
+        Sleep(750)
+        OddXCheck()
+        SendEvent "{Click, 1156, 256, 1}"
+        Sleep(100)
+        SendText ItemName
+        Sleep(100)
+        SendEvent "{Click, 523, 407, 1}"
+        OddXCheck()
+        Sleep(DelayBetween)
+        if not PixelSearch(&HHH, &HHH, 1450, 235, 1495, 284, 0xFF155E, 15) {
+            SendEvent "{Click, 1494, 235, 1}"
+            Sleep(300)
+            SendEvent "{Click, 1311, 258, 1}"
+            OddXCheck()
+            Sleep(400)
+            SendEvent "{Click, 968, 929, 1}"
+            Sleep(1000)
+            SendEvent "{Click, 414, 395, 1}"
+        }
+    }
+}
+
+GoldifyPets() {
+    for PetNum, PetSearch in PetMachineArray {
+        Sleep(400)
+        SendEvent "{Click, 1216, 378, 1}"
+        Sleep(500)
+        SendEvent "{Click, 1115, 253, 1}"
+        Sleep(500)
+        SendText PetSearch
+        if not PixelSearch(&ll3, &ll4, 1055, 368, 1078, 383, 0xFFFFFF, 3) {
+            SendEvent "{Shift Down}"
+            Sleep(30)
+            SendEvent "{Click, 1053, 387, 1}"
+            Sleep(30)
+            SendEvent "{Shift Up}"
+            Sleep(200)
+            FoundCreationButton := false
+            loop 10 {
+                if PixelSearch(&ll5, &ll6, 490, 675, 748, 754, 0x6DF306, 3) {
+                    FoundCreationButton := true
+                    break
+                }
+            }
+            if FoundCreationButton {
+                Sleep(200)
+                SendEvent "{Click, 624, 719, 1}"
+                Sleep(3500)
+                SendEvent "{Click, 964, 718, 1}"
+                Sleep(3500)
+            } else {
+                continue
+            }
+
+        } else {
+            if not PixelSearch(&ll3, &ll4, 883, 360, 935, 377, 0xFFFFFF, 3) {
+                SendEvent "{Shift Down}"
+                Sleep(30)
+                SendEvent "{Click, 911, 391, 1}"
+                Sleep(30)
+                SendEvent "{Shift Up}"
+                Sleep(200)
+                FoundCreationButton := false
+                loop 10 {
+                    if PixelSearch(&ll5, &ll6, 490, 675, 748, 754, 0x6DF306, 3) {
+                        FoundCreationButton := true
+                        break
+                    }
+                }
+                if FoundCreationButton {
+                    Sleep(200)
+                    SendEvent "{Click, 624, 719, 1}"
+                    Sleep(3500)
+                    SendEvent "{Click, 964, 718, 1}"
+                    Sleep(3500)
+                } else {
+                    continue
+                }
+
+            } else {
+                continue
+            }
+        }
+    }
+    Sleep(200)
+    SendEvent "{Click, 1456, 252, 1}"
+}
+
+RainbowifyPets() { ; same function as GoldifyPets(), just with1  change :Sob:
+    for PetNum, PetSearch in PetMachineArray {
+        Sleep(400)
+        SendEvent "{Click, 1046, 618, 1}"
+        Sleep(500)
+        SendEvent "{Click, 1115, 253, 1}"
+        Sleep(500)
+        SendText PetSearch
+        if not PixelSearch(&ll3, &ll4, 1055, 368, 1078, 383, 0xFFFFFF, 3) {
+            SendEvent "{Shift Down}"
+            Sleep(30)
+            SendEvent "{Click, 1053, 387, 1}"
+            Sleep(30)
+            SendEvent "{Shift Up}"
+            Sleep(200)
+            FoundCreationButton := false
+            loop 10 {
+                if PixelSearch(&ll5, &ll6, 490, 675, 748, 754, 0x6DF306, 3) {
+                    FoundCreationButton := true
+                    break
+                }
+            }
+            if FoundCreationButton {
+                Sleep(200)
+                SendEvent "{Click, 624, 719, 1}"
+                Sleep(3500)
+                SendEvent "{Click, 964, 718, 1}"
+                Sleep(3500)
+            } else {
+                continue
+            }
+
+        } else {
+            if not PixelSearch(&ll3, &ll4, 883, 360, 935, 377, 0xFFFFFF, 3) {
+                SendEvent "{Shift Down}"
+                Sleep(30)
+                SendEvent "{Click, 911, 391, 1}"
+                Sleep(30)
+                SendEvent "{Shift Up}"
+                Sleep(200)
+                FoundCreationButton := false
+                loop 10 {
+                    if PixelSearch(&ll5, &ll6, 490, 675, 748, 754, 0x6DF306, 3) {
+                        FoundCreationButton := true
+                        break
+                    }
+                }
+                if FoundCreationButton {
+                    Sleep(200)
+                    SendEvent "{Click, 624, 719, 1}"
+                    Sleep(3500)
+                    SendEvent "{Click, 964, 718, 1}"
+                    Sleep(3500)
+                } else {
+                    continue
+                }
+
+            } else {
+                continue
+            }
+        }
+    }
+    Sleep(200)
+    SendEvent "{Click, 1456, 252, 1}"
+} 
+
+CheckPassword(*) {
+    Saved := MyGui.Submit()
+    FixedPassword := SubStr(CurretPassword,1,15)
+
+    StrCompare(Saved.Password, CurretPassword, false)
+
+    if StrLower(Saved.Password) = StrLower(FixedPassword) {
+        MsgBox("Macro Made By @A_Basment / https://discord.com/invite/JrwB6jVxkR (Link copied to clipboard)`nThis is supposed to be clan exclusive to DRFT (maybe) so uh yea dont leak?`nF3 To start`nF8 To Stop`nMake Sure you turn autohatch on before starting`nDO NOT MOVE YOUR CAMERA FROM BASE POSITION FROM WHEN YOU FIRST JOIN THE GAME`n`nThis Message is togglable by the setting (StartingMessage)", "Clan Quest Macro Info")
+        global MacroCanWork := true
+    } else {
+        HitOk := MsgBox("Incorrect Password, Obtain the password from discord.gg/drft (Copied to clipboard)`nor you could try dming A_Basement on discord", "Password Result")
+        A_Clipboard := "discord.gg/drft"
+        if HitOk = "Ok" {
+            ExitApp
+        }
+    }
+}
+
+CloseGui(*) {
+    MyGui.Submit
+    ExitApp
+}
+
+
+whr := ComObject("WinHttp.WinHttpRequest.5.1")
+whr.Open("GET", "https://raw.githubusercontent.com/SimplyJustBased/MacroShenanigans/main/ps.ahk", true)
+whr.Send()
+whr.WaitForResponse()
+CurretPassword := whr.ResponseText
+
+MyGui := Gui(, "Password Required")
+MyGui.Opt("-SysMenu +AlwaysOnTop")
+MyGui.Add("Text",,"Password:")
+MyGui.Add("Edit","w150 vPassword ym")
+MyGui.Add("Button","Default", "Sumbit").OnEvent("Click", CheckPassword)
+MyGui.Add("Button","Default yp", "Cancel").OnEvent("Click", CloseGui)
+MyGui.OnEvent("Close", CheckPassword)
+MyGui.Show()
+
+F3::{
+    if not MacroCanWork {
+        ExitApp
+    }
+    Sleep(200)
+    OddXCheck()
+    Escape()
+    loop {
+        Sleep(200)
+        OddXCheck()
+        Sleep(200)
+        SendEvent "{Click, 968, 929, 1}"
+        Sleep(1000)
+        SendEvent "{Click, 1083, 933, 1}"
+        Sleep(750)
+        SendEvent "{Click, 599, 509, 1}"
+        Sleep(500)
+        SendEvent "{Click, 1094, 392, 1}"
+        Sleep(200)
+        loop 300 {
+            SendEvent "{WheelDown}"
+        }
+        Sleep(300)
+        ReturnedArray := GetQuests()
+        ForcedQuest1 := 0
+        ForcedQuest2 := 0
+
+        if ReturnedArray[2] {
+            ForcedQuest1 := Quests[ReturnedArray[2]]
+        if ReturnedArray[1] {
+            ForcedQuest2 := Quests[ReturnedArray[1]]
+        }
+        } else {
+            if ReturnedArray[1] {
+                ForcedQuest1 := Quests[ReturnedArray[1]]
+            } else {
+                ForcedQuest1 := -1
+            }
+        }
+
+        OutputDebug("`nQuest 1: " ReturnedArray[1] "`nQuest 2: " ReturnedArray[2])
+
+        if Randomize3and4Star {
+            if ForcedQuest1 > 0 and ForcedQuest2 > 0 {
+                RandomQuest := Random(1,2)
+                if RandomQuest = 1 {
+                    QuestFunction(ForcedQuest1)
+                } else {
+                    QuestFunction(ForcedQuest2)
+                }
+            } else {
+                if ForcedQuest1 > 0 {
+                    QuestFunction(ForcedQuest1)
+                } else {
+                    if ForcedQuest2 > 0 {
+                        QuestFunction(ForcedQuest2)
+                    }
+                }
+            }
+        } else {
+            if ForcedQuest1 > 0 { 
+                QuestFunction(ForcedQuest1)
+                if ForcedQuest2 > 0 and Do3StarQuest {
+                    QuestFunction(ForcedQuest2)
+                }
+            } else {
+                OutputDebug("No Valid Quests, Waiting QuestTime")
+                Sleep(FailedQuestWaitTime)
+            }
+        }
+    }
+}
+
+F5::{
+    GetQuests()
+}
+
+Highlight(x?, y?, w?, h?, showTime:=0, color:="ff0000", d:=2) {
+    static guis := []
+  
+    if !IsSet(x) {
+          for _, r in guis
+              r.Destroy()
+          guis := []
+      return
+      }
+      if !guis.Length {
+          Loop 4
+              guis.Push(Gui("+AlwaysOnTop -Caption +ToolWindow -DPIScale +E0x08000000"))
+      }
+    Loop 4 {
+      i:=A_Index
+      , x1:=(i=2 ? x+w : x-d)
+      , y1:=(i=3 ? y+h : y-d)
+      , w1:=(i=1 or i=3 ? w+2*d : d)
+      , h1:=(i=2 or i=4 ? h+2*d : d)
+      guis[i].BackColor := color
+      guis[i].Show("NA x" . x1 . " y" . y1 . " w" . w1 . " h" . h1)
+    }
+    if showTime > 0 {
+      Sleep(showTime)
+      Highlight()
+    } else if showTime < 0
+      SetTimer(Highlight, -Abs(showTime))
+}
+  
+F8::ExitApp
