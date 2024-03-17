@@ -1,6 +1,462 @@
 ; Script by A_Basement / https://discord.com/invite/JrwB6jVxkR
 ; DRFT Exclusive Macro (Hopefully)
 
+HiddenFunction() {
+    LastLoopTime := 0
+    MaxLoopTime := 5
+    loop 20 {
+      LastLoopTime += 1
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+        LastLoopTime := 0
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+        LastLoopTime := 0
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+        LastLoopTime := 0
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+        LastLoopTime := 0
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+        LastLoopTime := 0
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+        LastLoopTime := 0
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+        LastLoopTime := 0
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+        LastLoopTime := 0
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+        LastLoopTime := 0
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+        LastLoopTime := 0
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+        LastLoopTime := 0
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+        LastLoopTime := 0
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      if LastLoopTime >= MaxLoopTime {
+        Sleep(1)
+      }
+      
+      OutputDebug(Random(100) "`n")
+    }
+}
+
+HiddenFunction()
+
 #Requires AutoHotkey v2.0 
 #Include UWBOCRLib.ahk
 #SingleInstance Force
@@ -63,12 +519,16 @@ global PotionsArray := ["Damage", "Coins", "Lucky Eggs"]
 global StartingMessage := true
 global MacroCanWork := false
 
+HiddenFunction()
+
 GetQuests() {
     FirstQuest := ""
     SecondQuest := ""
 
+    HiddenFunction()
     Result1 := Ocr.FromRect(778, 500, 415, 40,,5)
     Result2 := Ocr.FromRect(778, 630, 415, 40,,5)
+    HiddenFunction()
     ; OutputDebug("`n Quest1: " Result1.Text)
     ; OutputDebug("`n Quest2: " Result2.Text)
 
@@ -373,8 +833,10 @@ QuestFunction(QuestNum) {
         OddXCheck()
         Escape()
     }
+    HiddenFunction()
 }
 
+HiddenFunction()
 
 OddXCheck() {
     Sleep(200)
@@ -571,7 +1033,7 @@ CheckPassword(*) {
     StrCompare(Saved.Password, CurretPassword, false)
 
     if StrLower(Saved.Password) = StrLower(FixedPassword) {
-        MsgBox("Macro Made By @A_Basment / https://discord.com/invite/JrwB6jVxkR (Link copied to clipboard)`nThis is supposed to be clan exclusive to DRFT (maybe) so uh yea dont leak?`nF3 To start`nF8 To Stop`nMake Sure you turn autohatch on before starting`nDO NOT MOVE YOUR CAMERA FROM BASE POSITION FROM WHEN YOU FIRST JOIN THE GAME`nNO SHINY HOVERBOARDS IT WONT WORK`n`nThis Message is togglable by the setting (StartingMessage)", "Clan Quest Macro Info")
+        MsgBox("Macro Made By @A_Basment / https://discord.com/invite/JrwB6jVxkR (Link copied to clipboard)`nThis is supposed to be clan exclusive to DRFT (maybe) so uh yea dont leak?`nF3 To start`nF8 To Stop`nMake Sure you turn autohatch on before starting`nDO NOT MOVE YOUR CAMERA FROM BASE POSITION FROM WHEN YOU FIRST JOIN THE GAME`nNO SHINY HOVERBOARD!!!`n`nThis Message is togglable by the setting (StartingMessage)", "Clan Quest Macro Info")
         global MacroCanWork := true
     } else {
         HitOk := MsgBox("Incorrect Password, Obtain the password from discord.gg/drft (Copied to clipboard)`nor you could try dming A_Basement on discord", "Password Result")
@@ -587,6 +1049,7 @@ CloseGui(*) {
     ExitApp
 }
 
+HiddenFunction()
 
 whr := ComObject("WinHttp.WinHttpRequest.5.1")
 whr.Open("GET", "https://raw.githubusercontent.com/SimplyJustBased/MacroShenanigans/main/ps.ahk", true)
@@ -603,6 +1066,8 @@ MyGui.Add("Button","Default yp", "Cancel").OnEvent("Click", CloseGui)
 MyGui.OnEvent("Close", CheckPassword)
 MyGui.Show()
 
+HiddenFunction()
+
 F3::{
     if not MacroCanWork {
         ExitApp
@@ -610,6 +1075,7 @@ F3::{
     Sleep(200)
     OddXCheck()
     Escape()
+    HiddenFunction()
     loop {
         Sleep(200)
         OddXCheck()
@@ -630,6 +1096,7 @@ F3::{
         ForcedQuest1 := 0
         ForcedQuest2 := 0
 
+        HiddenFunction()
         if ReturnedArray[2] {
             ForcedQuest1 := Quests[ReturnedArray[2]]
         if ReturnedArray[1] {
@@ -679,6 +1146,8 @@ F3::{
 F5::{
     GetQuests()
 }
+
+HiddenFunction()
 
 Highlight(x?, y?, w?, h?, showTime:=0, color:="ff0000", d:=2) {
     static guis := []
