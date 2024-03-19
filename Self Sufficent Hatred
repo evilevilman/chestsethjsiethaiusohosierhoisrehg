@@ -1,6 +1,6 @@
 ; Script by A_Basement / https://discord.com/invite/JrwB6jVxkR
 ; DRFT Exclusive Macro (Hopefully)
-VersionNum := "1.01"
+VersionNum := "1.02"
 
 
 HiddenFunction() {
@@ -502,6 +502,8 @@ QuestsValue["diamond breakables"] := "12"
 QuestsValue["golden"] := "13"
 QuestsValue["Mini"] := "14"
 
+QuestsPriority := Map()
+
 
 
 global TpWaitTime := 7000
@@ -521,6 +523,7 @@ global PotionsArray := ["Damage", "Coins", "Lucky Eggs"]
 global StartingMessage := true
 global MacroCanWork := false
 global MacroCanWork2 := false
+global MacroCanWork3 := false
 
 HiddenFunction()
 
@@ -550,6 +553,118 @@ GetQuests() {
 }
 
 
+LoadSettings()
+QuestUi := Gui()
+SetupUI() {
+  Tabs := QuestUi.AddTab3("Choose1", ["Main", "Togglable Settings", "ChangeLogs"])
+
+  SetDarkWindowFrame(hwnd, boolEnable:=1) {
+      hwnd := WinExist(hwnd)
+      if VerCompare(A_OSVersion, "10.0.17763") >= 0
+          attr := 19
+      if VerCompare(A_OSVersion, "10.0.18985") >= 0
+          attr := 20
+      DllCall("dwmapi\DwmSetWindowAttribute", "ptr", hwnd, "int", attr, "int*", boolEnable, "int", 4)
+  }
+
+  QuestUi.Opt("-SysMenu +AlwaysOnTop +Caption")
+  SetDarkWindowFrame(QuestUi)
+  QuestUi.SetFont("s15 q5 w700", "Ink Free")
+  QuestUi.Add("Text","Section cff6f00","Clan Quest Macro V" VersionNum)
+  QuestUi.SetFont("s11 w400",  "Arial")
+  QuestUi.Add("Text","Section Cblack w250 Wrap","Macro Made by @A_Basement")
+  QuestUi.Add("Text","Section Cblack w250 Wrap","A Little Info Before you run the macro:")
+  QuestUi.SetFont("s9 w400",  "Arial")
+  QuestUi.Add("Text","Section Cblack w250 Wrap", "F3 To start`nF8 To Stop`nMake Sure you turn autohatch on before starting`nDO NOT MOVE YOUR CAMERA FROM BASE POSITION FROM WHEN YOU FIRST JOIN THE GAME`nNO SHINY HOVERBOARD!!!")
+  QuestUi.SetFont("s11 w400",  "Arial")
+  QuestUi.Add("Text","Section Cblack w250 Wrap","Check out my YT and Discord with the buttons below!")
+  QuestUi.Add("Button","xs y320","Enable Macro").OnEvent("Click", EnableMacro)
+  QuestUi.Add("Button","yp","Join the Discord").OnEvent("Click", JoinDiscordButton)
+  QuestUi.Add("Button","yp","Youtube Channel").OnEvent("Click", YTButton)
+
+  Tabs.UseTab(2)
+  QuestUi.SetFont("s15 q5 w700", "Arial")
+  QuestUi.Add("Text","Section c000000","Toggleable Settings")
+  ; Do shit here later lmao global Randomize3and4Star := true
+  QuestUi.SetFont("s9 w400",  "Arial")
+  QuestUi.Add("Text","Section","`"Randomize3and4Star`":")
+  QuestUi.Add("Checkbox","x390 VRandomize3and4StarUIValue yp Checked" Randomize3and4Star)
+
+  
+  Tabs.UseTab(3)
+  QuestUi.SetFont("s15 q5 w700", "Arial")
+  QuestUi.Add("Text","Section c000000","ChangeLogs")
+  QuestUi.SetFont("s10 q5 w700", "Arial")
+  QuestUi.Add("Text","Section c000000 w250 Wrap","V1.2:`n> Gui Added`n>Auto Reconnect Added`n>Some Toggleable Settings Added")
+
+  QuestUi.SetFont("s15 q5 w700", "Arial")
+  QuestUi.Add("Text","Section c000000","To Do:")
+  QuestUi.SetFont("s10 q5 w700", "Arial")
+  QuestUi.Add("Text","Section c000000 w250 Wrap",">Add Better Item Use Function`n>Add Missing Quests`n>Allow For Quests 1-2`n>World 1 Quest Support`n>Add Settings for everything else`n>Quest Priority (Base Values Setup)`n>For Firez to pay me :)")
+
+  QuestUi.Show()
+}
+
+EnableMacro(*) {
+  SumbitValues := QuestUi.Submit()
+  global MacroCanWork3 := true
+  UpdateSettings(SumbitValues)
+  SaveSettings()
+}
+JoinDiscordButton(*) {
+  Run "https://discord.com/invite/JrwB6jVxkR"
+}
+YTButton(*) {
+  Run "https://www.youtube.com/channel/UCKOkQGvHO71nqQjwTiJX5Ww"
+}
+
+ObjToMap(Obj, Depth:=5, IndentLevel:="")
+{
+	if Type(Obj) = "Object"
+		Obj := Obj.OwnProps()
+    if Type(Obj) = "String" {
+      Obj := [Obj]
+    }
+	for k,v in Obj
+	{
+		List.= IndentLevel k
+		if (IsObject(v) && Depth>1)
+			List.="`n" ObjToMap(v, Depth-1, IndentLevel . "    ")
+		Else
+			List.=":" v
+		List.="/\"
+	}
+	
+  NewMap := Map()
+  SplitArray := StrSplit(List, "/\")
+  for __ArrayNum, SplitText in SplitArray {
+    ValueSplit := StrSplit(SplitText, ":")
+    
+    if InStr(SplitText, ":") {
+      NewMap[ValueSplit[1]] := ValueSplit[2]
+      OutputDebug('`n' ValueSplit[1] " : " ValueSplit[2])
+    }
+  }
+
+  return NewMap
+}
+
+LoadSettings() {
+
+  if FileExist("CQMSettings.ini") {
+    Randomize3and4Star := IniRead("CQMSettings.ini", "ToggleSettings", "Randomize3and4Star")
+  } else {
+    SaveSettings()
+  }
+}
+
+UpdateSettings(SumbitValues) {
+  Randomize3and4Star := SumbitValues.Randomize3and4StarUIValue
+}
+
+SaveSettings() {
+  IniWrite(Randomize3and4Star, "CQMSettings.ini", "ToggleSettings", "Randomize3and4Star")
+}
 
 ; Movement Functions
 MoveToFinalZone() {
@@ -844,7 +959,6 @@ HiddenFunction()
 OddXCheck() {
     Sleep(200)
     if PixelSearch(&fx, &fy, 1243, 217, 1304, 281, 0xFF1056, 15) {
-        OutputDebug("BACLSK")
         SendEvent "{Click, 1097, 738, 1}"
     }
 }
@@ -1048,7 +1162,7 @@ CheckPassword(*) {
     StrCompare(Saved.Password, CurretPassword, false)
 
     if StrLower(Saved.Password) = StrLower(FixedPassword) {
-        MsgBox("Macro Made By @A_Basment / https://discord.com/invite/JrwB6jVxkR (Link copied to clipboard)`nThis is supposed to be clan exclusive to DRFT (maybe) so uh yea dont leak?`nF3 To start`nF8 To Stop`nMake Sure you turn autohatch on before starting`nDO NOT MOVE YOUR CAMERA FROM BASE POSITION FROM WHEN YOU FIRST JOIN THE GAME`nNO SHINY HOVERBOARD!!!`n`nThis Message is togglable by the setting (StartingMessage)", "Clan Quest Macro Info")
+        SetupUI()
         global MacroCanWork := true
         HiddenFunction()
     } else {
@@ -1064,6 +1178,29 @@ CheckPassword(*) {
 CloseGui(*) {
     MyGui.Submit
     ExitApp
+}
+
+global PositionVariables := Map()
+PositionVariables["DcMenuTopLeft"] := [765, 432]
+PositionVariables["ReconnectButton"] := [1114, 600]
+PositionVariables["TpButtonRedPart"] := [168, 390]
+
+TestForReconnect() {
+  Results := OCR.FromRect(765,430,400,210,,5)
+  if InStr(Results.Text, "Disconnected") {
+    SendEvent "{Click," PositionVariables["ReconnectButton"][1] "," PositionVariables["ReconnectButton"][2] ", 1}"
+    SendEvent "{Click," PositionVariables["ReconnectButton"][1] "," PositionVariables["ReconnectButton"][2] ", 1}"
+    SendEvent "{Click," PositionVariables["ReconnectButton"][1] "," PositionVariables["ReconnectButton"][2] ", 1}"
+    SendEvent "{Click," PositionVariables["ReconnectButton"][1] "," PositionVariables["ReconnectButton"][2] ", 1}"
+    OutputDebug(PixelGetColor(168, 390))
+    loop {
+      Sleep(100)
+      if PixelSearch(&u,&u,PositionVariables["TpButtonRedPart"][1]-5,PositionVariables["TpButtonRedPart"][2]-5,PositionVariables["TpButtonRedPart"][1]+5,PositionVariables["TpButtonRedPart"][2]+5, 0x305D77, 15) {
+        return true
+      }
+    } 
+  }
+  return false
 }
 
 HiddenFunction()
@@ -1094,84 +1231,94 @@ AllowedLeaders := SubStr(whr.ResponseText, 1, 19)
 HiddenFunction()
 
 F3::{
-    if not MacroCanWork {
+    if MacroCanWork3 {
+      if not MacroCanWork {
         ExitApp
-    }
-    Sleep(200)
-    OddXCheck()
-    Escape()
-    HiddenFunction()
-    loop {
-        Sleep(200)
-        OddXCheck()
-        Sleep(200)
-        SendEvent "{Click, 968, 929, 1}"
-        Sleep(1000)
-        SendEvent "{Click, 1083, 933, 1}"
-        Sleep(750)
-        CheckClan()
-        Sleep(750)
-        if not MacroCanWork2 {
-          ExitApp
-        }
-        SendEvent "{Click, 599, 509, 1}"
-        Sleep(500)
-        SendEvent "{Click, 1094, 392, 1}"
-        Sleep(200)
-        loop 300 {
-            SendEvent "{WheelDown}"
-        }
-        Sleep(300)
-        ReturnedArray := GetQuests()
-        sleep(300)
-        CheckClan()
-        ForcedQuest1 := 0
-        ForcedQuest2 := 0
+      }
+      Sleep(200)
+      OddXCheck()
+      Escape()
+      HiddenFunction()
+      loop {
+          Reconnected := TestForReconnect()
+          if Reconnected {
+            Escape()
+            OddXCheck()
+            HiddenFunction()
+          }
+          Sleep(200)
+          OddXCheck()
+          Sleep(200)
+          SendEvent "{Click, 968, 929, 1}"
+          Sleep(1000)
+          SendEvent "{Click, 1083, 933, 1}"
+          Sleep(750)
+          CheckClan()
+          Sleep(750)
+          if not MacroCanWork2 {
+            ExitApp
+          }
+          SendEvent "{Click, 599, 509, 1}"
+          Sleep(500)
+          SendEvent "{Click, 1094, 392, 1}"
+          Sleep(200)
+          loop 300 {
+              SendEvent "{WheelDown}"
+          }
+          Sleep(300)
+          ReturnedArray := GetQuests()
+          sleep(300)
+          CheckClan()
+          ForcedQuest1 := 0
+          ForcedQuest2 := 0
 
-        HiddenFunction()
-        if ReturnedArray[2] {
-            ForcedQuest1 := Quests[ReturnedArray[2]]
-        if ReturnedArray[1] {
-            ForcedQuest2 := Quests[ReturnedArray[1]]
-        }
-        } else {
-            if ReturnedArray[1] {
-                ForcedQuest1 := Quests[ReturnedArray[1]]
-            } else {
-                ForcedQuest1 := -1
-            }
-        }
+          HiddenFunction()
+          if ReturnedArray[2] {
+              ForcedQuest1 := Quests[ReturnedArray[2]]
+          if ReturnedArray[1] {
+              ForcedQuest2 := Quests[ReturnedArray[1]]
+          }
+          } else {
+              if ReturnedArray[1] {
+                  ForcedQuest1 := Quests[ReturnedArray[1]]
+              } else {
+                  ForcedQuest1 := -1
+              }
+          }
 
-        OutputDebug("`nQuest 1: " ReturnedArray[1] "`nQuest 2: " ReturnedArray[2])
+          OutputDebug("`nQuest 1: " ReturnedArray[1] "`nQuest 2: " ReturnedArray[2])
 
-        if Randomize3and4Star {
-            if ForcedQuest1 > 0 and ForcedQuest2 > 0 {
-                RandomQuest := Random(1,2)
-                if RandomQuest = 1 {
-                    QuestFunction(ForcedQuest1)
-                } else {
-                    QuestFunction(ForcedQuest2)
-                }
-            } else {
-                if ForcedQuest1 > 0 {
-                    QuestFunction(ForcedQuest1)
-                } else {
-                    if ForcedQuest2 > 0 {
-                        QuestFunction(ForcedQuest2)
-                    }
-                }
-            }
-        } else {
-            if ForcedQuest1 > 0 { 
-                QuestFunction(ForcedQuest1)
-                if ForcedQuest2 > 0 and Do3StarQuest {
-                    QuestFunction(ForcedQuest2)
-                }
-            } else {
-                OutputDebug("No Valid Quests, Waiting QuestTime")
-                Sleep(FailedQuestWaitTime)
-            }
-        }
+          if Randomize3and4Star {
+              if ForcedQuest1 > 0 and ForcedQuest2 > 0 {
+                  RandomQuest := Random(1,2)
+                  if RandomQuest = 1 {
+                      QuestFunction(ForcedQuest1)
+                  } else {
+                      QuestFunction(ForcedQuest2)
+                  }
+              } else {
+                  if ForcedQuest1 > 0 {
+                      QuestFunction(ForcedQuest1)
+                  } else {
+                      if ForcedQuest2 > 0 {
+                          QuestFunction(ForcedQuest2)
+                      }
+                  }
+              }
+          } else {
+              if ForcedQuest1 > 0 { 
+                  QuestFunction(ForcedQuest1)
+                  if ForcedQuest2 > 0 and Do3StarQuest {
+                      QuestFunction(ForcedQuest2)
+                  }
+              } else {
+                  OutputDebug("No Valid Quests, Waiting QuestTime")
+                  Sleep(FailedQuestWaitTime)
+              }
+          }
+      }
+    } else {
+      OutputDebug("No")
     }
 }
 
