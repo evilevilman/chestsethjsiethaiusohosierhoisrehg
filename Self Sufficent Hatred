@@ -744,11 +744,11 @@ LoadSettings() {
   }
 
   if FileExist("CQMSettings.ini") {
-    Randomize3and4Star := IniRead("CQMSettings.ini", "ToggleSettings", "Randomize3and4Star")
-    UseQuestPriority := IniRead("CQMSettings.ini", "ToggleSettings", "UseQuestPriority")
-    UserOwnsAutoFarm := IniRead("CQMSettings.ini", "ToggleSettings", "UserOwnsAutoFarm")
-    MultiTaskQuests := IniRead("CQMSettings.ini", "ToggleSettings", "MultiTaskQuests")
-    TimeSpentOnQuest := IniRead("CQMSettings.ini", "ToggleSettings", "TimeSpentOnQuest")
+    global Randomize3and4Star := IniRead("CQMSettings.ini", "ToggleSettings", "Randomize3and4Star")
+    global UseQuestPriority := IniRead("CQMSettings.ini", "ToggleSettings", "UseQuestPriority")
+    global UserOwnsAutoFarm := IniRead("CQMSettings.ini", "ToggleSettings", "UserOwnsAutoFarm")
+    global MultiTaskQuests := IniRead("CQMSettings.ini", "ToggleSettings", "MultiTaskQuests")
+    global TimeSpentOnQuest := IniRead("CQMSettings.ini", "ToggleSettings", "TimeSpentOnQuest")
 
 
     for QuestNum, __QuestPriority in QuestsPriority {
