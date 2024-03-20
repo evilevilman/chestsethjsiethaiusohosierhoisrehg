@@ -1017,6 +1017,10 @@ QuestCheckForMulti() {
 QuestFunction(QuestNum) {
    QuestToMulti := QuestCheckForMulti()
 
+  if Type(QuestToMulti) != "Array" {
+    QuestToMulti := []
+  }
+
   if QuestToMulti.Length >= 2 {
     MoveToFinalZone()
     EnableAutoFarm()
@@ -1024,7 +1028,7 @@ QuestFunction(QuestNum) {
     Sleep(400)
     OddXCheck()
     Escape()
-  } else if QuestMultiTask.Length = 1 {
+  } else if QuestToMulti.Length = 1 {
       MoveToFinalZone()
       EnableAutoFarm()
       UseItem(QuestToMulti[1], ItemUseAmount, DelayBetweenItemUse)
