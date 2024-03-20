@@ -1,6 +1,6 @@
 ; Script by A_Basement / https://discord.com/invite/JrwB6jVxkR
 ; DRFT Exclusive Macro (Hopefully)
-VersionNum := "1.02"
+VersionNum := "1.03"
 
 
 HiddenFunction() {
@@ -475,7 +475,7 @@ PushNum := 2
 Quests := Map()
 Quests["Coin Jars"] := "1"
 Quests["Comets"] := "3"
-Quests["PiNNNATEAS"] := "4"
+Quests["pinatas"] := "4"
 Quests["Lucky Block"] := "5"
 Quests["Rainbow Pets"] := "6"
 Quests["Pinfiata"] := "7"
@@ -487,23 +487,70 @@ Quests["diamond breakables"] := "12"
 Quests["golden"] := "13"
 Quests["Mini"] := "14"
 
-QuestsValue := Map()
-QuestsValue["Coin Jars"] := "1"
-QuestsValue["Comets"] := "3"
-QuestsValue["PiNNNATEAS"] := "4"
-QuestsValue["Lucky Block"] := "5"
-QuestsValue["Rainbow Pets"] := "6"
-QuestsValue["Pinfiata"] := "7"
-QuestsValue["Breakables"] := "8"
-QuestsValue["Best Eggs"] := "9"
-QuestsValue["rare"] := "10"
-QuestsValue["k Diamonds"] := "11"
-QuestsValue["diamond breakables"] := "12"
-QuestsValue["golden"] := "13"
-QuestsValue["Mini"] := "14"
+EnabledQuests := Map()
+EnabledQuests["4"] := true
+EnabledQuests["7"] := true
+EnabledQuests["12"] := true
+EnabledQuests["9"] := true
+EnabledQuests["10"] := true
+EnabledQuests["5"] := true
+EnabledQuests["3"] := true
+EnabledQuests["1"] := true
+EnabledQuests["14"] := true
+EnabledQuests["11"] := true
+EnabledQuests["8"] := true
+EnabledQuests["13"] := true
+EnabledQuests["6"] := true
+
+QuestsToText := Map()
+QuestsToText["4"] := "Use Piñatas"
+QuestsToText["7"] := "Use Piñatas (Secondary Check)"
+QuestsToText["12"] := "Diamond Breakables"
+QuestsToText["9"] := "Open Best Egg"
+QuestsToText["10"] := "Hatch Rare Pets"
+QuestsToText["5"] := "Use Lucky Blocks"
+QuestsToText["3"] := "Use Comets"
+QuestsToText["1"] := "Use Coin Jars"
+QuestsToText["14"] := "Break Minichests"
+QuestsToText["11"] := "Earn Diamonds"
+QuestsToText["8"] := "Break Breakables"
+QuestsToText["13"] := "Make Pets Golden"
+QuestsToText["6"] := "Make Pets Rainbow"
 
 QuestsPriority := Map()
+QuestsPriority["4"] := "100"
+QuestsPriority["7"] := "100"
+QuestsPriority["12"] := "90"
+QuestsPriority["9"] := "50"
+QuestsPriority["10"] := "50"
+QuestsPriority["5"] := "20"
+QuestsPriority["3"] := "20"
+QuestsPriority["1"] := "20"
+QuestsPriority["14"] := "10"
+QuestsPriority["11"] := "10"
+QuestsPriority["8"] := "10"
+QuestsPriority["13"] := "5"
+QuestsPriority["6"] := "5"
 
+QuestMultiTask := Map()
+QuestMultiTask["4"] := "Item"
+QuestMultiTask["7"] := "Item"
+QuestMultiTask["12"] := "Diamond Zone"
+QuestMultiTask["9"] := "Egg"
+QuestMultiTask["10"] := "Egg"
+QuestMultiTask["5"] := "Item"
+QuestMultiTask["3"] := "Item"
+QuestMultiTask["1"] := "Item"
+QuestMultiTask["14"] := "ZoneFarming"
+QuestMultiTask["11"] := "ZoneFarming"
+QuestMultiTask["8"] := "ZoneFarming"
+
+QuestNumToItem := Map()
+QuestNumToItem["4"] := "piñata"
+QuestNumToItem["7"] := "piñata"
+QuestNumToItem["3"] := "Comet"
+QuestNumToItem["5"] := "Lucky Block"
+QuestNumToItem["1"] := "Basic Coin Jar"
 
 
 global TpWaitTime := 7000
@@ -519,6 +566,9 @@ global PetMachineArray := ["Bleebo The Alien", "alien parasite", "alien axolotl"
 global EggbackwardsDistance := 1025
 
 global PotionsArray := ["Damage", "Coins", "Lucky Eggs"]
+global UseQuestPriority := true
+global MultiTaskQuests := true
+global UserOwnsAutoFarm := true
 
 global StartingMessage := true
 global MacroCanWork := false
@@ -556,7 +606,7 @@ GetQuests() {
 LoadSettings()
 QuestUi := Gui()
 SetupUI() {
-  Tabs := QuestUi.AddTab3("Choose1", ["Main", "Togglable Settings", "ChangeLogs"])
+  Tabs := QuestUi.AddTab3("Choose1", ["Main", "Togglable Settings", "Quest Toggles", "Quest Priority", "ChangeLogs"])
 
   SetDarkWindowFrame(hwnd, boolEnable:=1) {
       hwnd := WinExist(hwnd)
@@ -578,7 +628,7 @@ SetupUI() {
   QuestUi.Add("Text","Section Cblack w250 Wrap", "F3 To start`nF8 To Stop`nMake Sure you turn autohatch on before starting`nDO NOT MOVE YOUR CAMERA FROM BASE POSITION FROM WHEN YOU FIRST JOIN THE GAME`nNO SHINY HOVERBOARD!!!")
   QuestUi.SetFont("s11 w400",  "Arial")
   QuestUi.Add("Text","Section Cblack w250 Wrap","Check out my YT and Discord with the buttons below!")
-  QuestUi.Add("Button","xs y320","Enable Macro").OnEvent("Click", EnableMacro)
+  QuestUi.Add("Button","xs y380","Enable Macro").OnEvent("Click", EnableMacro)
   QuestUi.Add("Button","yp","Join the Discord").OnEvent("Click", JoinDiscordButton)
   QuestUi.Add("Button","yp","Youtube Channel").OnEvent("Click", YTButton)
 
@@ -590,17 +640,47 @@ SetupUI() {
   QuestUi.Add("Text","Section","`"Randomize3and4Star`":")
   QuestUi.Add("Checkbox","x390 VRandomize3and4StarUIValue yp Checked" Randomize3and4Star)
 
-  
+  QuestUi.Add("Text","Section xs","`"UseQuestPriority`":")
+  QuestUi.Add("Checkbox","x390 VUseQuestPriorityUIValue yp Checked" UseQuestPriority)
+
+  QuestUi.Add("Text","Section xs","`"MultiTaskQuests`":")
+  QuestUi.Add("Checkbox","x390 VMultiTaskQuestsUIValue yp Checked" MultiTaskQuests)
+
+  QuestUi.Add("Text","Section xs","`"UserOwnsAutoFarm`":")
+  QuestUi.Add("Checkbox","x390 VUserOwnsAutoFarmUIValue yp Checked" UserOwnsAutoFarm)
+
   Tabs.UseTab(3)
+  QuestUi.SetFont("s15 q5 w700", "Arial")
+  QuestUi.Add("Text","Section c000000","Quest Toggles")
+  QuestUi.SetFont("s9 q5 w700", "Arial")
+
+  for QuestNum, QuestText in QuestsToText {
+    QuestUi.Add("Text","Section xs",QuestText ":")
+    QuestUi.Add("Checkbox","x390 V" QuestNum "EnabledUIValue yp Checked" EnabledQuests[QuestNum])
+  } 
+
+  Tabs.UseTab(4)
+  QuestUi.SetFont("s15 q5 w700", "Arial")
+  QuestUi.Add("Text","Section c000000","Quest Priority")
+  QuestUi.SetFont("s9 q5 w700", "Arial")
+
+  for QuestNum, QuestText in QuestsToText {
+    QuestUi.Add("Text","Section xs",QuestText ":")
+    QuestUi.Add("Edit","x350 w60 h20 yp")
+    QuestUi.AddUpDown("V" QuestNum "PriorityUIValue Range1-1000", QuestsPriority[QuestNum])
+  } 
+  
+  Tabs.UseTab(5)
   QuestUi.SetFont("s15 q5 w700", "Arial")
   QuestUi.Add("Text","Section c000000","ChangeLogs")
   QuestUi.SetFont("s10 q5 w700", "Arial")
-  QuestUi.Add("Text","Section c000000 w250 Wrap","V1.2:`n> Gui Added`n>Auto Reconnect Added`n>Some Toggleable Settings Added")
+  QuestUi.Add("Text","Section c000000 w250 Wrap","V1.03:`n>Quest Priority Added`n>More Settings Added`n>Quest Multitasking Added")
+  QuestUi.Add("Text","Section c000000 w250 Wrap","V1.02:`n>Gui Added`n>Auto Reconnect Added`n>Some Toggleable Settings Added")
 
-  QuestUi.SetFont("s15 q5 w700", "Arial")
+  QuestUi.SetFont("s14 q5 w700", "Arial")
   QuestUi.Add("Text","Section c000000","To Do:")
   QuestUi.SetFont("s10 q5 w700", "Arial")
-  QuestUi.Add("Text","Section c000000 w250 Wrap",">Add Better Item Use Function`n>Add Missing Quests`n>Allow For Quests 1-2`n>World 1 Quest Support`n>Add Settings for everything else`n>Quest Priority (Base Values Setup)`n>For Firez to pay me :)")
+  QuestUi.Add("Text","Section c000000 w250 Wrap",">Add Better Item Use Function`n>Add Missing Quests`n>Allow For Quests 1-2`n>World 1 Quest Support`n>Add Settings for everything else`n>For Firez to pay me :)`n>Make it pop party boxes when no item")
 
   QuestUi.Show()
 }
@@ -642,7 +722,6 @@ ObjToMap(Obj, Depth:=5, IndentLevel:="")
     
     if InStr(SplitText, ":") {
       NewMap[ValueSplit[1]] := ValueSplit[2]
-      OutputDebug('`n' ValueSplit[1] " : " ValueSplit[2])
     }
   }
 
@@ -653,6 +732,18 @@ LoadSettings() {
 
   if FileExist("CQMSettings.ini") {
     Randomize3and4Star := IniRead("CQMSettings.ini", "ToggleSettings", "Randomize3and4Star")
+    UseQuestPriority := IniRead("CQMSettings.ini", "ToggleSettings", "UseQuestPriority")
+    UserOwnsAutoFarm := IniRead("CQMSettings.ini", "ToggleSettings", "UserOwnsAutoFarm")
+    MultiTaskQuests := IniRead("CQMSettings.ini", "ToggleSettings", "MultiTaskQuests")
+
+    for QuestNum, __QuestPriority in QuestsPriority {
+      QuestsPriority[QuestNum] := IniRead("CQMSettings.ini", "QuestsPriority", QuestNum)
+    }
+
+    for QuestNum, __IsQuestEnabled in EnabledQuests {
+      EnabledQuests[QuestNum] := IniRead("CQMSettings.ini", "EnabledQuests", QuestNum)
+    }
+
   } else {
     SaveSettings()
   }
@@ -660,10 +751,34 @@ LoadSettings() {
 
 UpdateSettings(SumbitValues) {
   Randomize3and4Star := SumbitValues.Randomize3and4StarUIValue
+  UseQuestPriority := SumbitValues.UseQuestPriorityUIValue
+  UserOwnsAutoFarm :=SumbitValues.MultiTaskQuestsUIValue
+  MultiTaskQuests := SumbitValues.UserOwnsAutoFarmUIValue
+
+  FixedSubmitValues := ObjToMap(SumbitValues)
+
+  for QuestNum, __QuestPriority in QuestsPriority {
+    QuestsPriority[QuestNum] := FixedSubmitValues[QuestNum "PriorityUIValue"]
+  }
+
+  for QuestNum, __IsQuestEnabled in EnabledQuests {
+    EnabledQuests[QuestNum] := FixedSubmitValues[QuestNum "EnabledUIValue"]
+  }
 }
 
 SaveSettings() {
   IniWrite(Randomize3and4Star, "CQMSettings.ini", "ToggleSettings", "Randomize3and4Star")
+  IniWrite(UseQuestPriority, "CQMSettings.ini", "ToggleSettings", "UseQuestPriority")
+  IniWrite(UserOwnsAutoFarm, "CQMSettings.ini", "ToggleSettings", "UserOwnsAutoFarm")
+  IniWrite(MultiTaskQuests, "CQMSettings.ini", "ToggleSettings", "MultiTaskQuests")
+
+  for QuestNum, QuestPriorityNum in QuestsPriority {
+    IniWrite(QuestPriorityNum, "CQMSettings.ini", "QuestsPriority", QuestNum)
+  }
+
+  for QuestNum, Enabler in EnabledQuests {
+    IniWrite(Enabler, "CQMSettings.ini", "EnabledQuests", QuestNum)
+  }
 }
 
 ; Movement Functions
@@ -820,15 +935,92 @@ MoveToComputerOfEVIL() {
     Sleep(500)
 }
 
+QuestCheckForMulti() {
+  QuestsMultiArray := Map()
+  QuestsMultiArray["Fq1"] := ""
+  QuestsMultiArray["Fq2"] := ""
+  ;QuestsMultiArray["Fq3"] := ""
+
+  OutputDebug(ForcedQuest1)
+
+  Item := 0
+  ZoneFarm := 0
+  DiamondZone := 0
+
+  FoundMulti_AbleQuests := 0
+
+  for QuestNum, ___A in QuestMultiTask {
+    if ForcedQuest1 = QuestNum {
+      QuestsMultiArray["Fq1"] := QuestMultiTask[String(ForcedQuest1)]
+      FoundMulti_AbleQuests += 1
+  
+      if QuestMultiTask[String(ForcedQuest1)] = "Item" {
+        Item += 1
+      } else if QuestMultiTask[String(ForcedQuest1)] = "ZoneFarming" {
+        ZoneFarm += 1
+      } else if QuestMultiTask[String(ForcedQuest1)] = "Diamond Zone" {
+        DiamondZone += 1
+      }
+    }
+  }
+
+  for QuestNum, ___A in QuestMultiTask {
+    if QuestNum = ForcedQuest2 {
+      QuestsMultiArray["Fq2"] := QuestMultiTask[String(ForcedQuest2)]
+      FoundMulti_AbleQuests += 1
+  
+      if QuestMultiTask[String(ForcedQuest2)] = "Item" {
+        Item += 1
+      } else if QuestMultiTask[String(ForcedQuest2)] = "ZoneFarming" {
+        ZoneFarm += 1
+      } else if QuestMultiTask[String(ForcedQuest2)] = "Diamond Zone" {
+        DiamondZone += 1
+      }
+    }
+  }
+
+  if Item >= 2 {
+    return [QuestNumToItem[String(ForcedQuest1)],QuestNumToItem[String(ForcedQuest2)]]
+  } else if Item >= 1 and ZoneFarm >= 1 {
+      if QuestsMultiArray["Fq1"] = "Item" {
+        return [QuestNumToItem[String(ForcedQuest1)]]
+      } else {
+        return [QuestNumToItem[String(ForcedQuest2)]]
+      }
+  } else if ZoneFarm >= 2 {
+    return []
+  } else if DiamondZone >= 1 {
+    return []
+  }
+
+}
+
 ; Idknames anymreo Rahhhhhh
 QuestFunction(QuestNum) {
+   QuestToMulti := QuestCheckForMulti()
+
+  if QuestToMulti.Length >= 2 {
+    MoveToFinalZone()
+    EnableAutoFarm()
+    MultipleUseItem(QuestToMulti, ItemUseAmount, DelayBetweenItemUse)
+    Sleep(400)
+    OddXCheck()
+    Escape()
+  } else if QuestMultiTask.Length = 1 {
+      MoveToFinalZone()
+      EnableAutoFarm()
+      UseItem(QuestToMulti[1], ItemUseAmount, DelayBetweenItemUse)
+      Sleep(400)
+      OddXCheck
+      Escape()
+  } else {
     if QuestNum = 1 {
-        MoveToFinalZone()
-        EnableAutoFarm()
-        UseItem("Basic Coin Jar", ItemUseAmount, DelayBetweenItemUse)
-        Sleep(400)
-        OddXCheck
-        Escape()
+      MoveToFinalZone()
+      EnableAutoFarm()
+      UseItem("Basic Coin Jar", ItemUseAmount, DelayBetweenItemUse)
+      Sleep(400)
+      OddXCheck
+      Escape()
     }
     if QuestNum = 2 {
         MsgBox("How")
@@ -951,7 +1143,8 @@ QuestFunction(QuestNum) {
         OddXCheck()
         Escape()
     }
-    HiddenFunction()
+    HiddenFunction() 
+  }
 }
 
 HiddenFunction()
@@ -964,6 +1157,7 @@ OddXCheck() {
 }
 
 EnableAutoFarm() {
+  if UserOwnsAutoFarm {
     Sleep(200)
     if PixelSearch(&lll, &ll2, 120, 437, 199, 526, 0x7AF50C, 20) {
         OutputDebug("Green")
@@ -974,6 +1168,7 @@ EnableAutoFarm() {
         OutputDebug("Not Green")
         SendEvent "{Click, 169, 490, 1}"
     }
+  }
 }
 
 UseItem(ItemName, Amount, DelayBetween) { 
@@ -1008,6 +1203,42 @@ UseItem(ItemName, Amount, DelayBetween) {
             SendEvent "{Click, 414, 395, 1}"
         }
     }
+}
+
+MultipleUseItem(ItemArray, Amount, DelayBetween) { 
+  OddXCheck()
+  Sleep(200)
+  SendEvent "{Click, 968, 929, 1}"
+  Sleep(1000)
+  SendEvent "{Click, 414, 395, 1}"
+  StartTime := A_TickCount
+  loop ItemUseAmount {
+    if (A_TickCount - StartTime) >= TimeSpentOnQuest {
+      break
+  }
+
+    for ___ItemNum, ItemToUse in ItemArray {
+      Sleep(750)
+      OddXCheck()
+      SendEvent "{Click, 1156, 256, 1}"
+      Sleep(100)
+      SendText ItemToUse
+      Sleep(100)
+      SendEvent "{Click, 523, 407, 1}"
+      OddXCheck()
+      Sleep(DelayBetween)
+      if not PixelSearch(&HHH, &HHH, 1450, 235, 1495, 284, 0xFF155E, 15) {
+          SendEvent "{Click, 1494, 235, 1}"
+          Sleep(300)
+          SendEvent "{Click, 1311, 258, 1}"
+          OddXCheck()
+          Sleep(400)
+          SendEvent "{Click, 968, 929, 1}"
+          Sleep(1000)
+          SendEvent "{Click, 414, 395, 1}"
+      }
+    }
+  }
 }
 
 GoldifyPets() {
@@ -1269,8 +1500,8 @@ F3::{
           ReturnedArray := GetQuests()
           sleep(300)
           CheckClan()
-          ForcedQuest1 := 0
-          ForcedQuest2 := 0
+          global ForcedQuest1 := 0
+          global ForcedQuest2 := 0
 
           HiddenFunction()
           if ReturnedArray[2] {
@@ -1290,12 +1521,27 @@ F3::{
 
           if Randomize3and4Star {
               if ForcedQuest1 > 0 and ForcedQuest2 > 0 {
+                if UseQuestPriority {
+                  QuestChance1 := QuestsPriority[ForcedQuest1]
+                  QuestChance2 := QuestsPriority[ForcedQuest2]
+                  TotalQuestChance := QuestChance1 + QuestChance2
+
+                  ChosenQuest := Random(0,TotalQuestChance)
+
+                  if ChosenQuest <= QuestChance1 {
+                    QuestFunction(ForcedQuest1)
+                  } else {
+                    QuestFunction(ForcedQuest2)
+                  }
+
+                } else {
                   RandomQuest := Random(1,2)
                   if RandomQuest = 1 {
                       QuestFunction(ForcedQuest1)
                   } else {
                       QuestFunction(ForcedQuest2)
                   }
+                }
               } else {
                   if ForcedQuest1 > 0 {
                       QuestFunction(ForcedQuest1)
@@ -1323,7 +1569,7 @@ F3::{
 }
 
 F5::{
-  MsgBox("Version: " VersionNum, "InfoDebug")
+
 }
 
 HiddenFunction()
