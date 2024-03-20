@@ -472,7 +472,7 @@ SizeX := 290 ;186
 SizeY := 440 ;28
 PushNum := 2
 
-Quests := Map()
+global Quests := Map()
 Quests["Coin Jars"] := "1"
 Quests["Comets"] := "3"
 Quests["pinatas"] := "4"
@@ -487,7 +487,7 @@ Quests["diamond breakables"] := "12"
 Quests["golden"] := "13"
 Quests["Mini"] := "14"
 
-EnabledQuests := Map()
+global EnabledQuests := Map()
 EnabledQuests["4"] := true
 EnabledQuests["7"] := true
 EnabledQuests["12"] := true
@@ -502,7 +502,7 @@ EnabledQuests["8"] := true
 EnabledQuests["13"] := true
 EnabledQuests["6"] := true
 
-QuestsToText := Map()
+global QuestsToText := Map()
 QuestsToText["4"] := "Use Piñatas"
 QuestsToText["7"] := "Use Piñatas (Secondary Check)"
 QuestsToText["12"] := "Diamond Breakables"
@@ -517,7 +517,7 @@ QuestsToText["8"] := "Break Breakables"
 QuestsToText["13"] := "Make Pets Golden"
 QuestsToText["6"] := "Make Pets Rainbow"
 
-QuestsPriority := Map()
+global QuestsPriority := Map()
 QuestsPriority["4"] := "100"
 QuestsPriority["7"] := "100"
 QuestsPriority["12"] := "90"
@@ -532,7 +532,7 @@ QuestsPriority["8"] := "10"
 QuestsPriority["13"] := "5"
 QuestsPriority["6"] := "5"
 
-QuestMultiTask := Map()
+global QuestMultiTask := Map()
 QuestMultiTask["4"] := "Item"
 QuestMultiTask["7"] := "Item"
 QuestMultiTask["12"] := "Diamond Zone"
@@ -545,7 +545,7 @@ QuestMultiTask["14"] := "ZoneFarming"
 QuestMultiTask["11"] := "ZoneFarming"
 QuestMultiTask["8"] := "ZoneFarming"
 
-QuestNumToItem := Map()
+global QuestNumToItem := Map()
 QuestNumToItem["4"] := "piñata"
 QuestNumToItem["7"] := "piñata"
 QuestNumToItem["3"] := "Comet"
@@ -764,11 +764,11 @@ LoadSettings() {
 }
 
 UpdateSettings(SumbitValues) {
-  Randomize3and4Star := SumbitValues.Randomize3and4StarUIValue
-  UseQuestPriority := SumbitValues.UseQuestPriorityUIValue
-  UserOwnsAutoFarm := SumbitValues.MultiTaskQuestsUIValue
-  MultiTaskQuests := SumbitValues.UserOwnsAutoFarmUIValue
-  TimeSpentOnQuest := SumbitValues.TimeSpentOnQuestUIValue
+  global Randomize3and4Star := SumbitValues.Randomize3and4StarUIValue
+  global UseQuestPriority := SumbitValues.UseQuestPriorityUIValue
+  global UserOwnsAutoFarm := SumbitValues.MultiTaskQuestsUIValue
+  global MultiTaskQuests := SumbitValues.UserOwnsAutoFarmUIValue
+  global TimeSpentOnQuest := SumbitValues.TimeSpentOnQuestUIValue
 
   FixedSubmitValues := ObjToMap(SumbitValues)
 
