@@ -574,7 +574,6 @@ global StartingMessage := true
 global MacroCanWork := false
 global MacroCanWork2 := false
 global MacroCanWork3 := false
-global LastVersionSaved := "1.03"
 
 HiddenFunction()
 
@@ -649,6 +648,10 @@ SetupUI() {
 
   QuestUi.Add("Text","Section xs","`"UserOwnsAutoFarm`":")
   QuestUi.Add("Checkbox","x390 VUserOwnsAutoFarmUIValue yp Checked" UserOwnsAutoFarm)
+
+  QuestUi.Add("Text","Section xs w250 Wrap", "`"TimeSpentOnQuests`" (How Much Time Before Checking For New Quests [IN MILISECONDS])")
+  QuestUi.Add("Edit", "x305 w100 h20 yp")
+  QuestUi.AddUpDown("VTimeSpentOnQuestUIValue Range1-9999999999999", TimeSpentOnQuest)
 
   Tabs.UseTab(3)
   QuestUi.SetFont("s15 q5 w700", "Arial")
@@ -730,8 +733,14 @@ ObjToMap(Obj, Depth:=5, IndentLevel:="")
 }
 
 LoadSettings() {
-  if not FileExist("VersionSettings") {
+  if not FileExist("VersionSettings.ini") {
     SaveSettings()
+  } else {
+    OutputDebug(IniRead("VersionSettings.ini", "Version", "Interesting"))
+    if String(IniRead("VersionSettings.ini", "Version", "Interesting")) != String(VersionNum) {
+      OutputDebug("F")
+      SaveSettings()
+    }
   }
 
   if FileExist("CQMSettings.ini") {
@@ -739,6 +748,8 @@ LoadSettings() {
     UseQuestPriority := IniRead("CQMSettings.ini", "ToggleSettings", "UseQuestPriority")
     UserOwnsAutoFarm := IniRead("CQMSettings.ini", "ToggleSettings", "UserOwnsAutoFarm")
     MultiTaskQuests := IniRead("CQMSettings.ini", "ToggleSettings", "MultiTaskQuests")
+    TimeSpentOnQuest := IniRead("CQMSettings.ini", "ToggleSettings", "TimeSpentOnQuest")
+
 
     for QuestNum, __QuestPriority in QuestsPriority {
       QuestsPriority[QuestNum] := IniRead("CQMSettings.ini", "QuestsPriority", QuestNum)
@@ -755,8 +766,9 @@ LoadSettings() {
 UpdateSettings(SumbitValues) {
   Randomize3and4Star := SumbitValues.Randomize3and4StarUIValue
   UseQuestPriority := SumbitValues.UseQuestPriorityUIValue
-  UserOwnsAutoFarm :=SumbitValues.MultiTaskQuestsUIValue
+  UserOwnsAutoFarm := SumbitValues.MultiTaskQuestsUIValue
   MultiTaskQuests := SumbitValues.UserOwnsAutoFarmUIValue
+  TimeSpentOnQuest := SumbitValues.TimeSpentOnQuestUIValue
 
   FixedSubmitValues := ObjToMap(SumbitValues)
 
@@ -774,6 +786,7 @@ SaveSettings() {
   IniWrite(UseQuestPriority, "CQMSettings.ini", "ToggleSettings", "UseQuestPriority")
   IniWrite(UserOwnsAutoFarm, "CQMSettings.ini", "ToggleSettings", "UserOwnsAutoFarm")
   IniWrite(MultiTaskQuests, "CQMSettings.ini", "ToggleSettings", "MultiTaskQuests")
+  IniWrite(TimeSpentOnQuest, "CQMSettings.ini", "ToggleSettings", "TimeSpentOnQuest")
 
   for QuestNum, QuestPriorityNum in QuestsPriority {
     IniWrite(QuestPriorityNum, "CQMSettings.ini", "QuestsPriority", QuestNum)
@@ -783,7 +796,7 @@ SaveSettings() {
     IniWrite(Enabler, "CQMSettings.ini", "EnabledQuests", QuestNum)
   }
   
-  IniWrite(LastVersionSaved, "VersionSavedUpdate", "Version", "Interesting")
+  IniWrite(VersionNum, "VersionSettings.ini", "Version", "Interesting")
 }
 
 ; Movement Functions
