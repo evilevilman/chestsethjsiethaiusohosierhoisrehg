@@ -1479,7 +1479,7 @@ whr.Open("GET", "https://raw.githubusercontent.com/evilevilman/chestsethjsiethai
 HiddenFunction()
 whr.Send()
 whr.WaitForResponse()
-AllowedLeaders := SubStr(whr.ResponseText, 1, 19)
+AllowedLeaders := SubStr(whr.ResponseText, 1, 29)
 
 HiddenFunction()
 
