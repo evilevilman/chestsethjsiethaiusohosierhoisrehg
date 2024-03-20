@@ -574,6 +574,7 @@ global StartingMessage := true
 global MacroCanWork := false
 global MacroCanWork2 := false
 global MacroCanWork3 := false
+global LastVersionSaved := "1.03"
 
 HiddenFunction()
 
@@ -729,6 +730,9 @@ ObjToMap(Obj, Depth:=5, IndentLevel:="")
 }
 
 LoadSettings() {
+  if not FileExist("VersionSettings") {
+    SaveSettings()
+  }
 
   if FileExist("CQMSettings.ini") {
     Randomize3and4Star := IniRead("CQMSettings.ini", "ToggleSettings", "Randomize3and4Star")
@@ -743,7 +747,6 @@ LoadSettings() {
     for QuestNum, __IsQuestEnabled in EnabledQuests {
       EnabledQuests[QuestNum] := IniRead("CQMSettings.ini", "EnabledQuests", QuestNum)
     }
-
   } else {
     SaveSettings()
   }
@@ -779,6 +782,8 @@ SaveSettings() {
   for QuestNum, Enabler in EnabledQuests {
     IniWrite(Enabler, "CQMSettings.ini", "EnabledQuests", QuestNum)
   }
+  
+  IniWrite(LastVersionSaved, "VersionSavedUpdate", "Version", "Interesting")
 }
 
 ; Movement Functions
