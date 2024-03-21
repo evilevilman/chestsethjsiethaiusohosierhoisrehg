@@ -766,8 +766,8 @@ LoadSettings() {
 UpdateSettings(SumbitValues) {
   global Randomize3and4Star := SumbitValues.Randomize3and4StarUIValue
   global UseQuestPriority := SumbitValues.UseQuestPriorityUIValue
-  global UserOwnsAutoFarm := SumbitValues.MultiTaskQuestsUIValue
-  global MultiTaskQuests := SumbitValues.UserOwnsAutoFarmUIValue
+  global UserOwnsAutoFarm := SumbitValues.UserOwnsAutoFarmUIValue
+  global MultiTaskQuests := SumbitValues.MultiTaskQuestsUIValue
   global TimeSpentOnQuest := SumbitValues.TimeSpentOnQuestUIValue
 
   FixedSubmitValues := ObjToMap(SumbitValues)
