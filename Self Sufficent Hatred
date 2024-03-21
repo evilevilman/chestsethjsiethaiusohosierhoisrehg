@@ -1157,6 +1157,7 @@ QuestFunction() {
       Sleep(400)
       OddXCheck()
       Escape()
+      continue
     } else if QuestToMulti.Length = 1 {
         if CurrentZone != 149 {
           MoveToFinalZone()
@@ -1166,6 +1167,7 @@ QuestFunction() {
         Sleep(400)
         OddXCheck
         Escape()
+        continue
     } else {
       QuestToDo := -1
       OutputDebug(UseQuestPriority)
@@ -1192,7 +1194,7 @@ QuestFunction() {
           }
         }
       }
-
+      
 
       if QuestToDo = 1 {
         if CurrentZone != "149" {
