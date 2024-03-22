@@ -1,463 +1,6 @@
 ; Script by A_Basement / https://discord.com/invite/JrwB6jVxkR
 ; DRFT Exclusive Macro (Hopefully)
-VersionNum := "1.03"
-
-
-HiddenFunction() {
-    LastLoopTime := 0
-    MaxLoopTime := 5
-    loop 20 {
-      LastLoopTime += 1
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-        LastLoopTime := 0
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-        LastLoopTime := 0
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-        LastLoopTime := 0
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-        LastLoopTime := 0
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-        LastLoopTime := 0
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-        LastLoopTime := 0
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-        LastLoopTime := 0
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-        LastLoopTime := 0
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-        LastLoopTime := 0
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-        LastLoopTime := 0
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-        LastLoopTime := 0
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-        LastLoopTime := 0
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      if LastLoopTime >= MaxLoopTime {
-        Sleep(1)
-      }
-      
-      ;OutputDebug(Random(100) "`n")
-    }
-}
-
-HiddenFunction()
+VersionNum := "1.045"
 
 #Requires AutoHotkey v2.0 
 #Include UWBOCRLib.ahk
@@ -552,6 +95,26 @@ QuestNumToItem["3"] := "Comet"
 QuestNumToItem["5"] := "Lucky Block"
 QuestNumToItem["1"] := "Basic Coin Jar"
 
+global ProfessionalQuestsMap := Map()
+ProfessionalQuestsMap["27"] := "-1" ; Ice Obby
+ProfessionalQuestsMap["46"] := "-1" ; Catch Fish
+ProfessionalQuestsMap["34"] := "-1" ; Use T4 Pots
+ProfessionalQuestsMap["38"] := "3" ; Comets
+ProfessionalQuestsMap["40"] := "13" ; Golden Pets
+ProfessionalQuestsMap["44"] := "5" ; Lucky blcoks
+ProfessionalQuestsMap["21"] := "8" ; breakables in best area
+ProfessionalQuestsMap["39"] := "14" ; minichests
+ProfessionalQuestsMap["7"] := "11" ; Earn Diamonds
+ProfessionalQuestsMap["37"] := "1" ; Coin Jars
+ProfessionalQuestsMap["43"] := "4" ; Pinatas
+ProfessionalQuestsMap["42"] := "10" ; Hatch Rare Pets
+ProfessionalQuestsMap["9"] := "12" ; Break Diamond Breakables
+ProfessionalQuestsMap["41"] := "6" ; Rainbow
+ProfessionalQuestsMap["20"] := "9" ; Best Egg
+ProfessionalQuestsMap["12"] := "-1" ; T3
+ProfessionalQuestsMap["45"] := "-1" ; Chests advanced digsite
+ProfessionalQuestsMap["13"] := "-1" ; what
+
 
 global TpWaitTime := 7000
 global FailedQuestWaitTime := 120000
@@ -564,6 +127,7 @@ global DelayBetweenItemUse := 5500
 
 global PetMachineArray := ["Bleebo The Alien", "alien parasite", "alien axolotl"]
 global EggbackwardsDistance := 1025
+global CurrentZone := "106"
 
 global PotionsArray := ["Damage", "Coins", "Lucky Eggs"]
 global UseQuestPriority := true
@@ -575,16 +139,28 @@ global MacroCanWork := false
 global MacroCanWork2 := false
 global MacroCanWork3 := false
 
-HiddenFunction()
+global CLANNAME := "DRFT"
+global QuestAPICallDelay := 30000
+global AutoReconnectCheckDelay := 30000
+global UseUltimate := true
+global A_GetQuestsTimer := A_TickCount
 
-GetQuests() {
+global LQ3 := "100"
+global LQ4 := "100"
+
+global Q3 := "-1"
+global Q4 := "-1"
+
+ 
+
+GetQuestsOLD() {
     FirstQuest := ""
     SecondQuest := ""
 
-    HiddenFunction()
+     
     Result1 := Ocr.FromRect(778, 500, 415, 40,,5)
     Result2 := Ocr.FromRect(778, 630, 415, 40,,5)
-    HiddenFunction()
+     
     ; OutputDebug("`n Quest1: " Result1.Text)
     ; OutputDebug("`n Quest2: " Result2.Text)
 
@@ -602,9 +178,67 @@ GetQuests() {
     return [FirstQuest, SecondQuest]
 }
 
+GetQuests() {
+  whr := ComObject("WinHttp.WinHttpRequest.5.1")
+  whr.Open("GET", "https://biggamesapi.io/api/clan/" CLANNAME, true)
+  whr.Send()
+  whr.WaitForResponse()
+  CurretPassword := whr.ResponseText
+
+  LoadedArray := Jxon_Load(&CurretPassword)
+
+  for _ArrayNum, BattleArray in LoadedArray["data"]["Battles"]["GoalBattleOne"]["Goals"] {
+    if BattleArray["Stars"] = 300 {
+      QuestNum := String(ProfessionalQuestsMap[String(BattleArray["Type"])])
+
+      for QuestType, QuestTrueNum in Quests {
+        if QuestNum = QuestTrueNum {
+          if not EnabledQuests[QuestTrueNum] {
+            global Q3 := -1
+          } else {
+            global Q3 := QuestNum
+          }
+          if Q3 > 0 {
+            OutputDebug("`n Quest Confirmed: " QuestsToText[Q3] "   [Q3]")
+          } else {
+            OutputDebug("`n Quest UnConfirmed: " Q3 "   [Q3]")
+          }
+        }
+      } 
+    }
+    if BattleArray["Stars"] = 400 {
+      QuestNum := String(ProfessionalQuestsMap[String(BattleArray["Type"])])
+
+      for QuestType, QuestTrueNum in Quests {
+        if QuestNum = QuestTrueNum {
+          if not EnabledQuests[QuestTrueNum] {
+            global Q4 := -1
+          } else {
+            global Q4 := QuestNum
+          }
+          if Q4 > 0 {
+            OutputDebug("`n Quest Confirmed: " QuestsToText[Q4] "   [Q4]")
+          } else {
+            OutputDebug("`n Quest UnConfirmed: " Q4 "   [Q4]")
+          }
+        }
+      } 
+    }
+  }
+
+  if LQ3 != Q3 or LQ4 != Q4 {
+    global LQ3 := Q3
+    global LQ4 := Q4
+    return true
+  } else {
+    return false
+  }
+}
 
 LoadSettings()
 QuestUi := Gui()
+ChangelogsUI := Gui()
+
 SetupUI() {
   Tabs := QuestUi.AddTab3("Choose1", ["Main", "Togglable Settings", "Quest Toggles", "Quest Priority", "ChangeLogs"])
 
@@ -649,9 +283,23 @@ SetupUI() {
   QuestUi.Add("Text","Section xs","`"UserOwnsAutoFarm`":")
   QuestUi.Add("Checkbox","x390 VUserOwnsAutoFarmUIValue yp Checked" UserOwnsAutoFarm)
 
-  QuestUi.Add("Text","Section xs w250 Wrap", "`"TimeSpentOnQuests`" (How Much Time Before Checking For New Quests [IN MILISECONDS])")
+  QuestUi.Add("Text","Section xs","`"UseUltimate`":")
+  QuestUi.Add("Checkbox","x390 VUseUltimateUIValue yp Checked" UseUltimate)
+
+  QuestUi.Add("Text","Section xs w250 Wrap", "`"QuestAPICallDelay`" (How Much Time Before Checking API For New Quests [IN MILISECONDS])")
   QuestUi.Add("Edit", "x305 w100 h20 yp")
-  QuestUi.AddUpDown("VTimeSpentOnQuestUIValue Range1-9999999999999", TimeSpentOnQuest)
+  QuestUi.AddUpDown("VQuestAPICallDelayUIValue Range1-9999999999999", QuestAPICallDelay)
+
+  QuestUi.Add("Text","Section xs w250 Wrap", "`"DelayBetweenItemUse`" (Delay between using items from item quests[IN MILISECONDS])")
+  QuestUi.Add("Edit", "x305 w100 h20 yp")
+  QuestUi.AddUpDown("VDelayBetweenItemUseValue Range1-9999999999999", DelayBetweenItemUse)
+
+  QuestUi.Add("Text","Section xs w250 Wrap", "`"AutoReconnectCheckDelay`" (How Much Time Before Checking If Needed to Reconnect [IN MILISECONDS])")
+  QuestUi.Add("Edit", "x305 w100 h20 yp")
+  QuestUi.AddUpDown("VAutoReconnectCheckDelayUIValue Range1-9999999999999", AutoReconnectCheckDelay)
+
+  QuestUi.Add("Text","Section xs w250 Wrap", "`"CLANNAME`" (Required to get Correct Quests)")
+  QuestUi.Add("Edit", "x305 w100 h20 yp VCLANNAMEUIValue", CLANNAME)
 
   Tabs.UseTab(3)
   QuestUi.SetFont("s15 q5 w700", "Arial")
@@ -674,23 +322,33 @@ SetupUI() {
     QuestUi.AddUpDown("V" QuestNum "PriorityUIValue Range1-1000", QuestsPriority[QuestNum])
   } 
   
+  ChangelogsUI.Opt("+AlwaysOnTop +Caption")
+  ShowChangeLogs(*) {
+    ChangelogsUI.Show
+  }
+  
   Tabs.UseTab(5)
-  QuestUi.SetFont("s15 q5 w700", "Arial")
-  QuestUi.Add("Text","Section c000000","ChangeLogs")
-  QuestUi.SetFont("s10 q5 w700", "Arial")
-  QuestUi.Add("Text","Section c000000 w250 Wrap","V1.03:`n>Quest Priority Added`n>More Settings Added`n>Quest Multitasking Added")
-  QuestUi.Add("Text","Section c000000 w250 Wrap","V1.02:`n>Gui Added`n>Auto Reconnect Added`n>Some Toggleable Settings Added")
+  QuestUi.Add("Button",,"View Changelogs").OnEvent("Click", ShowChangeLogs)
 
-  QuestUi.SetFont("s14 q5 w700", "Arial")
-  QuestUi.Add("Text","Section c000000","To Do:")
-  QuestUi.SetFont("s10 q5 w700", "Arial")
-  QuestUi.Add("Text","Section c000000 w250 Wrap",">Add Better Item Use Function`n>Add Missing Quests`n>Allow For Quests 1-2`n>World 1 Quest Support`n>Add Settings for everything else`n>For Firez to pay me :)`n>Make it pop party boxes when no item")
+  ChangelogsUI.SetFont("s15 q5 w700", "Arial")
+  ChangelogsUI.Add("Text","Section c000000","ChangeLogs")
+  ChangelogsUI.SetFont("s10 q5 w700", "Arial")
+  ChangelogsUI.Add("Text","Section c000000 w350 Wrap","V1.045:`n>Fixed 1.04 Crashing Pcs (Hopefully)`n>Multitask Improved: Eggs + Zone and Eggs + Diamond Breakables`n>New Variable in togglesettings")
+  ChangelogsUI.Add("Text","Section c000000 w350 Wrap","V1.04:`n>Bug Fixes for 1.03`n>Removed OCR Quest Check`n>API Quest Check Added`n>Quests Now Stop When A New Quest is Detected`n>Several Variables / Features Added`n>Auto UseUltimate Added")
+  ChangelogsUI.Add("Text","Section c000000 w350 Wrap","V1.03:`n>Quest Priority Added`n>More Settings Added`n>Quest Multitasking Added")
+  ChangelogsUI.Add("Text","Section c000000 w350 Wrap","V1.02:`n>Gui Added`n>Auto Reconnect Added`n>Some Toggleable Settings Added")
+
+  ChangelogsUI.SetFont("s14 q5 w700", "Arial")
+  ChangelogsUI.Add("Text","Section c000000","To Do:")
+  ChangelogsUI.SetFont("s10 q5 w700", "Arial")
+  ChangelogsUI.Add("Text","Section c000000 w250 Wrap",">Add Better Item Use Function`n>Add Missing Quests`n>Allow For Quests 1-2`n>World 1 Quest Support`n>Add Settings for everything else`n>For Firez to pay me :)`n>Make it pop party boxes when no item")
 
   QuestUi.Show()
 }
 
 EnableMacro(*) {
   SumbitValues := QuestUi.Submit()
+  ChangelogsUI.Submit()
   global MacroCanWork3 := true
   UpdateSettings(SumbitValues)
   SaveSettings()
@@ -748,8 +406,11 @@ LoadSettings() {
     global UseQuestPriority := IniRead("CQMSettings.ini", "ToggleSettings", "UseQuestPriority")
     global UserOwnsAutoFarm := IniRead("CQMSettings.ini", "ToggleSettings", "UserOwnsAutoFarm")
     global MultiTaskQuests := IniRead("CQMSettings.ini", "ToggleSettings", "MultiTaskQuests")
-    global TimeSpentOnQuest := IniRead("CQMSettings.ini", "ToggleSettings", "TimeSpentOnQuest")
-
+    global QuestAPICallDelay := IniRead("CQMSettings.ini", "ToggleSettings", "QuestAPICallDelay")
+    global CLANNAME := IniRead("CQMSettings.ini", "ToggleSettings", "CLANNAME")
+    global AutoReconnectCheckDelay := IniRead("CQMSettings.ini", "ToggleSettings", "AutoReconnectCheckDelay")
+    global UseUltimate := IniRead("CQMSettings.ini", "ToggleSettings", "UseUltimate")
+    global DelayBetweenItemUse := IniRead("CQMSettings.ini", "ToggleSettings", "DelayBetweenItemUse")
 
     for QuestNum, __QuestPriority in QuestsPriority {
       QuestsPriority[QuestNum] := IniRead("CQMSettings.ini", "QuestsPriority", QuestNum)
@@ -768,7 +429,11 @@ UpdateSettings(SumbitValues) {
   global UseQuestPriority := SumbitValues.UseQuestPriorityUIValue
   global UserOwnsAutoFarm := SumbitValues.UserOwnsAutoFarmUIValue
   global MultiTaskQuests := SumbitValues.MultiTaskQuestsUIValue
-  global TimeSpentOnQuest := SumbitValues.TimeSpentOnQuestUIValue
+  global QuestAPICallDelay := SumbitValues.QuestAPICallDelayUIValue
+  global CLANNAME := SumbitValues.CLANNAMEUIValue
+  global AutoReconnectCheckDelay := SumbitValues.AutoReconnectCheckDelayUIValue
+  global UseUltimate := SumbitValues.UseUltimateUIValue
+  global DelayBetweenItemUse := SumbitValues.DelayBetweenItemUseValue
 
   FixedSubmitValues := ObjToMap(SumbitValues)
 
@@ -786,7 +451,11 @@ SaveSettings() {
   IniWrite(UseQuestPriority, "CQMSettings.ini", "ToggleSettings", "UseQuestPriority")
   IniWrite(UserOwnsAutoFarm, "CQMSettings.ini", "ToggleSettings", "UserOwnsAutoFarm")
   IniWrite(MultiTaskQuests, "CQMSettings.ini", "ToggleSettings", "MultiTaskQuests")
-  IniWrite(TimeSpentOnQuest, "CQMSettings.ini", "ToggleSettings", "TimeSpentOnQuest")
+  IniWrite(QuestAPICallDelay, "CQMSettings.ini", "ToggleSettings", "QuestAPICallDelay")
+  IniWrite(CLANNAME, "CQMSettings.ini", "ToggleSettings", "CLANNAME")
+  IniWrite(AutoReconnectCheckDelay, "CQMSettings.ini", "ToggleSettings", "AutoReconnectCheckDelay")
+  IniWrite(UseUltimate, "CQMSettings.ini", "ToggleSettings", "UseUltimate")
+  IniWrite(DelayBetweenItemUse, "CQMSettings.ini", "ToggleSettings", "DelayBetweenItemUse")
 
   for QuestNum, QuestPriorityNum in QuestsPriority {
     IniWrite(QuestPriorityNum, "CQMSettings.ini", "QuestsPriority", QuestNum)
@@ -818,6 +487,7 @@ MoveToFinalZone() {
     SendEvent "{S Down}"
     Sleep(650)
     SendEvent "{S Up}"
+    global CurrentZone := "149"
 }
 MoveToVipArea() {
     OddXCheck()
@@ -849,6 +519,7 @@ MoveToVipArea() {
     SendEvent "{A Down}"
     Sleep(2000)
     SendEvent "{A Up}"
+    global CurrentZone := "100"
 }
 MoveToBestEgg() {
     OddXCheck()
@@ -881,6 +552,7 @@ MoveToBestEgg() {
     Sleep(1925)
     SendEvent "{D Up}"
     Sleep(500)
+    global CurrentZone := "100"
 }
 MoveToSecondBestEgg() {
     OddXCheck()
@@ -913,6 +585,7 @@ MoveToSecondBestEgg() {
     Sleep(2100)
     SendEvent "{D Up}"
     Sleep(500)
+    global CurrentZone := "100"
 }
 Escape() {
     OddXCheck()
@@ -927,6 +600,7 @@ Escape() {
     Sleep(300)
     SendEvent "{Click, 958, 356, 1}"
     Sleep(TpWaitTime)
+    global CurrentZone := "106"
 }
 MoveToComputerOfEVIL() {
     OddXCheck()
@@ -951,6 +625,7 @@ MoveToComputerOfEVIL() {
     Sleep(495)
     SendEvent "{W Up}"
     Sleep(500)
+    global CurrentZone := "100"
 }
 
 QuestCheckForMulti() {
@@ -959,217 +634,389 @@ QuestCheckForMulti() {
   QuestsMultiArray["Fq2"] := ""
   ;QuestsMultiArray["Fq3"] := ""
 
-  OutputDebug(ForcedQuest1)
+  if not MultiTaskQuests {
+    return []
+  }
+
 
   Item := 0
   ZoneFarm := 0
   DiamondZone := 0
+  Eggs := 0
 
   FoundMulti_AbleQuests := 0
 
   for QuestNum, ___A in QuestMultiTask {
-    if ForcedQuest1 = QuestNum {
-      QuestsMultiArray["Fq1"] := QuestMultiTask[String(ForcedQuest1)]
+    if Q3 = QuestNum {
+      QuestsMultiArray["Fq1"] := QuestMultiTask[String(Q3)]
       FoundMulti_AbleQuests += 1
   
-      if QuestMultiTask[String(ForcedQuest1)] = "Item" {
+      if QuestMultiTask[String(Q3)] = "Item" {
         Item += 1
-      } else if QuestMultiTask[String(ForcedQuest1)] = "ZoneFarming" {
+      } else if QuestMultiTask[String(Q3)] = "ZoneFarming" {
         ZoneFarm += 1
-      } else if QuestMultiTask[String(ForcedQuest1)] = "Diamond Zone" {
+      } else if QuestMultiTask[String(Q3)] = "Diamond Zone" {
         DiamondZone += 1
+      } else if QuestMultiTask[String(Q3)] = "Egg" {
+        Eggs += 1
       }
     }
   }
 
   for QuestNum, ___A in QuestMultiTask {
-    if QuestNum = ForcedQuest2 {
-      QuestsMultiArray["Fq2"] := QuestMultiTask[String(ForcedQuest2)]
+    if QuestNum = Q4 {
+      QuestsMultiArray["Fq2"] := QuestMultiTask[String(Q4)]
       FoundMulti_AbleQuests += 1
   
-      if QuestMultiTask[String(ForcedQuest2)] = "Item" {
+      if QuestMultiTask[String(Q4)] = "Item" {
         Item += 1
-      } else if QuestMultiTask[String(ForcedQuest2)] = "ZoneFarming" {
+      } else if QuestMultiTask[String(Q4)] = "ZoneFarming" {
         ZoneFarm += 1
-      } else if QuestMultiTask[String(ForcedQuest2)] = "Diamond Zone" {
+      } else if QuestMultiTask[String(Q4)] = "Diamond Zone" {
         DiamondZone += 1
+      } else if QuestMultiTask[String(Q4)] = "Egg" {
+        Eggs += 1
       }
     }
   }
 
   if Item >= 2 {
-    return [QuestNumToItem[String(ForcedQuest1)],QuestNumToItem[String(ForcedQuest2)]]
+    return "2Item:" QuestNumToItem[String(Q3)] "|" QuestNumToItem[String(Q4)]
   } else if Item >= 1 and ZoneFarm >= 1 {
       if QuestsMultiArray["Fq1"] = "Item" {
-        return [QuestNumToItem[String(ForcedQuest1)]]
+        return "ZoneItem:" QuestNumToItem[String(Q3)]
       } else {
-        return [QuestNumToItem[String(ForcedQuest2)]]
+        return "ZoneItem:" QuestNumToItem[String(Q4)]
       }
   } else if ZoneFarm >= 2 {
-    return []
-  } else if DiamondZone >= 1 {
-    return []
+    return "nil"
+  } else if DiamondZone >= 2 {
+    return "nil"
+  } else if Eggs >= 1 and ZoneFarm >= 1 {
+    if QuestsMultiArray["Fq1"] = "Egg" {
+      return "ZoneEgg:" String(Q3)
+    } else {
+      return "ZoneEgg:" String(Q4)
+    }
+  } else if Eggs >= 1 and DiamondZone >= 1 {
+    if QuestsMultiArray["Fq1"] = "Egg" {
+      return "DiamondEgg:" String(Q3)
+    } else {
+      return "DiamondEgg:" String(Q4)
+    }
   }
+
+  return "nil"
 
 }
 
-; Idknames anymreo Rahhhhhh
-QuestFunction(QuestNum) {
-   QuestToMulti := QuestCheckForMulti()
-
-  if Type(QuestToMulti) != "Array" {
-    QuestToMulti := []
+hatcheg() {
+  Sleep(300)
+  loop 5 {
+    SendEvent "{E Down}{E Up}"
+    Sleep(300)
+    SendEvent "{Click, 1191, 721, 1}"
   }
 
-  if QuestToMulti.Length >= 2 {
-    MoveToFinalZone()
-    EnableAutoFarm()
-    MultipleUseItem(QuestToMulti, ItemUseAmount, DelayBetweenItemUse)
-    Sleep(400)
-    OddXCheck()
-    Escape()
-  } else if QuestToMulti.Length = 1 {
-      MoveToFinalZone()
-      EnableAutoFarm()
-      UseItem(QuestToMulti[1], ItemUseAmount, DelayBetweenItemUse)
-      Sleep(400)
-      OddXCheck
-      Escape()
-  } else {
-    if QuestNum = 1 {
-      MoveToFinalZone()
-      EnableAutoFarm()
-      UseItem("Basic Coin Jar", ItemUseAmount, DelayBetweenItemUse)
-      Sleep(400)
-      OddXCheck
-      Escape()
+  A_GetQuestsTimer := A_TickCount
+  loop {
+    if (A_TickCount - A_GetQuestsTimer) >= QuestAPICallDelay {
+      QuestsHaveChanged := GetQuests()
+      A_GetQuestsTimer := A_TickCount
+      if QuestsHaveChanged {
+        break
+      }
     }
-    if QuestNum = 2 {
-        MsgBox("How")
+
+    SendEvent "{Click, 1866, 823, 1}"
+    Sleep(10)
+  }
+  Sleep(300)
+  SendEvent "{W Down}"
+  Sleep(2000)
+  SendEvent "{W Up}"
+  Sleep(500)
+}
+
+; Idknames anymreo Rahhhhhh
+QuestFunction() {
+
+
+  if LQ3 != Q3 or LQ4 != Q4 {
+  GetQuests()
+  }
+  ReconnectTickTime := A_TickCount
+  loop {
+    if (A_TickCount - ReconnectTickTime) >= AutoReconnectCheckDelay {
+      ReconnectTest()
+      ReconnectTickTime := A_TickCount
     }
-    if QuestNum = 3 {
-        MoveToFinalZone()
-        EnableAutoFarm()
-        UseItem("Comet", ItemUseAmount, DelayBetweenItemUse)
+
+    QuestToMulti := QuestCheckForMulti()
+
+    if QuestToMulti != "nil" {
+      if InStr(QuestToMulti, "2Item") {
+        if CurrentZone != 149 {
+          MoveToFinalZone()
+          EnableAutoFarm()
+        }
+        MultipleUseItem(StrSplit(StrSplit(QuestToMulti, ":")[2], "|"), DelayBetweenItemUse)
+        Sleep(400)
+        OddXCheck()
+        continue
+      }
+      if InStr(QuestToMulti, "ZoneItem") {
+        if CurrentZone != 149 {
+          MoveToFinalZone()
+          EnableAutoFarm()
+        }
+        UseItem(StrSplit(QuestToMulti, ":")[2], DelayBetweenItemUse)
+        Sleep(400)
+        OddXCheck()
+        continue
+      }
+      if InStr(QuestToMulti, "ZoneEgg") {
+        WhatEggQuest :=  StrSplit(QuestToMulti, ":")[2]
+        if CurrentZone != 149 {
+          MoveToFinalZone()
+          EnableAutoFarm()
+          if WhatEggQuest = "9" {
+            MoveToBestEgg()
+            hatcheg()
+          } else {
+            MoveToSecondBestEgg()
+            hatcheg()
+          }
+        } else {
+          EnableAutoFarm()
+          if WhatEggQuest = "9" {
+            MoveToBestEgg()
+            hatcheg()
+          } else {
+            MoveToSecondBestEgg()
+            hatcheg()
+          }
+        }
+      }
+      if InStr(QuestToMulti, "DiamondEgg") {
+        WhatEggQuest :=  StrSplit(QuestToMulti, ":")[2]
+        if CurrentZone != 100 {
+          MoveToVipArea()
+          EnableAutoFarm()
+          Escape()
+          if WhatEggQuest = "9" {
+            MoveToBestEgg()
+            hatcheg()
+          } else {
+            MoveToSecondBestEgg()
+            hatcheg()
+          }
+        } else {
+          Escape()
+          MoveToVipArea()
+          EnableAutoFarm()
+          Escape()
+          if WhatEggQuest = "9" {
+            MoveToBestEgg()
+            hatcheg()
+          } else {
+            MoveToSecondBestEgg()
+            hatcheg()
+          }
+        }
+      }
+    } else {
+      QuestToDo := -1
+      if UseQuestPriority and Q3 > 0 and Q4 > 0 {
+        QuestChance1 := QuestsPriority[Q3]
+        QuestChance2 := QuestsPriority[Q4]
+        TotalQuestChance := QuestChance1 + QuestChance2
+
+        ChosenQuest := Random(0,TotalQuestChance)
+
+        if ChosenQuest <= QuestChance1 {
+          QuestToDo := Q3
+        } else {
+          QuestToDo := Q4
+        } 
+        } else {
+          if Q3 > 0 {
+            QuestToDo := Q3
+          }
+          if Q4 > 0 {
+              QuestToDo := Q4
+          }
+        }
+      }
+      
+
+      if QuestToDo = 1 {
+        if CurrentZone != "149" {
+          MoveToFinalZone()
+          EnableAutoFarm()
+        }
+        UseItem("Basic Coin Jar", DelayBetweenItemUse)
         Sleep(400)
         OddXCheck
-        Escape()
-    }
-    if QuestNum = 4 or QuestNum = 7 {
-        MoveToFinalZone()
-        EnableAutoFarm()
-        UseItem("piñata", ItemUseAmount, DelayBetweenItemUse)
+      }
+      if QuestToDo = 3 {
+        if Number(CurrentZone) != 149 {
+          MoveToFinalZone()
+          EnableAutoFarm()
+        }
+        UseItem("Comet", DelayBetweenItemUse)
         Sleep(400)
         OddXCheck
-        Escape()
-    }
-    if QuestNum = 5 {
-        MoveToFinalZone()
-        EnableAutoFarm()
-        UseItem("Lucky Block", ItemUseAmount, DelayBetweenItemUse)
+      }
+      if QuestToDo = 4 or QuestToDo = 7 {
+        if (CurrentZone) != 149 {
+          MoveToFinalZone()
+          EnableAutoFarm()
+        }
+        UseItem("piñata", DelayBetweenItemUse)
         Sleep(400)
         OddXCheck
-        Escape()
-    }
-    if QuestNum = 6 {
-        MoveToComputerOfEVIL()
+      }
+      if QuestToDo = 5 {
+        if (CurrentZone) != 149 {
+          MoveToFinalZone()
+          EnableAutoFarm()
+        }
+        UseItem("Lucky Block", DelayBetweenItemUse)
+        Sleep(400)
+        OddXCheck
+      }
+      if QuestToDo = 6 {
+        if (CurrentZone) != 100 {
+          MoveToComputerOfEVIL()
+        } else {
+          Escape()
+          MoveToComputerOfEVIL()
+        }
         RainbowifyPets()
         SendEvent "{D Down}"
         Sleep(400)
         SendEvent "{D Up}"
         Sleep(400)
-        Escape()
-    }
-    if QuestNum = 8 {
-        MoveToFinalZone()
-        EnableAutoFarm()
-        Sleep(TimeSpentOnQuest)
-        OddXCheck()
-        Escape()
-    }
-    if QuestNum = 9 {
-        MoveToBestEgg()
-        Sleep(300)
-        loop 5 {
-            SendEvent "{E Down}{E Up}"
-            Sleep(300)
-            SendEvent "{Click, 1191, 721, 1}"
+      }
+      if QuestToDo = 8 {
+        if (CurrentZone) != 149 {
+          MoveToFinalZone()
+          EnableAutoFarm()
         }
-
-        StartTime := A_TickCount
+        A_GetQuestsTimer := A_TickCount
         loop {
-            if (A_TickCount - StartTime) >= TimeSpentOnQuest {
-                break
+          if (A_TickCount - A_GetQuestsTimer) >= QuestAPICallDelay {
+            QuestsHaveChanged := GetQuests()
+            A_GetQuestsTimer := A_TickCount
+            if QuestsHaveChanged {
+              break
             }
-
-            SendEvent "{Click, 1866, 823, 1}"
+          }
+          if UseUltimate {
+            SendEvent "{R Down}{R Up}"
             Sleep(10)
+          }
         }
-        Sleep(300)
-        SendEvent "{W Down}"
-        Sleep(2000)
-        SendEvent "{W Up}"
-        Escape()
-    }
-    if QuestNum = 10 {
-        MoveToSecondBestEgg()
-        Sleep(300)
-        loop 5 {
-            SendEvent "{E Down}{E Up}"
-            Sleep(300)
-            SendEvent "{Click, 1191, 721, 1}"
+        OddXCheck()
+      }
+      if QuestToDo = 9 {
+        if (CurrentZone) != 100 {
+          MoveToBestEgg()
+        } else {
+          Escape()
+          MoveToBestEgg()
         }
-
-        StartTime := A_TickCount
+        hatcheg()
+      }
+      if QuestToDo = 10 {
+        if CurrentZone != 100 {
+          MoveToSecondBestEgg()
+          global CurrentZone := 100
+        } else {
+          Escape()
+          MoveToSecondBestEgg()
+        }
+        hatcheg()
+      }
+      if QuestToDo = 11 {
+        if CurrentZone != 149 {
+          MoveToFinalZone()
+          EnableAutoFarm()
+        }
+        A_GetQuestsTimer := A_TickCount
         loop {
-            if (A_TickCount - StartTime) >= TimeSpentOnQuest {
-                break
+          if (A_TickCount - A_GetQuestsTimer) >= QuestAPICallDelay {
+            QuestsHaveChanged := GetQuests()
+            A_GetQuestsTimer := A_TickCount
+            if QuestsHaveChanged {
+              break
             }
-
-            SendEvent "{Click, 1866, 823, 1}"
+          }
+          if UseUltimate {
+            SendEvent "{R Down}{R Up}"
             Sleep(10)
+          }
         }
-        Sleep(300)
-        SendEvent "{W Down}"
-        Sleep(2000)
-        SendEvent "{W Up}"
-        Escape()
-    }
-    if QuestNum = 11 {
-        MoveToFinalZone()
-        EnableAutoFarm()
-        Sleep(TimeSpentOnQuest)
         OddXCheck()
-        Escape()
-    }
-    if QuestNum = 12 {
-        MoveToVipArea()
-        EnableAutoFarm()
-        Sleep(TimeSpentOnQuest)
+      }
+      if QuestToDo = 12 {
+        if CurrentZone != 100 {
+          MoveToVipArea()
+          EnableAutoFarm()
+        } else {
+          Escape()
+          MoveToVipArea()
+          EnableAutoFarm()
+        }
+        global A_GetQuestsTimer := A_TickCount
+        loop {
+          if (A_TickCount - A_GetQuestsTimer) >= QuestAPICallDelay {
+            QuestsHaveChanged := GetQuests()
+            A_GetQuestsTimer := A_TickCount
+            if QuestsHaveChanged {
+              break
+            }
+          }
+        }
         OddXCheck()
-        Escape()
-    }
-    if QuestNum = 13 {
-        MoveToComputerOfEVIL()
+      }
+      if QuestToDo = 13 {
+        if CurrentZone != 100 {
+          MoveToComputerOfEVIL()
+        } else {
+          Escape()
+          MoveToComputerOfEVIL()
+        }
         GoldifyPets()
         SendEvent "{D Down}"
         Sleep(400)
         SendEvent "{D Up}"
         Sleep(400)
-        Escape()
-    }
-    if QuestNum = 14 {
-        MoveToFinalZone()
-        EnableAutoFarm()
-        sleep(TimeSpentOnQuest)
+      }
+      if QuestToDo = 14 {
+        if CurrentZone != 149 {
+          MoveToFinalZone()
+          EnableAutoFarm()
+        }
+        A_GetQuestsTimer := A_TickCount
+        loop {
+          if (A_TickCount - A_GetQuestsTimer) >= QuestAPICallDelay {
+            QuestsHaveChanged := GetQuests()
+            A_GetQuestsTimer := A_TickCount
+            if QuestsHaveChanged {
+              break
+            }
+          }
+          if UseUltimate {
+            SendEvent "{R Down}{R Up}"
+            Sleep(10)
+          }
+        }
         OddXCheck()
-        Escape()
+      }
     }
-    HiddenFunction() 
-  }
 }
-
-HiddenFunction()
 
 OddXCheck() {
     Sleep(200)
@@ -1193,16 +1040,20 @@ EnableAutoFarm() {
   }
 }
 
-UseItem(ItemName, Amount, DelayBetween) { 
+UseItem(ItemName, DelayBetween) { 
     OddXCheck()
     Sleep(200)
     SendEvent "{Click, 968, 929, 1}"
     Sleep(1000)
     SendEvent "{Click, 414, 395, 1}"
-    StartTime := A_TickCount
-    loop ItemUseAmount {
-        if (A_TickCount - StartTime) >= TimeSpentOnQuest {
+    A_GetQuestsTimer := A_TickCount
+    loop {
+        if A_TickCount - A_GetQuestsTimer >= QuestAPICallDelay {
+          QuestsHaveChanged := GetQuests()
+          A_GetQuestsTimer := A_TickCount
+          if QuestsHaveChanged {
             break
+          }
         }
 
         Sleep(750)
@@ -1225,19 +1076,29 @@ UseItem(ItemName, Amount, DelayBetween) {
             SendEvent "{Click, 414, 395, 1}"
         }
     }
+    loop 2 {
+      SendEvent "{Click, 1494, 235, 1}"
+      Sleep(300)
+      SendEvent "{Click, 1311, 258, 1}"
+      OddXCheck()
+    }
 }
 
-MultipleUseItem(ItemArray, Amount, DelayBetween) { 
+MultipleUseItem(ItemArray, DelayBetween) { 
   OddXCheck()
   Sleep(200)
   SendEvent "{Click, 968, 929, 1}"
   Sleep(1000)
   SendEvent "{Click, 414, 395, 1}"
-  StartTime := A_TickCount
-  loop ItemUseAmount {
-    if (A_TickCount - StartTime) >= TimeSpentOnQuest {
-      break
-  }
+  A_GetQuestsTimer := A_TickCount
+  loop {
+      if A_TickCount - A_GetQuestsTimer >= QuestAPICallDelay {
+        QuestsHaveChanged := GetQuests()
+        A_GetQuestsTimer := A_TickCount
+        if QuestsHaveChanged {
+          break
+        }
+      }
 
     for ___ItemNum, ItemToUse in ItemArray {
       Sleep(750)
@@ -1260,6 +1121,12 @@ MultipleUseItem(ItemArray, Amount, DelayBetween) {
           SendEvent "{Click, 414, 395, 1}"
       }
     }
+  }
+  loop 2 {
+    SendEvent "{Click, 1494, 235, 1}"
+    Sleep(300)
+    SendEvent "{Click, 1311, 258, 1}"
+    OddXCheck()
   }
 }
 
@@ -1417,9 +1284,9 @@ CheckPassword(*) {
     if StrLower(Saved.Password) = StrLower(FixedPassword) {
         SetupUI()
         global MacroCanWork := true
-        HiddenFunction()
+         
     } else {
-        HiddenFunction()
+         
         HitOk := MsgBox("Incorrect Password, Obtain the password from discord.gg/drft (Copied to clipboard)`nor you could try dming A_Basement on discord", "Password Result")
         A_Clipboard := "discord.gg/drft"
         if HitOk = "Ok" {
@@ -1431,6 +1298,15 @@ CheckPassword(*) {
 CloseGui(*) {
     MyGui.Submit
     ExitApp
+}
+
+ReconnectTest() {
+  Reconnected := TestForReconnect()
+  if Reconnected {
+    Escape()
+    OddXCheck()
+     
+  }
 }
 
 global PositionVariables := Map()
@@ -1456,11 +1332,11 @@ TestForReconnect() {
   return false
 }
 
-HiddenFunction()
+ 
 
 whr := ComObject("WinHttp.WinHttpRequest.5.1")
 whr.Open("GET", "https://raw.githubusercontent.com/SimplyJustBased/MacroShenanigans/main/ps.ahk", true)
-HiddenFunction()
+ 
 whr.Send()
 whr.WaitForResponse()
 CurretPassword := whr.ResponseText
@@ -1476,12 +1352,12 @@ MyGui.Show()
 
 whr := ComObject("WinHttp.WinHttpRequest.5.1")
 whr.Open("GET", "https://raw.githubusercontent.com/evilevilman/chestsethjsiethaiusohosierhoisrehg/main/lead", true)
-HiddenFunction()
+ 
 whr.Send()
 whr.WaitForResponse()
 AllowedLeaders := SubStr(whr.ResponseText, 1, 29)
 
-HiddenFunction()
+ 
 
 F3::{
     if MacroCanWork3 {
@@ -1491,119 +1367,33 @@ F3::{
       Sleep(200)
       OddXCheck()
       Escape()
-      HiddenFunction()
-      loop {
-          Reconnected := TestForReconnect()
-          if Reconnected {
-            Escape()
-            OddXCheck()
-            HiddenFunction()
-          }
-          Sleep(200)
-          OddXCheck()
-          Sleep(200)
-          SendEvent "{Click, 968, 929, 1}"
-          Sleep(1000)
-          SendEvent "{Click, 1083, 933, 1}"
-          Sleep(750)
-          CheckClan()
-          Sleep(750)
-          if not MacroCanWork2 {
-            ExitApp
-          }
-          SendEvent "{Click, 599, 509, 1}"
-          Sleep(500)
-          SendEvent "{Click, 1094, 392, 1}"
-          Sleep(200)
-          loop 300 {
-              SendEvent "{WheelDown}"
-          }
-          Sleep(300)
-          ReturnedArray := GetQuests()
-          sleep(300)
-          CheckClan()
-          global ForcedQuest1 := 0
-          global ForcedQuest2 := 0
+       
 
-          HiddenFunction()
-          if ReturnedArray[2] {
-              ForcedQuest1 := Quests[ReturnedArray[2]]
-              if not EnabledQuests[ForcedQuest1] {
-                ForcedQuest1 := -1
-              }
-          if ReturnedArray[1] {
-              ForcedQuest2 := Quests[ReturnedArray[1]]
-              if not EnabledQuests[ForcedQuest2] {
-                ForcedQuest2 := -1
-              }
-          }
-          } else {
-              if ReturnedArray[1] {
-                  ForcedQuest1 := Quests[ReturnedArray[1]]
-                  if not EnabledQuests[ForcedQuest1] {
-                    ForcedQuest2 := -1
-                  }
-              } else {
-                  ForcedQuest1 := -1
-              }
-          }
+      Sleep(200)
+        OddXCheck()
+        Sleep(200)
+        SendEvent "{Click, 968, 929, 1}"
+        Sleep(1000)
+        SendEvent "{Click, 1083, 933, 1}"
+        Sleep(750)
+        CheckClan()
+        Sleep(750)
+        if not MacroCanWork2 {
+          ExitApp
+        }
 
-          OutputDebug("`nQuest 1: " ReturnedArray[1] "`nQuest 2: " ReturnedArray[2])
-
-          if Randomize3and4Star {
-              if ForcedQuest1 > 0 and ForcedQuest2 > 0 {
-                if UseQuestPriority {
-                  QuestChance1 := QuestsPriority[ForcedQuest1]
-                  QuestChance2 := QuestsPriority[ForcedQuest2]
-                  TotalQuestChance := QuestChance1 + QuestChance2
-
-                  ChosenQuest := Random(0,TotalQuestChance)
-
-                  if ChosenQuest <= QuestChance1 {
-                    QuestFunction(ForcedQuest1)
-                  } else {
-                    QuestFunction(ForcedQuest2)
-                  }
-
-                } else {
-                  RandomQuest := Random(1,2)
-                  if RandomQuest = 1 {
-                      QuestFunction(ForcedQuest1)
-                  } else {
-                      QuestFunction(ForcedQuest2)
-                  }
-                }
-              } else {
-                  if ForcedQuest1 > 0 {
-                      QuestFunction(ForcedQuest1)
-                  } else {
-                      if ForcedQuest2 > 0 {
-                          QuestFunction(ForcedQuest2)
-                      }
-                  }
-              }
-          } else {
-              if ForcedQuest1 > 0 { 
-                  QuestFunction(ForcedQuest1)
-                  if ForcedQuest2 > 0 and Do3StarQuest {
-                      QuestFunction(ForcedQuest2)
-                  }
-              } else {
-                  OutputDebug("No Valid Quests, Waiting QuestTime")
-                  Sleep(FailedQuestWaitTime)
-              }
-          }
-      }
-    } else {
-      OutputDebug("No")
+        QuestFunction()
     }
 }
 
 F5::{
-
+  global Q4 := "10"
+  global LQ4 := "10"
+  global LQ3 := "10"
+  global Q3 := "10"
 }
 
-HiddenFunction()
+ 
 
 Highlight(x?, y?, w?, h?, showTime:=0, color:="ff0000", d:=2) {
     static guis := []
@@ -1635,3 +1425,179 @@ Highlight(x?, y?, w?, h?, showTime:=0, color:="ff0000", d:=2) {
 }
   
 F8::ExitApp
+
+; I (Basement) DID NOT MAKE THIS, I AINT DOING ALLAT LOWKEY THO
+
+; ; originally posted by user coco on AutoHotkey.com
+; https://github.com/cocobelgica/AutoHotkey-JSON
+
+Jxon_Load(&src, args*) {
+	key := "", is_key := false
+	stack := [ tree := [] ]
+	next := '"{[01234567890-tfn'
+	pos := 0
+	
+	while ( (ch := SubStr(src, ++pos, 1)) != "" ) {
+		if InStr(" `t`n`r", ch)
+			continue
+		if !InStr(next, ch, true) {
+			testArr := StrSplit(SubStr(src, 1, pos), "`n")
+			
+			ln := testArr.Length
+			col := pos - InStr(src, "`n",, -(StrLen(src)-pos+1))
+
+			msg := Format("{}: line {} col {} (char {})"
+			,   (next == "")      ? ["Extra data", ch := SubStr(src, pos)][1]
+			  : (next == "'")     ? "Unterminated string starting at"
+			  : (next == "\")     ? "Invalid \escape"
+			  : (next == ":")     ? "Expecting ':' delimiter"
+			  : (next == '"')     ? "Expecting object key enclosed in double quotes"
+			  : (next == '"}')    ? "Expecting object key enclosed in double quotes or object closing '}'"
+			  : (next == ",}")    ? "Expecting ',' delimiter or object closing '}'"
+			  : (next == ",]")    ? "Expecting ',' delimiter or array closing ']'"
+			  : [ "Expecting JSON value(string, number, [true, false, null], object or array)"
+			    , ch := SubStr(src, pos, (SubStr(src, pos)~="[\]\},\s]|$")-1) ][1]
+			, ln, col, pos)
+
+			throw Error(msg, -1, ch)
+		}
+		
+		obj := stack[1]
+        is_array := (obj is Array)
+		
+		if i := InStr("{[", ch) { ; start new object / map?
+			val := (i = 1) ? Map() : Array()	; ahk v2
+			
+			is_array ? obj.Push(val) : obj[key] := val
+			stack.InsertAt(1,val)
+			
+			next := '"' ((is_key := (ch == "{")) ? "}" : "{[]0123456789-tfn")
+		} else if InStr("}]", ch) {
+			stack.RemoveAt(1)
+            next := (stack[1]==tree) ? "" : (stack[1] is Array) ? ",]" : ",}"
+		} else if InStr(",:", ch) {
+			is_key := (!is_array && ch == ",")
+			next := is_key ? '"' : '"{[0123456789-tfn'
+		} else { ; string | number | true | false | null
+			if (ch == '"') { ; string
+				i := pos
+				while i := InStr(src, '"',, i+1) {
+					val := StrReplace(SubStr(src, pos+1, i-pos-1), "\\", "\u005C")
+					if (SubStr(val, -1) != "\")
+						break
+				}
+				if !i ? (pos--, next := "'") : 0
+					continue
+
+				pos := i ; update pos
+
+				val := StrReplace(val, "\/", "/")
+				val := StrReplace(val, '\"', '"')
+				, val := StrReplace(val, "\b", "`b")
+				, val := StrReplace(val, "\f", "`f")
+				, val := StrReplace(val, "\n", "`n")
+				, val := StrReplace(val, "\r", "`r")
+				, val := StrReplace(val, "\t", "`t")
+
+				i := 0
+				while i := InStr(val, "\",, i+1) {
+					if (SubStr(val, i+1, 1) != "u") ? (pos -= StrLen(SubStr(val, i)), next := "\") : 0
+						continue 2
+
+					xxxx := Abs("0x" . SubStr(val, i+2, 4)) ; \uXXXX - JSON unicode escape sequence
+					if (xxxx < 0x100)
+						val := SubStr(val, 1, i-1) . Chr(xxxx) . SubStr(val, i+6)
+				}
+				
+				if is_key {
+					key := val, next := ":"
+					continue
+				}
+			} else { ; number | true | false | null
+				val := SubStr(src, pos, i := RegExMatch(src, "[\]\},\s]|$",, pos)-pos)
+				
+                if IsInteger(val)
+                    val += 0
+                else if IsFloat(val)
+                    val += 0
+                else if (val == "true" || val == "false")
+                    val := (val == "true")
+                else if (val == "null")
+                    val := ""
+                else if is_key {
+                    pos--, next := "#"
+                    continue
+                }
+				
+				pos += i-1
+			}
+			
+			is_array ? obj.Push(val) : obj[key] := val
+			next := obj == tree ? "" : is_array ? ",]" : ",}"
+		}
+	}
+	
+	return tree[1]
+}
+
+Jxon_Dump(obj, indent:="", lvl:=1) {
+	if IsObject(obj) {
+        If !(obj is Array || obj is Map || obj is String || obj is Number)
+			throw Error("Object type not supported.", -1, Format("<Object at 0x{:p}>", ObjPtr(obj)))
+		
+		if IsInteger(indent)
+		{
+			if (indent < 0)
+				throw Error("Indent parameter must be a postive integer.", -1, indent)
+			spaces := indent, indent := ""
+			
+			Loop spaces ; ===> changed
+				indent .= " "
+		}
+		indt := ""
+		
+		Loop indent ? lvl : 0
+			indt .= indent
+        
+        is_array := (obj is Array)
+        
+		lvl += 1, out := "" ; Make #Warn happy
+		for k, v in obj {
+			if IsObject(k) || (k == "")
+				throw Error("Invalid object key.", -1, k ? Format("<Object at 0x{:p}>", ObjPtr(obj)) : "<blank>")
+			
+			if !is_array ;// key ; ObjGetCapacity([k], 1)
+				out .= (ObjGetCapacity([k]) ? Jxon_Dump(k) : escape_str(k)) (indent ? ": " : ":") ; token + padding
+			
+			out .= Jxon_Dump(v, indent, lvl) ; value
+				.  ( indent ? ",`n" . indt : "," ) ; token + indent
+		}
+
+		if (out != "") {
+			out := Trim(out, ",`n" . indent)
+			if (indent != "")
+				out := "`n" . indt . out . "`n" . SubStr(indt, StrLen(indent)+1)
+		}
+		
+		return is_array ? "[" . out . "]" : "{" . out . "}"
+	
+    } Else If (obj is Number)
+        return obj
+    
+    Else ; String
+        return escape_str(obj)
+	
+    escape_str(obj) {
+        obj := StrReplace(obj,"\","\\")
+        obj := StrReplace(obj,"`t","\t")
+        obj := StrReplace(obj,"`r","\r")
+        obj := StrReplace(obj,"`n","\n")
+        obj := StrReplace(obj,"`b","\b")
+        obj := StrReplace(obj,"`f","\f")
+        obj := StrReplace(obj,"/","\/")
+        obj := StrReplace(obj,'"','\"')
+        
+        return '"' obj '"'
+    }
+}
+
