@@ -637,7 +637,7 @@ QuestCheckForMulti() {
   ;QuestsMultiArray["Fq3"] := ""
 
   if not MultiTaskQuests {
-    return ""
+    return "nil"
   }
 
 
