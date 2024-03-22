@@ -310,8 +310,10 @@ SetupUI() {
   QuestUi.SetFont("s9 q5 w700", "Arial")
 
   for QuestNum, QuestText in QuestsToText {
-    QuestUi.Add("Text","Section xs",QuestText ":")
-    QuestUi.Add("Checkbox","x390 V" QuestNum "EnabledUIValue yp Checked" EnabledQuests[QuestNum])
+    if Number(QuestNum) > 0 {
+      QuestUi.Add("Text","Section xs",QuestText ":")
+      QuestUi.Add("Checkbox","x390 V" QuestNum "EnabledUIValue yp Checked" EnabledQuests[QuestNum])
+    }
   } 
 
   Tabs.UseTab(4)
@@ -320,9 +322,11 @@ SetupUI() {
   QuestUi.SetFont("s9 q5 w700", "Arial")
 
   for QuestNum, QuestText in QuestsToText {
-    QuestUi.Add("Text","Section xs",QuestText ":")
-    QuestUi.Add("Edit","x350 w60 h20 yp")
-    QuestUi.AddUpDown("V" QuestNum "PriorityUIValue Range1-1000", QuestsPriority[QuestNum])
+    if Number(QuestNum) > 0 {
+      QuestUi.Add("Text","Section xs",QuestText ":")
+      QuestUi.Add("Edit","x350 w60 h20 yp")
+      QuestUi.AddUpDown("V" QuestNum "PriorityUIValue Range1-1000", QuestsPriority[QuestNum])
+    }
   } 
   
   ChangelogsUI.Opt("+AlwaysOnTop +Caption")
