@@ -59,6 +59,7 @@ QuestsToText["11"] := "Earn Diamonds"
 QuestsToText["8"] := "Break Breakables"
 QuestsToText["13"] := "Make Pets Golden"
 QuestsToText["6"] := "Make Pets Rainbow"
+QuestsToText["-1"] := "Disabled Quest / Unable To Do Quest"
 
 global QuestsPriority := Map()
 QuestsPriority["4"] := "100"
@@ -151,7 +152,8 @@ global LQ4 := "100"
 global Q3 := "-1"
 global Q4 := "-1"
 
- 
+global LQUT := A_TickCount
+global CurrentQuest := "nil"
 
 GetQuestsOLD() {
     FirstQuest := ""
@@ -184,6 +186,7 @@ GetQuests() {
   whr.Send()
   whr.WaitForResponse()
   CurretPassword := whr.ResponseText
+  global LQUT := A_TickCount
 
   LoadedArray := Jxon_Load(&CurretPassword)
 
@@ -758,6 +761,7 @@ QuestFunction() {
 
     if QuestToMulti != "nil" and MultiTaskQuests {
       if InStr(QuestToMulti, "2Item") {
+        global CurrentQuest := "MULTI:2ITEM"
         if CurrentZone != 149 {
           MoveToFinalZone()
           EnableAutoFarm()
@@ -768,6 +772,7 @@ QuestFunction() {
         continue
       }
       if InStr(QuestToMulti, "ZoneItem") {
+        global CurrentQuest := "MULTI:ZONEITEM"
         if CurrentZone != 149 {
           MoveToFinalZone()
           EnableAutoFarm()
@@ -778,6 +783,7 @@ QuestFunction() {
         continue
       }
       if InStr(QuestToMulti, "ZoneEgg") {
+        global CurrentQuest := "MULTI:ZONEEGG"
         WhatEggQuest :=  StrSplit(QuestToMulti, ":")[2]
         if CurrentZone != 149 {
           MoveToFinalZone()
@@ -802,6 +808,7 @@ QuestFunction() {
         continue
       }
       if InStr(QuestToMulti, "DiamondEgg") {
+        global CurrentQuest := "MULTI:DIAMONDEGG"
         WhatEggQuest :=  StrSplit(QuestToMulti, ":")[2]
         if CurrentZone != 100 {
           MoveToVipArea()
@@ -856,6 +863,7 @@ QuestFunction() {
       
 
       if QuestToDo = 1 {
+        global CurrentQuest := "Q:COINJAR"
         if CurrentZone != "149" {
           MoveToFinalZone()
           EnableAutoFarm()
@@ -865,6 +873,7 @@ QuestFunction() {
         OddXCheck
       }
       if QuestToDo = 3 {
+        global CurrentQuest := "Q:COMET"
         if Number(CurrentZone) != 149 {
           MoveToFinalZone()
           EnableAutoFarm()
@@ -874,6 +883,7 @@ QuestFunction() {
         OddXCheck
       }
       if QuestToDo = 4 or QuestToDo = 7 {
+        global CurrentQuest := "Q:PINATA"
         if (CurrentZone) != 149 {
           MoveToFinalZone()
           EnableAutoFarm()
@@ -883,6 +893,7 @@ QuestFunction() {
         OddXCheck
       }
       if QuestToDo = 5 {
+        global CurrentQuest := "Q:LUCKYBLOCK"
         if (CurrentZone) != 149 {
           MoveToFinalZone()
           EnableAutoFarm()
@@ -892,6 +903,7 @@ QuestFunction() {
         OddXCheck
       }
       if QuestToDo = 6 {
+        global CurrentQuest := "Q:RAINBOWPETS"
         if (CurrentZone) != 100 {
           MoveToComputerOfEVIL()
         } else {
@@ -905,6 +917,7 @@ QuestFunction() {
         Sleep(400)
       }
       if QuestToDo = 8 {
+        global CurrentQuest := "Q:BREAKABLES"
         if (CurrentZone) != 149 {
           MoveToFinalZone()
           EnableAutoFarm()
@@ -926,6 +939,7 @@ QuestFunction() {
         OddXCheck()
       }
       if QuestToDo = 9 {
+        global CurrentQuest := "Q:BESTEGGS"
         if (CurrentZone) != 100 {
           MoveToBestEgg()
         } else {
@@ -935,6 +949,7 @@ QuestFunction() {
         hatcheg()
       }
       if QuestToDo = 10 {
+        global CurrentQuest := "Q:RAREEGGS"
         if CurrentZone != 100 {
           MoveToSecondBestEgg()
           global CurrentZone := 100
@@ -945,6 +960,7 @@ QuestFunction() {
         hatcheg()
       }
       if QuestToDo = 11 {
+        global CurrentQuest := "Q:EARNDIAMONDS"
         if CurrentZone != 149 {
           MoveToFinalZone()
           EnableAutoFarm()
@@ -966,6 +982,7 @@ QuestFunction() {
         OddXCheck()
       }
       if QuestToDo = 12 {
+        global CurrentQuest := "Q:DIAMONDBREAKABLES"
         if CurrentZone != 100 {
           MoveToVipArea()
           EnableAutoFarm()
@@ -987,6 +1004,7 @@ QuestFunction() {
         OddXCheck()
       }
       if QuestToDo = 13 {
+        global CurrentQuest := "Q:GOLDENPETS"
         if CurrentZone != 100 {
           MoveToComputerOfEVIL()
         } else {
@@ -1000,6 +1018,7 @@ QuestFunction() {
         Sleep(400)
       }
       if QuestToDo = 14 {
+        global CurrentQuest := "Q:MINICHESTS"
         if CurrentZone != 149 {
           MoveToFinalZone()
           EnableAutoFarm()
@@ -1392,7 +1411,7 @@ F3::{
 }
 
 F5::{
-  MsgBox("Debug For V1.045:`nQuest3: " QuestsToText[Q3] "`nQuest4: " QuestsToText[Q4] "")
+  MsgBox("Debug For V1.045:`nQuest3: " QuestsToText[Q3] "`nQuest4: " QuestsToText[Q4] "`nLastQuestUpdateTime: " Round(((A_TickCount - LQUT)/1000)) "`nCurrentQuest: " CurrentQuest)
 }
 
  
