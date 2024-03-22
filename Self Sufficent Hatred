@@ -333,7 +333,7 @@ SetupUI() {
   ChangelogsUI.SetFont("s15 q5 w700", "Arial")
   ChangelogsUI.Add("Text","Section c000000","ChangeLogs")
   ChangelogsUI.SetFont("s10 q5 w700", "Arial")
-  ChangelogsUI.Add("Text","Section c000000 w350 Wrap","V1.045:`n>Fixed 1.04 Crashing Pcs (Hopefully)`n>Multitask Improved: Eggs + Zone and Eggs + Diamond Breakables`n>New Variable in togglesettings")
+  ChangelogsUI.Add("Text","Section c000000 w350 Wrap","V1.045:`n>Fixed 1.04 Crashing Pcs (Hopefully)`n>Multitask Improved: Eggs + Zone and Eggs + Diamond Breakables`n>New Variable in togglesettings`n>Fixes broken RAHGG")
   ChangelogsUI.Add("Text","Section c000000 w350 Wrap","V1.04:`n>Bug Fixes for 1.03`n>Removed OCR Quest Check`n>API Quest Check Added`n>Quests Now Stop When A New Quest is Detected`n>Several Variables / Features Added`n>Auto UseUltimate Added")
   ChangelogsUI.Add("Text","Section c000000 w350 Wrap","V1.03:`n>Quest Priority Added`n>More Settings Added`n>Quest Multitasking Added")
   ChangelogsUI.Add("Text","Section c000000 w350 Wrap","V1.02:`n>Gui Added`n>Auto Reconnect Added`n>Some Toggleable Settings Added")
@@ -353,9 +353,11 @@ EnableMacro(*) {
   UpdateSettings(SumbitValues)
   SaveSettings()
 }
+
 JoinDiscordButton(*) {
   Run "https://discord.com/invite/JrwB6jVxkR"
 }
+
 YTButton(*) {
   Run "https://www.youtube.com/channel/UCKOkQGvHO71nqQjwTiJX5Ww"
 }
@@ -635,7 +637,7 @@ QuestCheckForMulti() {
   ;QuestsMultiArray["Fq3"] := ""
 
   if not MultiTaskQuests {
-    return []
+    return ""
   }
 
 
@@ -754,7 +756,7 @@ QuestFunction() {
 
     QuestToMulti := QuestCheckForMulti()
 
-    if QuestToMulti != "nil" {
+    if QuestToMulti != "nil" and MultiTaskQuests {
       if InStr(QuestToMulti, "2Item") {
         if CurrentZone != 149 {
           MoveToFinalZone()
@@ -797,6 +799,7 @@ QuestFunction() {
             hatcheg()
           }
         }
+        continue
       }
       if InStr(QuestToMulti, "DiamondEgg") {
         WhatEggQuest :=  StrSplit(QuestToMulti, ":")[2]
@@ -824,7 +827,9 @@ QuestFunction() {
             hatcheg()
           }
         }
+        continue
       }
+      continue
     } else {
       QuestToDo := -1
       if UseQuestPriority and Q3 > 0 and Q4 > 0 {
@@ -1387,10 +1392,7 @@ F3::{
 }
 
 F5::{
-  global Q4 := "10"
-  global LQ4 := "10"
-  global LQ3 := "10"
-  global Q3 := "10"
+  MsgBox("Debug For V1.045:`nQuest3: " QuestsToText[Q3] "`nQuest4: " QuestsToText[Q4] "")
 }
 
  
