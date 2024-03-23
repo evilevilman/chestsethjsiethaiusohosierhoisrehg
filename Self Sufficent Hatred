@@ -1,6 +1,6 @@
 ; Script by A_Basement / https://discord.com/invite/JrwB6jVxkR
 ; DRFT Exclusive Macro (Hopefully)
-VersionNum := "1.045"
+VersionNum := "1.05"
 
 #Requires AutoHotkey v2.0 
 #Include UWBOCRLib.ahk
@@ -116,20 +116,37 @@ ProfessionalQuestsMap["12"] := "-1" ; T3
 ProfessionalQuestsMap["45"] := "-1" ; Chests advanced digsite
 ProfessionalQuestsMap["13"] := "-1" ; what
 
+ItemUseDelay := Map()
+ItemUseDelay["Comet"] := 4000
+ItemUseDelay["Basic Coin Jar"] := 1500
+ItemUseDelay["piñata"] := 4000
+ItemUseDelay["Lucky Block"] := 10000
+ItemUseDelay["Party Box"] := 5500
+
+global FinalZoneFlag := "Hasty Flag"
+global VIPZoneFlag := "Hasty Flag"
+global PlaceFlagsInFinalArea := true
+global PlaceFlagsInVIPArea := true
+global PlaceSpinklersInFinalArea := true
+global PlaceSpinklersInVIPArea := true
+global VIPZoneTNTFix := true
+
+global FlagAndSprinklerDelay := 600000
+global FruitsDelay := 600000
+
+global FruitLastUsage := -1
+global FZfandsLastUsage := -1
+global DZfandsLastUsage := -1
+
 global TpWaitTime := 7000
-global FailedQuestWaitTime := 120000
-global TimeSpentOnQuest := 120000
-global Do3StarQuest := false
 global Randomize3and4Star := true
 
-global ItemUseAmount := 10
 global DelayBetweenItemUse := 5500
 
 global PetMachineArray := ["Bleebo The Alien", "alien parasite", "alien axolotl"]
 global EggbackwardsDistance := 1025
 global CurrentZone := "106"
 
-global PotionsArray := ["Damage", "Coins", "Lucky Eggs"]
 global UseQuestPriority := true
 global MultiTaskQuests := true
 global UserOwnsAutoFarm := true
@@ -153,6 +170,10 @@ global Q4 := "-1"
 
 global LQUT := A_TickCount
 global CurrentQuest := "nil"
+
+FruitsArray := ["Apple", "Banana", "Orange", "Pineapple", "Rainbow Fruit", "Watermelon"]
+global UseFruits := true
+
 
 GetQuestsOLD() {
     FirstQuest := ""
@@ -240,9 +261,10 @@ GetQuests() {
 LoadSettings()
 QuestUi := Gui()
 ChangelogsUI := Gui()
+DelayHelpUI := Gui()
 
 SetupUI() {
-  Tabs := QuestUi.AddTab3("Choose1", ["Main", "Togglable Settings", "Quest Toggles", "Quest Priority", "ChangeLogs"])
+  Tabs := QuestUi.AddTab3("Choose1", ["Main", "Togglable Settings", "Quest Toggles", "Quest Priority", "Delays", "ChangeLogs"])
 
   SetDarkWindowFrame(hwnd, boolEnable:=1) {
       hwnd := WinExist(hwnd)
@@ -288,17 +310,25 @@ SetupUI() {
   QuestUi.Add("Text","Section xs","`"UseUltimate`":")
   QuestUi.Add("Checkbox","x390 VUseUltimateUIValue yp Checked" UseUltimate)
 
-  QuestUi.Add("Text","Section xs w250 Wrap", "`"QuestAPICallDelay`" (How Much Time Before Checking API For New Quests [IN MILISECONDS])")
-  QuestUi.Add("Edit", "x305 w100 h20 yp")
-  QuestUi.AddUpDown("VQuestAPICallDelayUIValue Range1-9999999999999", QuestAPICallDelay)
+  QuestUi.Add("Text","Section xs","`"PlaceFlagsInFinalArea`":")
+  QuestUi.Add("Checkbox","x390 VPlaceFlagsInFinalAreaUIValue yp Checked" PlaceFlagsInFinalArea)
+  QuestUi.Add("Text","Section xs","`"PlaceFlagsInVIPArea`":")
+  QuestUi.Add("Checkbox","x390 VPlaceFlagsInVIPAreaUIValue yp Checked" PlaceFlagsInVIPArea)
+  QuestUi.Add("Text","Section xs","`"PlaceSpinklersInFinalArea`":")
+  QuestUi.Add("Checkbox","x390 VPlaceSpinklersInFinalAreaUIValue yp Checked" PlaceSpinklersInFinalArea)
+  QuestUi.Add("Text","Section xs","`"PlaceSpinklersInVIPArea`":")
+  QuestUi.Add("Checkbox","x390 VPlaceSpinklersInVIPAreaUIValue yp Checked" PlaceSpinklersInVIPArea)
+  QuestUi.Add("Text","Section xs","`"VIPZoneTNTFix`":")
+  QuestUi.Add("Checkbox","x390 VVIPZoneTNTFixUIValue yp Checked" VIPZoneTNTFix)
+  QuestUi.Add("Text","Section xs","`"UseFruits`":")
+  QuestUi.Add("Checkbox","x390 VUseFruitsUIValue yp Checked" UseFruits)
 
-  QuestUi.Add("Text","Section xs w250 Wrap", "`"DelayBetweenItemUse`" (Delay between using items from item quests[IN MILISECONDS])")
-  QuestUi.Add("Edit", "x305 w100 h20 yp")
-  QuestUi.AddUpDown("VDelayBetweenItemUseValue Range1-9999999999999", DelayBetweenItemUse)
 
-  QuestUi.Add("Text","Section xs w250 Wrap", "`"AutoReconnectCheckDelay`" (How Much Time Before Checking If Needed to Reconnect [IN MILISECONDS])")
-  QuestUi.Add("Edit", "x305 w100 h20 yp")
-  QuestUi.AddUpDown("VAutoReconnectCheckDelayUIValue Range1-9999999999999", AutoReconnectCheckDelay)
+  QuestUi.Add("Text","Section xs w250 Wrap", "`"FinalZoneFlag`"")
+  QuestUi.Add("Edit", "x305 w100 h20 yp VFinalZoneFlagUIValue", FinalZoneFlag)
+
+  QuestUi.Add("Text","Section xs w250 Wrap", "`"VIPZoneFlag`"")
+  QuestUi.Add("Edit", "x305 w100 h20 yp VVIPZoneFlagUIValue", VIPZoneFlag)
 
   QuestUi.Add("Text","Section xs w250 Wrap", "`"CLANNAME`" (Required to get Correct Quests)")
   QuestUi.Add("Edit", "x305 w100 h20 yp VCLANNAMEUIValue", CLANNAME)
@@ -334,8 +364,59 @@ SetupUI() {
   }
   
   Tabs.UseTab(5)
-  QuestUi.Add("Button",,"View Changelogs").OnEvent("Click", ShowChangeLogs)
+  QuestUi.SetFont("s15 q5 w700", "Arial")
+  QuestUi.Add("Text","Section c000000","Delays")
+  QuestUi.SetFont("s9 q5 w700", "Arial")
 
+  QuestUi.Add("Text","Section xs w250 Wrap", "`"QuestAPICallDelay`"")
+  QuestUi.Add("Edit", "x305 w100 h20 yp")
+  QuestUi.AddUpDown("VQuestAPICallDelayUIValue Range1-9999999999999", QuestAPICallDelay)
+
+  QuestUi.Add("Text","Section xs w250 Wrap", "`"AutoReconnectCheckDelay`"")
+  QuestUi.Add("Edit", "x305 w100 h20 yp")
+  QuestUi.AddUpDown("VAutoReconnectCheckDelayUIValue Range1-9999999999999", AutoReconnectCheckDelay)
+
+  QuestUi.Add("Text","Section xs w250 Wrap", "`"FlagAndSprinklerDelay`"")
+  QuestUi.Add("Edit", "x305 w100 h20 yp")
+  QuestUi.AddUpDown("VFlagAndSprinklerDelayUIValue Range1-9999999999999", FlagAndSprinklerDelay)
+
+  QuestUi.Add("Text","Section xs w250 Wrap", "`"FruitsDelay`"")
+  QuestUi.Add("Edit", "x305 w100 h20 yp")
+  QuestUi.AddUpDown("VFruitsDelayUIValue Range1-9999999999999", FruitsDelay)
+
+  QuestUi.Add("Text","Section xs w250 Wrap", "`"TpWaitTime`"")
+  QuestUi.Add("Edit", "x305 w100 h20 yp")
+  QuestUi.AddUpDown("VTpWaitTimeUIValue Range1-9999999999999", TpWaitTime)
+
+  ItemDelayOrder := ["Comet", "Basic Coin Jar", "piñata", "Lucky Block", "Party Box"]
+
+  for _ItemNum, Item in ItemDelayOrder {
+    QuestUi.Add("Text","Section xs w250 Wrap", "`"" Item " UseDelay`"")
+    QuestUi.Add("Edit", "x305 w100 h20 yp")
+    QuestUi.AddUpDown("V" StrReplace(Item, " ", "") "UseDelayUIValue Range1-9999999999999", ItemUseDelay[Item])
+  } 
+
+  QuestUi.Add("Button","xs y380","Delay Info").OnEvent("Click", ShowDelayHelp)
+  DelayHelpUI.SetFont("s15 q5 w700", "Arial")
+  DelayHelpUI.Add("Text","Section c000000","Delay Info")
+  DelayHelpUI.SetFont("s10 q5 w700", "Arial")
+  DelayHelpUI.Add("Text","Section c000000 w400 Wrap","QuestAPICallDelay : How long it has to of been before it can call back to the ps99 api to check for new quests`n`nAutoReconnectCheckDelay : How long it has to of been before it can check if you need to be reconnected`n`nFlagAndSprinklerDelay : Delay between placing flags and sprinklers (Vip and Final Go Off of differnet timers)`n`nFruitsDelay : Delay between eating fruits`n`nTpWaitTime : How long the script will wait after hitting the button to tp to a area`n`n[Item] UseDelay : How long it'll wait after using said item before attempting to use it again / move on to the next item (Multitask Thing)")
+
+  DelayHelpUI.Opt("+AlwaysOnTop +Caption")
+  ShowDelayHelp(*) {
+    DelayHelpUI.Show
+  }
+
+  Tabs.UseTab(6)
+  QuestUi.Add("Button",,"View Changelogs").OnEvent("Click", ShowChangeLogs)
+  
+  CTabs := ChangelogsUI.AddTab3("", ["Now-V1.05", "V1.045-V1.2"])
+  ChangelogsUI.SetFont("s15 q5 w700", "Arial")
+  ChangelogsUI.Add("Text","Section c000000","ChangeLogs")
+  ChangelogsUI.SetFont("s10 q5 w700", "Arial")
+  ChangelogsUI.Add("Text","Section c000000 w350 Wrap","V1.05:`n>More Settings Added`n>Auto Flag, Sprinkler, And Fruit Added`n>Better Item Use Functions`n>Fixes For Auto-Reconnect and Eggs Breaking")
+
+  CTabs.UseTab(2)
   ChangelogsUI.SetFont("s15 q5 w700", "Arial")
   ChangelogsUI.Add("Text","Section c000000","ChangeLogs")
   ChangelogsUI.SetFont("s10 q5 w700", "Arial")
@@ -417,8 +498,18 @@ LoadSettings() {
     global QuestAPICallDelay := IniRead("CQMSettings.ini", "ToggleSettings", "QuestAPICallDelay")
     global CLANNAME := IniRead("CQMSettings.ini", "ToggleSettings", "CLANNAME")
     global AutoReconnectCheckDelay := IniRead("CQMSettings.ini", "ToggleSettings", "AutoReconnectCheckDelay")
+    global PlaceFlagsInFinalArea := IniRead("CQMSettings.ini", "ToggleSettings", "PlaceFlagsInFinalArea")
+    global PlaceFlagsInVIPArea := IniRead("CQMSettings.ini", "ToggleSettings", "PlaceFlagsInVIPArea")
+    global PlaceSpinklersInFinalArea := IniRead("CQMSettings.ini", "ToggleSettings", "PlaceSpinklersInFinalArea")
+    global PlaceSpinklersInVIPArea := IniRead("CQMSettings.ini", "ToggleSettings", "PlaceSpinklersInVIPArea")
+    global VIPZoneTNTFix := IniRead("CQMSettings.ini", "ToggleSettings", "VIPZoneTNTFix")
+    global FinalZoneFlag := IniRead("CQMSettings.ini", "ToggleSettings", "FinalZoneFlag")
+    global VIPZoneFlag := IniRead("CQMSettings.ini", "ToggleSettings", "VIPZoneFlag")
+    global FlagAndSprinklerDelay := IniRead("CQMSettings.ini", "ToggleSettings", "FlagAndSprinklerDelay")
+    global FruitsDelay := IniRead("CQMSettings.ini", "ToggleSettings", "FruitsDelay")
+    global TpWaitTime := IniRead("CQMSettings.ini", "ToggleSettings", "TpWaitTime")
     global UseUltimate := IniRead("CQMSettings.ini", "ToggleSettings", "UseUltimate")
-    global DelayBetweenItemUse := IniRead("CQMSettings.ini", "ToggleSettings", "DelayBetweenItemUse")
+    global UseFruits := IniRead("CQMSettings.ini", "ToggleSettings", "UseFruits")
 
     for QuestNum, __QuestPriority in QuestsPriority {
       QuestsPriority[QuestNum] := IniRead("CQMSettings.ini", "QuestsPriority", QuestNum)
@@ -426,6 +517,10 @@ LoadSettings() {
 
     for QuestNum, __IsQuestEnabled in EnabledQuests {
       EnabledQuests[QuestNum] := IniRead("CQMSettings.ini", "EnabledQuests", QuestNum)
+    }
+
+    for Item, ___Delay in ItemUseDelay {
+      ItemUseDelay[Item] := IniRead("CQMSettings.ini", "ItemUseDelay", Item)
     }
   } else {
     SaveSettings()
@@ -441,7 +536,17 @@ UpdateSettings(SumbitValues) {
   global CLANNAME := SumbitValues.CLANNAMEUIValue
   global AutoReconnectCheckDelay := SumbitValues.AutoReconnectCheckDelayUIValue
   global UseUltimate := SumbitValues.UseUltimateUIValue
-  global DelayBetweenItemUse := SumbitValues.DelayBetweenItemUseValue
+  global PlaceFlagsInFinalArea := SumbitValues.PlaceFlagsInFinalAreaUIValue
+  global PlaceFlagsInVIPArea := SumbitValues.PlaceFlagsInVIPAreaUIValue
+  global PlaceSpinklersInFinalArea := SumbitValues.PlaceSpinklersInFinalAreaUIValue
+  global PlaceSpinklersInVIPArea := SumbitValues.PlaceSpinklersInVIPAreaUIValue
+  global VIPZoneTNTFix := SumbitValues.VIPZoneTNTFixUIValue
+  global FinalZoneFlag := SumbitValues.FinalZoneFlagUIValue
+  global VIPZoneFlag := SumbitValues.VIPZoneFlagUIValue
+  global FlagAndSprinklerDelay := SumbitValues.FlagAndSprinklerDelayUIValue
+  global FruitsDelay := SumbitValues.FruitsDelayUIValue
+  global TpWaitTime := SumbitValues.TpWaitTimeUIValue
+  global UseFruits := SumbitValues.UseFruitsUIValue
 
   FixedSubmitValues := ObjToMap(SumbitValues)
 
@@ -451,6 +556,10 @@ UpdateSettings(SumbitValues) {
 
   for QuestNum, __IsQuestEnabled in EnabledQuests {
     EnabledQuests[QuestNum] := FixedSubmitValues[QuestNum "EnabledUIValue"]
+  }
+
+  for Item, Delay in ItemUseDelay {
+    ItemUseDelay[Item] := FixedSubmitValues[StrReplace(Item, " ", "") "UseDelayUIValue"]
   }
 }
 
@@ -463,7 +572,17 @@ SaveSettings() {
   IniWrite(CLANNAME, "CQMSettings.ini", "ToggleSettings", "CLANNAME")
   IniWrite(AutoReconnectCheckDelay, "CQMSettings.ini", "ToggleSettings", "AutoReconnectCheckDelay")
   IniWrite(UseUltimate, "CQMSettings.ini", "ToggleSettings", "UseUltimate")
-  IniWrite(DelayBetweenItemUse, "CQMSettings.ini", "ToggleSettings", "DelayBetweenItemUse")
+  IniWrite(PlaceFlagsInFinalArea, "CQMSettings.ini", "ToggleSettings", "PlaceFlagsInFinalArea")
+  IniWrite(PlaceFlagsInVIPArea, "CQMSettings.ini", "ToggleSettings", "PlaceFlagsInVIPArea")
+  IniWrite(PlaceSpinklersInFinalArea, "CQMSettings.ini", "ToggleSettings", "PlaceSpinklersInFinalArea")
+  IniWrite(PlaceSpinklersInVIPArea, "CQMSettings.ini", "ToggleSettings", "PlaceSpinklersInVIPArea")
+  IniWrite(VIPZoneTNTFix, "CQMSettings.ini", "ToggleSettings", "VIPZoneTNTFix")
+  IniWrite(FinalZoneFlag, "CQMSettings.ini", "ToggleSettings", "FinalZoneFlag")
+  IniWrite(VIPZoneFlag, "CQMSettings.ini", "ToggleSettings", "VIPZoneFlag")
+  IniWrite(FlagAndSprinklerDelay, "CQMSettings.ini", "ToggleSettings", "FlagAndSprinklerDelay")
+  IniWrite(FruitsDelay, "CQMSettings.ini", "ToggleSettings", "FruitsDelay")
+  IniWrite(TpWaitTime, "CQMSettings.ini", "ToggleSettings", "TpWaitTime")
+  IniWrite(UseFruits, "CQMSettings.ini", "ToggleSettings", "UseFruits")
 
   for QuestNum, QuestPriorityNum in QuestsPriority {
     IniWrite(QuestPriorityNum, "CQMSettings.ini", "QuestsPriority", QuestNum)
@@ -472,6 +591,10 @@ SaveSettings() {
   for QuestNum, Enabler in EnabledQuests {
     IniWrite(Enabler, "CQMSettings.ini", "EnabledQuests", QuestNum)
   }
+
+  for Item, Delay in ItemUseDelay {
+    IniWrite(Delay, "CQMSettings.ini", "ItemUseDelay", Item)
+  } 
   
   IniWrite(VersionNum, "VersionSettings.ini", "Version", "Interesting")
 }
@@ -496,6 +619,45 @@ MoveToFinalZone() {
     Sleep(650)
     SendEvent "{S Up}"
     global CurrentZone := "149"
+    if A_TickCount - FZfandsLastUsage >= FlagAndSprinklerDelay and (PlaceFlagsInFinalArea or PlaceSpinklersInFinalArea) {
+      global FZfandsLastUsage := A_TickCount
+      Sleep(200)
+      SendEvent "{Click, 968, 929, 1}"
+      Sleep(1000)
+      SendEvent "{Click, 414, 395, 1}"
+      Sleep(300)
+      if PlaceFlagsInFinalArea { 
+        UseItemTillFailure(FinalZoneFlag)
+      }
+      Sleep(200)
+      if PlaceSpinklersInFinalArea {
+        UseItemTillFailure("Sprinkler")
+      }
+      Sleep(200)
+      if A_TickCount - FruitLastUsage >= FruitsDelay and UseFruits {
+        for FruitNum, Fruit in FruitsArray {
+          UseItemTillFailure(Fruit)
+        }
+        global FruitLastUsage := A_TickCount
+      }
+      Sleep(200)
+      SendEvent "{Click, 1469, 253, 1}"
+      Sleep(30)
+    } else if A_TickCount - FruitLastUsage >= FruitsDelay and UseFruits {
+      Sleep(200)
+      SendEvent "{Click, 968, 929, 1}"
+      Sleep(1000)
+      SendEvent "{Click, 414, 395, 1}"
+      Sleep(300)
+      for FruitNum, Fruit in FruitsArray {
+        UseItemTillFailure(Fruit)
+      }
+      global FruitLastUsage := A_TickCount
+      Sleep(200)
+      SendEvent "{Click, 1469, 253, 1}"
+      Sleep(30)
+    }
+
 }
 MoveToVipArea() {
     OddXCheck()
@@ -528,6 +690,44 @@ MoveToVipArea() {
     Sleep(2000)
     SendEvent "{A Up}"
     global CurrentZone := "100"
+    if A_TickCount - DZfandsLastUsage >= FlagAndSprinklerDelay and (PlaceFlagsInVIPArea or PlaceSpinklersInVIPArea) {
+      global DZfandsLastUsage := A_TickCount
+      Sleep(200)
+      SendEvent "{Click, 968, 929, 1}"
+      Sleep(1000)
+      SendEvent "{Click, 414, 395, 1}"
+      Sleep(300)
+      if PlaceFlagsInVIPArea {
+        UseItemTillFailure(VIPZoneFlag)
+      }
+      Sleep(200)
+      if PlaceSpinklersInVIPArea {
+        UseItemTillFailure("Sprinkler")
+      }
+      Sleep(200)
+      if A_TickCount - FruitLastUsage >= FruitsDelay and UseFruits {
+        for FruitNum, Fruit in FruitsArray {
+          UseItemTillFailure(Fruit)
+        }
+        global FruitLastUsage := A_TickCount
+      }
+      Sleep(200)
+      SendEvent "{Click, 1469, 253, 1}"
+      Sleep(30)
+    } else if A_TickCount - FruitLastUsage >= FruitsDelay and UseFruits {
+      Sleep(200)
+      SendEvent "{Click, 968, 929, 1}"
+      Sleep(1000)
+      SendEvent "{Click, 414, 395, 1}"
+      Sleep(300)
+      for FruitNum, Fruit in FruitsArray {
+        UseItemTillFailure(Fruit)
+      }
+      global FruitLastUsage := A_TickCount
+      Sleep(200)
+      SendEvent "{Click, 1469, 253, 1}"
+      Sleep(30)
+    }
 }
 MoveToBestEgg() {
     OddXCheck()
@@ -744,6 +944,12 @@ hatcheg() {
   Sleep(2000)
   SendEvent "{W Up}"
   Sleep(500)
+
+  loop 30 {
+    SendEvent "{Click, 1866, 823, 1}"
+    Sleep(100)
+  }
+  Sleep(500)
 }
 
 ; Idknames anymreo Rahhhhhh
@@ -774,7 +980,7 @@ QuestFunction() {
           MoveToFinalZone()
           EnableAutoFarm()
         }
-        MultipleUseItem(StrSplit(StrSplit(QuestToMulti, ":")[2], "|"), DelayBetweenItemUse)
+        MultipleUseItemLess(StrSplit(StrSplit(QuestToMulti, ":")[2], "|"))
         Sleep(400)
         OddXCheck()
         continue
@@ -785,7 +991,7 @@ QuestFunction() {
           MoveToFinalZone()
           EnableAutoFarm()
         }
-        UseItem(StrSplit(QuestToMulti, ":")[2], DelayBetweenItemUse)
+        UseItemLess(StrSplit(QuestToMulti, ":")[2])
         Sleep(400)
         OddXCheck()
         continue
@@ -833,6 +1039,7 @@ QuestFunction() {
           Escape()
           MoveToVipArea()
           EnableAutoFarm()
+          BlowUpAndDie()
           Escape()
           if WhatEggQuest = "9" {
             MoveToBestEgg()
@@ -876,7 +1083,7 @@ QuestFunction() {
           MoveToFinalZone()
           EnableAutoFarm()
         }
-        UseItem("Basic Coin Jar", DelayBetweenItemUse)
+        UseItemLess("Basic Coin Jar")
         Sleep(400)
         OddXCheck
       }
@@ -886,7 +1093,7 @@ QuestFunction() {
           MoveToFinalZone()
           EnableAutoFarm()
         }
-        UseItem("Comet", DelayBetweenItemUse)
+        UseItemLess("Comet")
         Sleep(400)
         OddXCheck
       }
@@ -896,7 +1103,7 @@ QuestFunction() {
           MoveToFinalZone()
           EnableAutoFarm()
         }
-        UseItem("piñata", DelayBetweenItemUse)
+        UseItemLess("piñata")
         Sleep(400)
         OddXCheck
       }
@@ -906,7 +1113,7 @@ QuestFunction() {
           MoveToFinalZone()
           EnableAutoFarm()
         }
-        UseItem("Lucky Block", DelayBetweenItemUse)
+        UseItemLess("Lucky Block")
         Sleep(400)
         OddXCheck
       }
@@ -1005,6 +1212,7 @@ QuestFunction() {
             QuestsHaveChanged := GetQuests()
             A_GetQuestsTimer := A_TickCount
             if QuestsHaveChanged {
+              BlowUpAndDie()
               break
             }
           }
@@ -1072,12 +1280,21 @@ EnableAutoFarm() {
   }
 }
 
+BlowUpAndDie() {
+  Sleep(200)
+  SendEvent "{Click, 968, 929, 1}"
+  Sleep(1000)
+  SendEvent "{Click, 414, 395, 1}"
+  Sleep(300)
+  UseItemSingular("tnt crate")
+  Sleep(200)
+  SendEvent "{Click, 1469, 253, 1}"
+  Sleep(30)
+}
+
+; Outdated
 UseItem(ItemName, DelayBetween) { 
-    OddXCheck()
-    Sleep(200)
-    SendEvent "{Click, 968, 929, 1}"
-    Sleep(1000)
-    SendEvent "{Click, 414, 395, 1}"
+
     A_GetQuestsTimer := A_TickCount
     loop {
         if A_TickCount - A_GetQuestsTimer >= QuestAPICallDelay {
@@ -1116,109 +1333,7 @@ UseItem(ItemName, DelayBetween) {
     }
 }
 
-; Ported from MMv2
-UseItemTillFailure(ItemName)
-{
-    SendEvent "{Click, 1300, 260, 1}"
-    Sleep(450)
-    SendText ItemName
-    Sleep(650)
-    ColorToFind := PixelGetColor(520, 410)
-
-    ItemCheckTimer := A_TickCount
-    LastTimerReCheck := A_TickCount
-    MaxLoopTime := A_TickCount
-    WhiteOverCheck := 0
-
-
-    Sleep(100)
-    loop
-    {
-        CheckTimeVariable := A_TickCount - ItemCheckTimer
-        MaxCheckTimeVariable := A_tickCount - MaxLoopTime
-
-        if CheckTimeVariable >= 5000 {
-            Break
-        }
-
-        if MaxCheckTimeVariable >= 25000 {
-            Break
-        }
-
-        if not PixelSearch(&u,&u,1450-20, 280-20, 1450+20, 280+20, 0xFF0B4D, 10) {
-            Sleep(200)
-            OutputDebug("`n Failed Finding X")
-            if PixelSearch(&u,&u,958, 538, 976, 550, 0x9AAFD2, 15) {
-                Sleep(300)
-                SendEvent "{Click, " A_ScreenWidth/2 ", 735, 1}"
-                Sleep(300)
-                OutputDebug("`n Cat")
-                Break
-            } else {
-              SendEvent "{Click, 1494, 235, 1}"
-              Sleep(300)
-              SendEvent "{Click, 1311, 258, 1}"
-                Sleep(100)
-                SendEvent "{Click, %HalfX%, %lby2%, 1}"
-                Sleep(1000)
-                SendEvent "{Click, %BackPackX%, %BackPackY%, 1}"
-                Sleep(2000)
-                ItemCheckTimer += 3000
-                MaxCheckTimeVariable += 3000
-                OutputDebug("`n No Cat?")
-            }
-        }
-
-        if PixelSearch(&u,&u,500, 390, 540, 430, ColorToFind, 10) {
-          OutputDebug("`n FoundFunny")
-            if not PixelSearch(&u,&u,520, 410, 520, 410, 0xFFFFFF, 2)
-            {
-              OutputDebug("`n Clikgin")
-                SendEvent "{Click, 520, 410, 1}"
-                ItemCheckTimer := A_TickCount
-            } else {
-                WhiteOverCheck += 1
-                OutputDebug("`n THEWHITE")
-
-                if (WhiteOverCheck >= 3)
-                {
-                    SendEvent "{Click, " A_ScreenWidth/2 ", 40, 1}"
-                    Break
-                }
-            }
-        } else {
-          OutputDebug("`n Not FInd Funny")
-            if PixelSearch(&u,&u,958, 538, 976, 550, 0x9AAFD2, 15) {
-                Sleep(300)
-                SendEvent "{Click, " A_ScreenWidth/2 ", 735, 1}"
-                Sleep(300)
-                OutputDebug("`n Cat23")
-                Break
-            } else {
-                ReTypeCheck := A_TickCount - LastTimerReCheck
-                if ReTypeCheck >= 1500
-                {
-                    SendEvent " {Click, " A_ScreenWidth/2 ", 40, 1}"
-                    Sleep(650)
-                    SendEvent "{Click, 1300, 260, 1}"
-                    Sleep(650)
-                    SendText ItemName
-                    LastTimerReCheck := A_TickCount
-                    OutputDebug("`n idk")
-                }
-            }
-        }
-
-        if PixelSearch(&u,&u, 965-5, 560-5, 965+5, 560+5, 0x95AACD, 15) {
-            Sleep(300)
-            SendEvent "{Click, " A_ScreenWidth/2 ", 735, 1}"
-            Sleep(400)
-            Break
-        }
-    }
-}
-
-
+; Also Outdated
 MultipleUseItem(ItemArray, DelayBetween) { 
   OddXCheck()
   Sleep(200)
@@ -1262,6 +1377,477 @@ MultipleUseItem(ItemArray, DelayBetween) {
     Sleep(300)
     SendEvent "{Click, 1311, 258, 1}"
     OddXCheck()
+  }
+}
+
+; Ported from MMv2
+UseItemTillFailure(ItemName) {
+    SendEvent "{Click, 1300, 260, 1}"
+    Sleep(450)
+    SendText ItemName
+    Sleep(100)
+    ColorToFind := PixelGetColor(520, 410)
+
+    ItemCheckTimer := A_TickCount
+    LastTimerReCheck := A_TickCount
+    MaxLoopTime := A_TickCount
+    WhiteOverCheck := 0
+
+
+    Sleep(100)
+    loop
+    {
+        CheckTimeVariable := A_TickCount - ItemCheckTimer
+        MaxCheckTimeVariable := A_tickCount - MaxLoopTime
+
+        if CheckTimeVariable >= 5000 {
+            Break
+        }
+
+        if MaxCheckTimeVariable >= 25000 {
+            Break
+        }
+
+        if not PixelSearch(&u,&u,1450-20, 280-20, 1450+20, 280+20, 0xFF0B4D, 10) {
+            Sleep(200)
+            OutputDebug("`n Failed Finding X")
+            if PixelSearch(&u,&u,958, 538, 976, 550, 0x9AAFD2, 15) {
+                Sleep(300)
+                SendEvent "{Click, " A_ScreenWidth/2 ", 735, 1}"
+                Sleep(300)
+                OutputDebug("`n Cat")
+                Break
+            } else {
+              SendEvent "{Click, 1494, 235, 1}"
+              Sleep(300)
+              SendEvent "{Click, 1311, 258, 1}"
+              Sleep(100)
+              SendEvent "{Click, " A_ScreenWidth/2 ", 923, 1}"
+              Sleep(1000)
+              SendEvent "{Click, 414, 395, 1}"
+              Sleep(800)
+                ItemCheckTimer += 3000
+                MaxCheckTimeVariable += 3000
+                OutputDebug("`n No Cat?")
+            }
+        }
+
+        if PixelSearch(&u,&u,500, 390, 540, 430, ColorToFind, 10) {
+          OutputDebug("`n FoundFunny")
+            if not PixelSearch(&u,&u,520, 410, 520, 410, 0xFFFFFF, 2)
+            {
+              OutputDebug("`n Clikgin")
+                SendEvent "{Click, 520, 410, 1}"
+                ItemCheckTimer := A_TickCount
+            } else {
+                WhiteOverCheck += 1
+                OutputDebug("`n THEWHITE")
+
+                if (WhiteOverCheck >= 3)
+                {
+                    SendEvent "{Click, " A_ScreenWidth/2 ", 40, 1}"
+                    Break
+                }
+            }
+        } else {
+          OutputDebug("`n Not FInd Funny")
+            if PixelSearch(&u,&u,958, 538, 976, 550, 0x9AAFD2, 15) {
+                Sleep(20)
+                SendEvent "{Click, " A_ScreenWidth/2 ", 735, 1}"
+                Sleep(300)
+                OutputDebug("`n Cat23")
+                Break
+            } else {
+                ReTypeCheck := A_TickCount - LastTimerReCheck
+                if ReTypeCheck >= 1500
+                {
+                    SendEvent " {Click, " A_ScreenWidth/2 ", 40, 1}"
+                    Sleep(650)
+                    SendEvent "{Click, 1300, 260, 1}"
+                    Sleep(650)
+                    SendText ItemName
+                    LastTimerReCheck := A_TickCount
+                    OutputDebug("`n idk")
+                }
+            }
+        }
+
+        if PixelSearch(&u,&u, 965-5, 560-5, 965+5, 560+5, 0x95AACD, 15) {
+            Sleep(300)
+            SendEvent "{Click, " A_ScreenWidth/2 ", 735, 1}"
+            Sleep(400)
+            Break
+        }
+    }
+}
+
+; Reworked From UseItemTillFailure()
+UseItemLess(ItemName) {
+
+  Sleep(200)
+  SendEvent "{Click, 968, 929, 1}"
+  Sleep(1000)
+  SendEvent "{Click, 414, 395, 1}"
+  Sleep(500)
+
+  SendEvent "{Click, 1300, 260, 1}"
+  Sleep(450)
+  SendText ItemName
+  Sleep(100)
+  ColorToFind := PixelGetColor(520, 410)
+
+  ItemCheckTimer := A_TickCount
+  LastTimerReCheck := A_TickCount
+  MaxLoopTime := A_TickCount
+  A_GetQuestsTimer := A_TickCount
+  WhiteOverCheck := 0
+
+  CurrentUseItem := ItemName
+  A_GetQuestsTimer := A_TickCount
+
+    Sleep(100)
+    loop
+    {
+      SendEvent "{Click, 1300, 260, 1}"
+      Sleep(450)
+      SendText ItemName
+      Sleep(100)
+
+      if A_TickCount - A_GetQuestsTimer >= QuestAPICallDelay {
+        QuestsHaveChanged := GetQuests()
+        A_GetQuestsTimer := A_TickCount
+        if QuestsHaveChanged {
+          break
+        }
+      }
+
+        if not PixelSearch(&u,&u,1450-20, 280-20, 1450+20, 280+20, 0xFF0B4D, 10) {
+            Sleep(200)
+            OutputDebug("`n Failed Finding X")
+            if PixelSearch(&u,&u,958, 538, 976, 550, 0x9AAFD2, 15) {
+                Sleep(300)
+                SendEvent "{Click, " A_ScreenWidth/2 ", 735, 1}"
+                Sleep(300)
+            } else {
+              SendEvent "{Click, 1494, 235, 1}"
+              Sleep(300)
+              SendEvent "{Click, 1311, 258, 1}"
+              Sleep(100)
+              SendEvent "{Click, " A_ScreenWidth/2 ", 923, 1}"
+              Sleep(1000)
+              SendEvent "{Click, 414, 395, 1}"
+              Sleep(800)
+              OutputDebug("`n No Cat?")
+            }
+        }
+
+        if PixelSearch(&u,&u,500, 390, 540, 430, ColorToFind, 10) {
+          OutputDebug("`n FoundFunny")
+            if not PixelSearch(&u,&u,520, 410, 520, 410, 0xFFFFFF, 2)
+            {
+              OutputDebug("`n Clikgin")
+                SendEvent "{Click, 520, 410, 1}"
+                Sleep(400)
+                
+                if not PixelSearch(&u,&u,1450-20, 280-20, 1450+20, 280+20, 0xFF0B4D, 10) {
+                  Sleep(200)
+                  OutputDebug("`n Failed Finding X")
+                  if PixelSearch(&u,&u,958, 538, 976, 550, 0x9AAFD2, 15) {
+                      Sleep(300)
+                      SendEvent "{Click, " A_ScreenWidth/2 ", 735, 1}"
+                      Sleep(300)
+                  } else {
+                    SendEvent "{Click, 1494, 235, 1}"
+                    Sleep(300)
+                    SendEvent "{Click, 1311, 258, 1}"
+                    Sleep(100)
+                    SendEvent "{Click, " A_ScreenWidth/2 ", 923, 1}"
+                    Sleep(1000)
+                    SendEvent "{Click, 414, 395, 1}"
+                    Sleep(800)
+                    OutputDebug("`n No Cat?")
+                  }
+              }
+
+                Sleep(ItemUseDelay[CurrentUseItem]-400)
+            } else {
+                WhiteOverCheck += 1
+                OutputDebug("`n THEWHITE")
+
+                if WhiteOverCheck >= 3
+                {
+                    SendEvent "{Click, " A_ScreenWidth/2 ", 40, 1}"
+                    CurrentUseItem := "Party Box"
+                    OutputDebug("Switching To Party Box")
+                }
+            }
+        } else {
+          OutputDebug("`n Not FInd Funny")
+            if PixelSearch(&u,&u,958, 538, 976, 550, 0x9AAFD2, 15) {
+                Sleep(20)
+                SendEvent "{Click, " A_ScreenWidth/2 ", 735, 1}"
+                Sleep(300)
+                OutputDebug("`n Cat23")
+            } else {
+                ReTypeCheck := A_TickCount - LastTimerReCheck
+                if ReTypeCheck >= 1500
+                {
+                    SendEvent " {Click, " A_ScreenWidth/2 ", 40, 1}"
+                    Sleep(650)
+                    SendEvent "{Click, 1300, 260, 1}"
+                    Sleep(650)
+                    SendText ItemName
+                    LastTimerReCheck := A_TickCount
+                    OutputDebug("`n idk")
+                }
+            }
+        }
+
+        if PixelSearch(&u,&u, 965-5, 560-5, 965+5, 560+5, 0x95AACD, 15) {
+            Sleep(300)
+            SendEvent "{Click, " A_ScreenWidth/2 ", 735, 1}"
+            Sleep(400)
+        }
+    }
+    Sleep(200)
+    SendEvent "{Click, 1469, 253, 1}"
+    Sleep(30)
+}
+
+; Reworked From UseItemLess()
+MultipleUseItemLess(ItemArray) {
+  Sleep(200)
+  SendEvent "{Click, 968, 929, 1}"
+  Sleep(1000)
+  SendEvent "{Click, 414, 395, 1}"
+  Sleep(500)
+  A_GetQuestsTimer := A_TickCount
+
+  ArrayToUse := ItemArray
+  WhiteOverCheck := 0
+
+    Sleep(100)
+    loop
+    {
+
+      OutputDebug(A_TickCount - A_GetQuestsTimer "`n")
+      OutputDebug(QuestAPICallDelay "`n")
+      if A_TickCount - A_GetQuestsTimer >= QuestAPICallDelay {
+        QuestsHaveChanged := GetQuests()
+        A_GetQuestsTimer := A_TickCount
+        if QuestsHaveChanged {
+          break
+        }
+      }
+
+        for ItemNum, ItemToUse in ArrayToUse {          
+            if not PixelSearch(&u,&u,1450-20, 280-20, 1450+20, 280+20, 0xFF0B4D, 10) {
+              Sleep(200)
+              OutputDebug("`n Failed Finding X")
+              if PixelSearch(&u,&u,958, 538, 976, 550, 0x9AAFD2, 15) {
+                  Sleep(300)
+                  SendEvent "{Click, " A_ScreenWidth/2 ", 735, 1}"
+                  Sleep(300)
+              } else {
+                SendEvent "{Click, 1494, 235, 1}"
+                Sleep(300)
+                SendEvent "{Click, 1311, 258, 1}"
+                Sleep(100)
+                SendEvent "{Click, " A_ScreenWidth/2 ", 923, 1}"
+                Sleep(600)
+                SendEvent "{Click, 414, 395, 1}"
+                Sleep(600)
+                OutputDebug("`n No Cat?")
+              }
+          }
+
+          SendEvent "{Click, 1300, 260, 1}"
+          Sleep(450)
+          SendText ItemToUse
+          Sleep(100)
+          ColorToFind := PixelGetColor(520, 410)
+        
+          if PixelSearch(&u,&u,500, 390, 540, 430, ColorToFind, 10) {
+            OutputDebug("`n FoundFunny")
+              if not PixelSearch(&u,&u,520, 410, 520, 410, 0xFFFFFF, 2)
+              {
+                OutputDebug("`n Clikgin")
+                  SendEvent "{Click, 520, 410, 1}"
+                  ItemCheckTimer := A_TickCount
+
+                  Sleep(400)
+                  if not PixelSearch(&u,&u,1450-20, 280-20, 1450+20, 280+20, 0xFF0B4D, 10) {
+                    Sleep(200)
+                    OutputDebug("`n Failed Finding X")
+                    if PixelSearch(&u,&u,958, 538, 976, 550, 0x9AAFD2, 15) {
+                        Sleep(300)
+                        SendEvent "{Click, " A_ScreenWidth/2 ", 735, 1}"
+                        Sleep(300)
+                    } else {
+                      SendEvent "{Click, 1494, 235, 1}"
+                      Sleep(300)
+                      SendEvent "{Click, 1311, 258, 1}"
+                      Sleep(100)
+                      SendEvent "{Click, " A_ScreenWidth/2 ", 923, 1}"
+                      Sleep(1000)
+                      SendEvent "{Click, 414, 395, 1}"
+                      Sleep(800)
+                      OutputDebug("`n No Cat?")
+                    }
+                }
+
+                  Sleep(ItemUseDelay[ItemToUse]-400)
+              } else {
+                  global WhiteOverCheck += 1
+                  SendEvent "{Click, " A_ScreenWidth/2 ", 40, 1}"
+                  Sleep(100)
+                  OutputDebug("`n THEWHITE")
+
+                  if WhiteOverCheck >= 3 {
+                      SendEvent "{Click, " A_ScreenWidth/2 ", 40, 1}"
+                      if ItemNum = 1 and ItemToUse != "Party Box" {
+                        HoldValue := ArrayToUse[2]
+                        ArrayToUse := ["Party Box", HoldValue]
+                      }
+                      if ItemNum = 2 and ItemToUse != "Party Box" {
+                        HoldValue := ArrayToUse[1]
+                        ArrayToUse := [HoldValue, "Party Box"]
+                      }
+                      WhiteOverCheck := 0
+                  }
+              }
+          } else {
+            OutputDebug("`n Not FInd Funny")
+              if PixelSearch(&u,&u,958, 538, 976, 550, 0x9AAFD2, 15) {
+                  Sleep(20)
+                  SendEvent "{Click, " A_ScreenWidth/2 ", 735, 1}"
+                  Sleep(300)
+                  OutputDebug("`n Cat23")
+              } else {
+                  ReTypeCheck := A_TickCount - LastTimerReCheck
+                  if ReTypeCheck >= 1500
+                  {
+                      SendEvent " {Click, " A_ScreenWidth/2 ", 40, 1}"
+                      Sleep(650)
+                      SendEvent "{Click, 1300, 260, 1}"
+                      Sleep(650)
+                      SendText ItemToUse
+                      LastTimerReCheck := A_TickCount
+                      OutputDebug("`n idk")
+                  }
+              }
+          }
+
+          if PixelSearch(&u,&u, 965-5, 560-5, 965+5, 560+5, 0x95AACD, 15) {
+              Sleep(300)
+              SendEvent "{Click, " A_ScreenWidth/2 ", 735, 1}"
+              Sleep(400)
+          }
+        }
+    }
+    Sleep(200)
+    SendEvent "{Click, 1469, 253, 1}"
+    Sleep(30)
+}
+
+UseItemSingular(ItemName) {
+  SendEvent "{Click, 1300, 260, 1}"
+  Sleep(450)
+  SendText ItemName
+  Sleep(100)
+  ColorToFind := PixelGetColor(520, 410)
+
+  ItemCheckTimer := A_TickCount
+  LastTimerReCheck := A_TickCount
+  MaxLoopTime := A_TickCount
+  WhiteOverCheck := 0
+
+
+  Sleep(100)
+  loop
+  {
+      CheckTimeVariable := A_TickCount - ItemCheckTimer
+      MaxCheckTimeVariable := A_tickCount - MaxLoopTime
+
+      if CheckTimeVariable >= 5000 {
+          Break
+      }
+
+      if MaxCheckTimeVariable >= 25000 {
+          Break
+      }
+
+      if not PixelSearch(&u,&u,1450-20, 280-20, 1450+20, 280+20, 0xFF0B4D, 10) {
+          Sleep(200)
+          OutputDebug("`n Failed Finding X")
+          if PixelSearch(&u,&u,958, 538, 976, 550, 0x9AAFD2, 15) {
+              Sleep(300)
+              SendEvent "{Click, " A_ScreenWidth/2 ", 735, 1}"
+              Sleep(300)
+              OutputDebug("`n Cat")
+              Break
+          } else {
+            SendEvent "{Click, 1494, 235, 1}"
+            Sleep(300)
+            SendEvent "{Click, 1311, 258, 1}"
+            Sleep(100)
+            SendEvent "{Click, " A_ScreenWidth/2 ", 923, 1}"
+            Sleep(1000)
+            SendEvent "{Click, 414, 395, 1}"
+            Sleep(800)
+              ItemCheckTimer += 3000
+              MaxCheckTimeVariable += 3000
+              OutputDebug("`n No Cat?")
+          }
+      }
+
+      if PixelSearch(&u,&u,500, 390, 540, 430, ColorToFind, 10) {
+        OutputDebug("`n FoundFunny")
+          if not PixelSearch(&u,&u,520, 410, 520, 410, 0xFFFFFF, 2)
+          {
+            OutputDebug("`n Clikgin")
+              SendEvent "{Click, 520, 410, 1}"
+              ItemCheckTimer := A_TickCount
+              break
+          } else {
+              WhiteOverCheck += 1
+              OutputDebug("`n THEWHITE")
+
+              if (WhiteOverCheck >= 3)
+              {
+                  SendEvent "{Click, " A_ScreenWidth/2 ", 40, 1}"
+                  Break
+              }
+          }
+      } else {
+        OutputDebug("`n Not FInd Funny")
+          if PixelSearch(&u,&u,958, 538, 976, 550, 0x9AAFD2, 15) {
+              Sleep(20)
+              SendEvent "{Click, " A_ScreenWidth/2 ", 735, 1}"
+              Sleep(300)
+              OutputDebug("`n Cat23")
+              Break
+          } else {
+              ReTypeCheck := A_TickCount - LastTimerReCheck
+              if ReTypeCheck >= 1500
+              {
+                  SendEvent " {Click, " A_ScreenWidth/2 ", 40, 1}"
+                  Sleep(650)
+                  SendEvent "{Click, 1300, 260, 1}"
+                  Sleep(650)
+                  SendText ItemName
+                  LastTimerReCheck := A_TickCount
+                  OutputDebug("`n idk")
+              }
+          }
+      }
+
+      if PixelSearch(&u,&u, 965-5, 560-5, 965+5, 560+5, 0x95AACD, 15) {
+          Sleep(300)
+          SendEvent "{Click, " A_ScreenWidth/2 ", 735, 1}"
+          Sleep(400)
+          Break
+      }
   }
 }
 
@@ -1492,8 +2078,6 @@ whr.Send()
 whr.WaitForResponse()
 AllowedLeaders := SubStr(whr.ResponseText, 1, 29)
 
- 
-FruitsArray := ["Apple", "Banana", "Orange", "Pineapple", "Rainbow Fruit", "Watermelon"]
 
 F3::{
     if MacroCanWork3 {
@@ -1524,9 +2108,14 @@ F3::{
 
 F5::{
   MsgBox("Debug For V1.045:`nQuest3: " QuestsToText[Q3] "`nQuest4: " QuestsToText[Q4] "`nLastQuestUpdateTime: " Round(((A_TickCount - LQUT)/1000)) "`nCurrentQuest: " CurrentQuest)
-  ; Sleep(200)
-  ; SendEvent "{Click, 968, 929, 1}"
-  ; Sleep(400)
+  ; ; Sleep(200)
+  ; ; SendEvent "{Click, 968, 929, 1}"
+  ; ; Sleep(400)
+  ; global Q3 := "1"
+  ; global Q4 := "1"
+  ; global LQ3 := "1"
+  ; global LQ4 := "1"
+  ; global QuestAPICallDelay := 1203986236
 }
 
 
