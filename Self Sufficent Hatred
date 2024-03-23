@@ -754,6 +754,12 @@ QuestFunction() {
   if LQ3 != Q3 or LQ4 != Q4 {
   GetQuests()
   }
+
+  if A_TickCount - A_GetQuestsTimer >= QuestAPICallDelay {
+    GetQuests()
+    global A_GetQuestsTimer := A_TickCount
+  }
+
   ReconnectTickTime := A_TickCount
   loop {
     if (A_TickCount - ReconnectTickTime) >= AutoReconnectCheckDelay {
@@ -1112,6 +1118,109 @@ UseItem(ItemName, DelayBetween) {
     }
 }
 
+; Ported from MMv2
+UseItemTillFailure(ItemName)
+{
+    SendEvent "{Click, 1300, 260, 1}"
+    Sleep(450)
+    SendText ItemName
+    Sleep(650)
+    ColorToFind := PixelGetColor(520, 410)
+
+    ItemCheckTimer := A_TickCount
+    LastTimerReCheck := A_TickCount
+    MaxLoopTime := A_TickCount
+    WhiteOverCheck := 0
+
+
+    Sleep(100)
+    loop
+    {
+        CheckTimeVariable := A_TickCount - ItemCheckTimer
+        MaxCheckTimeVariable := A_tickCount - MaxLoopTime
+
+        if CheckTimeVariable >= 5000 {
+            Break
+        }
+
+        if MaxCheckTimeVariable >= 25000 {
+            Break
+        }
+
+        if not PixelSearch(&u,&u,1450-20, 280-20, 1450+20, 280+20, 0xFF0B4D, 10) {
+            Sleep(200)
+            OutputDebug("`n Failed Finding X")
+            if PixelSearch(&u,&u,958, 538, 976, 550, 0x9AAFD2, 15) {
+                Sleep(300)
+                SendEvent "{Click, " A_ScreenWidth/2 ", 735, 1}"
+                Sleep(300)
+                OutputDebug("`n Cat")
+                Break
+            } else {
+              SendEvent "{Click, 1494, 235, 1}"
+              Sleep(300)
+              SendEvent "{Click, 1311, 258, 1}"
+                Sleep(100)
+                SendEvent "{Click, %HalfX%, %lby2%, 1}"
+                Sleep(1000)
+                SendEvent "{Click, %BackPackX%, %BackPackY%, 1}"
+                Sleep(2000)
+                ItemCheckTimer += 3000
+                MaxCheckTimeVariable += 3000
+                OutputDebug("`n No Cat?")
+            }
+        }
+
+        if PixelSearch(&u,&u,500, 390, 540, 430, ColorToFind, 10) {
+          OutputDebug("`n FoundFunny")
+            if not PixelSearch(&u,&u,520, 410, 520, 410, 0xFFFFFF, 2)
+            {
+              OutputDebug("`n Clikgin")
+                SendEvent "{Click, 520, 410, 1}"
+                ItemCheckTimer := A_TickCount
+            } else {
+                WhiteOverCheck += 1
+                OutputDebug("`n THEWHITE")
+
+                if (WhiteOverCheck >= 3)
+                {
+                    SendEvent "{Click, " A_ScreenWidth/2 ", 40, 1}"
+                    Break
+                }
+            }
+        } else {
+          OutputDebug("`n Not FInd Funny")
+            if PixelSearch(&u,&u,958, 538, 976, 550, 0x9AAFD2, 15) {
+                Sleep(300)
+                SendEvent "{Click, " A_ScreenWidth/2 ", 735, 1}"
+                Sleep(300)
+                OutputDebug("`n Cat23")
+                Break
+            } else {
+                ReTypeCheck := A_TickCount - LastTimerReCheck
+                if ReTypeCheck >= 1500
+                {
+                    SendEvent " {Click, " A_ScreenWidth/2 ", 40, 1}"
+                    Sleep(650)
+                    SendEvent "{Click, 1300, 260, 1}"
+                    Sleep(650)
+                    SendText ItemName
+                    LastTimerReCheck := A_TickCount
+                    OutputDebug("`n idk")
+                }
+            }
+        }
+
+        if PixelSearch(&u,&u, 965-5, 560-5, 965+5, 560+5, 0x95AACD, 15) {
+            Sleep(300)
+            SendEvent "{Click, " A_ScreenWidth/2 ", 735, 1}"
+            Sleep(400)
+            Break
+        }
+    }
+}
+
+
 MultipleUseItem(ItemArray, DelayBetween) { 
   OddXCheck()
   Sleep(200)
@@ -1362,30 +1471,31 @@ TestForReconnect() {
 
  
 
-whr := ComObject("WinHttp.WinHttpRequest.5.1")
-whr.Open("GET", "https://raw.githubusercontent.com/SimplyJustBased/MacroShenanigans/main/ps.ahk", true)
+; whr := ComObject("WinHttp.WinHttpRequest.5.1")
+; whr.Open("GET", "https://raw.githubusercontent.com/SimplyJustBased/MacroShenanigans/main/ps.ahk", true)
  
-whr.Send()
-whr.WaitForResponse()
-CurretPassword := whr.ResponseText
+; whr.Send()
+; whr.WaitForResponse()
+; CurretPassword := whr.ResponseText
 
-MyGui := Gui(, "Password Required")
-MyGui.Opt("-SysMenu +AlwaysOnTop")
-MyGui.Add("Text",,"Password:")
-MyGui.Add("Edit","w150 vPassword ym")
-MyGui.Add("Button","Default", "Sumbit").OnEvent("Click", CheckPassword)
-MyGui.Add("Button","Default yp", "Cancel").OnEvent("Click", CloseGui)
-MyGui.OnEvent("Close", CheckPassword)
-MyGui.Show()
+; ; MyGui := Gui(, "Password Required")
+; ; MyGui.Opt("-SysMenu +AlwaysOnTop")
+; ; MyGui.Add("Text",,"Password:")
+; ; MyGui.Add("Edit","w150 vPassword ym")
+; ; MyGui.Add("Button","Default", "Sumbit").OnEvent("Click", CheckPassword)
+; ; MyGui.Add("Button","Default yp", "Cancel").OnEvent("Click", CloseGui)
+; ; MyGui.OnEvent("Close", CheckPassword)
+; ; MyGui.Show()
 
-whr := ComObject("WinHttp.WinHttpRequest.5.1")
-whr.Open("GET", "https://raw.githubusercontent.com/evilevilman/chestsethjsiethaiusohosierhoisrehg/main/lead", true)
+; whr := ComObject("WinHttp.WinHttpRequest.5.1")
+; whr.Open("GET", "https://raw.githubusercontent.com/evilevilman/chestsethjsiethaiusohosierhoisrehg/main/lead", true)
  
-whr.Send()
-whr.WaitForResponse()
-AllowedLeaders := SubStr(whr.ResponseText, 1, 29)
+; whr.Send()
+; whr.WaitForResponse()
+; AllowedLeaders := SubStr(whr.ResponseText, 1, 29)
 
  
+FruitsArray := ["Apple", "Banana", "Orange", "Pineapple", "Rainbow Fruit", "Watermelon"]
 
 F3::{
     if MacroCanWork3 {
@@ -1415,10 +1525,17 @@ F3::{
 }
 
 F5::{
-  MsgBox("Debug For V1.045:`nQuest3: " QuestsToText[Q3] "`nQuest4: " QuestsToText[Q4] "`nLastQuestUpdateTime: " Round(((A_TickCount - LQUT)/1000)) "`nCurrentQuest: " CurrentQuest)
+  ;MsgBox("Debug For V1.045:`nQuest3: " QuestsToText[Q3] "`nQuest4: " QuestsToText[Q4] "`nLastQuestUpdateTime: " Round(((A_TickCount - LQUT)/1000)) "`nCurrentQuest: " CurrentQuest)
+  ; Sleep(200)
+  ; SendEvent "{Click, 968, 929, 1}"
+  ; Sleep(400)
+  for FruitNum, FruitName in FruitsArray {
+    UseItemTillFailure(FruitName)
+  }
+
 }
 
- 
+
 
 Highlight(x?, y?, w?, h?, showTime:=0, color:="ff0000", d:=2) {
     static guis := []
