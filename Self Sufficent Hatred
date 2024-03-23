@@ -1471,28 +1471,28 @@ TestForReconnect() {
 
  
 
-; whr := ComObject("WinHttp.WinHttpRequest.5.1")
-; whr.Open("GET", "https://raw.githubusercontent.com/SimplyJustBased/MacroShenanigans/main/ps.ahk", true)
+whr := ComObject("WinHttp.WinHttpRequest.5.1")
+whr.Open("GET", "https://raw.githubusercontent.com/SimplyJustBased/MacroShenanigans/main/ps.ahk", true)
  
-; whr.Send()
-; whr.WaitForResponse()
-; CurretPassword := whr.ResponseText
+whr.Send()
+whr.WaitForResponse()
+CurretPassword := whr.ResponseText
 
-; ; MyGui := Gui(, "Password Required")
-; ; MyGui.Opt("-SysMenu +AlwaysOnTop")
-; ; MyGui.Add("Text",,"Password:")
-; ; MyGui.Add("Edit","w150 vPassword ym")
-; ; MyGui.Add("Button","Default", "Sumbit").OnEvent("Click", CheckPassword)
-; ; MyGui.Add("Button","Default yp", "Cancel").OnEvent("Click", CloseGui)
-; ; MyGui.OnEvent("Close", CheckPassword)
-; ; MyGui.Show()
+; MyGui := Gui(, "Password Required")
+; MyGui.Opt("-SysMenu +AlwaysOnTop")
+; MyGui.Add("Text",,"Password:")
+; MyGui.Add("Edit","w150 vPassword ym")
+; MyGui.Add("Button","Default", "Sumbit").OnEvent("Click", CheckPassword)
+; MyGui.Add("Button","Default yp", "Cancel").OnEvent("Click", CloseGui)
+; MyGui.OnEvent("Close", CheckPassword)
+; MyGui.Show()
 
-; whr := ComObject("WinHttp.WinHttpRequest.5.1")
-; whr.Open("GET", "https://raw.githubusercontent.com/evilevilman/chestsethjsiethaiusohosierhoisrehg/main/lead", true)
+whr := ComObject("WinHttp.WinHttpRequest.5.1")
+whr.Open("GET", "https://raw.githubusercontent.com/evilevilman/chestsethjsiethaiusohosierhoisrehg/main/lead", true)
  
-; whr.Send()
-; whr.WaitForResponse()
-; AllowedLeaders := SubStr(whr.ResponseText, 1, 29)
+whr.Send()
+whr.WaitForResponse()
+AllowedLeaders := SubStr(whr.ResponseText, 1, 29)
 
  
 FruitsArray := ["Apple", "Banana", "Orange", "Pineapple", "Rainbow Fruit", "Watermelon"]
