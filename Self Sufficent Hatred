@@ -1626,6 +1626,7 @@ MultipleUseItemLess(ItemArray) {
   A_GetQuestsTimer := A_TickCount
   ReTypeCheck := A_TickCount
 
+  LastTimerReCheck := A_TickCount
   ArrayToUse := ItemArray
   WhiteOverCheck := 0
 
@@ -2053,6 +2054,19 @@ TestForReconnect() {
       }
     } 
   }
+  OutputDebug("H")
+  if PixelSearch(&u,&u,769, 433, 789, 453, 0x393B3D, 5) and PixelSearch(&u,&u,1115, 592, 1135, 612, 0xFFFFFF, 5)  {
+    SendEvent "{Click," PositionVariables["ReconnectButton"][1] "," PositionVariables["ReconnectButton"][2] ", 1}"
+    SendEvent "{Click," PositionVariables["ReconnectButton"][1] "," PositionVariables["ReconnectButton"][2] ", 1}"
+    SendEvent "{Click," PositionVariables["ReconnectButton"][1] "," PositionVariables["ReconnectButton"][2] ", 1}"
+    SendEvent "{Click," PositionVariables["ReconnectButton"][1] "," PositionVariables["ReconnectButton"][2] ", 1}"
+    loop {
+      Sleep(100)
+      if PixelSearch(&u,&u,PositionVariables["TpButtonRedPart"][1]-5,PositionVariables["TpButtonRedPart"][2]-5,PositionVariables["TpButtonRedPart"][1]+5,PositionVariables["TpButtonRedPart"][2]+5, 0x305D77, 15) {
+        return true
+      }
+    } 
+  }
   return false
 }
 
@@ -2111,14 +2125,15 @@ F3::{
 
 F5::{
   MsgBox("Debug For V1.045:`nQuest3: " QuestsToText[Q3] "`nQuest4: " QuestsToText[Q4] "`nLastQuestUpdateTime: " Round(((A_TickCount - LQUT)/1000)) "`nCurrentQuest: " CurrentQuest)
-  ; ; Sleep(200)
-  ; ; SendEvent "{Click, 968, 929, 1}"
-  ; ; Sleep(400)
-  ; global Q3 := "1"
-  ; global Q4 := "1"
-  ; global LQ3 := "1"
-  ; global LQ4 := "1"
-  ; global QuestAPICallDelay := 1203986236
+  ; ; ; Sleep(200)
+  ; ; ; SendEvent "{Click, 968, 929, 1}"
+  ; ; ; Sleep(400)
+  ; ; global Q3 := "1"
+  ; ; global Q4 := "1"
+  ; ; global LQ3 := "1"
+  ; ; global LQ4 := "1"
+  ; ; global QuestAPICallDelay := 1203986236
+  ; TestForReconnect()
 }
 
 
