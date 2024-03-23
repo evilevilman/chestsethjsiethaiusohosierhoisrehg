@@ -116,7 +116,6 @@ ProfessionalQuestsMap["12"] := "-1" ; T3
 ProfessionalQuestsMap["45"] := "-1" ; Chests advanced digsite
 ProfessionalQuestsMap["13"] := "-1" ; what
 
-
 global TpWaitTime := 7000
 global FailedQuestWaitTime := 120000
 global TimeSpentOnQuest := 120000
@@ -749,26 +748,25 @@ hatcheg() {
 
 ; Idknames anymreo Rahhhhhh
 QuestFunction() {
-
-
+  SeperateQuestUpdateCheck := A_TickCount
   if LQ3 != Q3 or LQ4 != Q4 {
-  GetQuests()
-  }
-
-  if A_TickCount - A_GetQuestsTimer >= QuestAPICallDelay {
     GetQuests()
-    global A_GetQuestsTimer := A_TickCount
   }
 
   ReconnectTickTime := A_TickCount
   loop {
+
+    if A_TickCount - A_GetQuestsTimer >= QuestAPICallDelay {
+      GetQuests()
+      global A_GetQuestsTimer := A_TickCount
+    }
+
     if (A_TickCount - ReconnectTickTime) >= AutoReconnectCheckDelay {
       ReconnectTest()
       ReconnectTickTime := A_TickCount
     }
 
     QuestToMulti := QuestCheckForMulti()
-
     if QuestToMulti != "nil" and MultiTaskQuests {
       if InStr(QuestToMulti, "2Item") {
         global CurrentQuest := "MULTI:2ITEM"
@@ -1525,14 +1523,10 @@ F3::{
 }
 
 F5::{
-  ;MsgBox("Debug For V1.045:`nQuest3: " QuestsToText[Q3] "`nQuest4: " QuestsToText[Q4] "`nLastQuestUpdateTime: " Round(((A_TickCount - LQUT)/1000)) "`nCurrentQuest: " CurrentQuest)
+  MsgBox("Debug For V1.045:`nQuest3: " QuestsToText[Q3] "`nQuest4: " QuestsToText[Q4] "`nLastQuestUpdateTime: " Round(((A_TickCount - LQUT)/1000)) "`nCurrentQuest: " CurrentQuest)
   ; Sleep(200)
   ; SendEvent "{Click, 968, 929, 1}"
   ; Sleep(400)
-  for FruitNum, FruitName in FruitsArray {
-    UseItemTillFailure(FruitName)
-  }
-
 }
 
 
