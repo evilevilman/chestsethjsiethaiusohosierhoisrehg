@@ -1508,6 +1508,8 @@ UseItemLess(ItemName) {
     Sleep(100)
     loop
     {
+      SendEvent "{Click, " A_ScreenWidth/2 ", 40, 1}"
+      Sleep(300)
       SendEvent "{Click, 1300, 260, 1}"
       Sleep(450)
       SendText ItemName
@@ -1543,7 +1545,7 @@ UseItemLess(ItemName) {
 
         if PixelSearch(&u,&u,500, 390, 540, 430, ColorToFind, 10) {
           OutputDebug("`n FoundFunny")
-            if not PixelSearch(&u,&u,520, 410, 520, 410, 0xFFFFFF, 2)
+            if not PixelSearch(&u,&u, 484, 415, 484, 415, 0xFFFFFF, 2)
             {
               OutputDebug("`n Clikgin")
                 SendEvent "{Click, 520, 410, 1}"
@@ -1622,6 +1624,7 @@ MultipleUseItemLess(ItemArray) {
   SendEvent "{Click, 414, 395, 1}"
   Sleep(500)
   A_GetQuestsTimer := A_TickCount
+  ReTypeCheck := A_TickCount
 
   ArrayToUse := ItemArray
   WhiteOverCheck := 0
@@ -1669,7 +1672,7 @@ MultipleUseItemLess(ItemArray) {
         
           if PixelSearch(&u,&u,500, 390, 540, 430, ColorToFind, 10) {
             OutputDebug("`n FoundFunny")
-              if not PixelSearch(&u,&u,520, 410, 520, 410, 0xFFFFFF, 2)
+              if not PixelSearch(&u,&u, 484, 415, 484, 415, 0xFFFFFF, 2)
               {
                 OutputDebug("`n Clikgin")
                   SendEvent "{Click, 520, 410, 1}"
@@ -1803,7 +1806,7 @@ UseItemSingular(ItemName) {
 
       if PixelSearch(&u,&u,500, 390, 540, 430, ColorToFind, 10) {
         OutputDebug("`n FoundFunny")
-          if not PixelSearch(&u,&u,520, 410, 520, 410, 0xFFFFFF, 2)
+          if not PixelSearch(&u,&u, 484, 415, 484, 415, 0xFFFFFF, 2)
           {
             OutputDebug("`n Clikgin")
               SendEvent "{Click, 520, 410, 1}"
