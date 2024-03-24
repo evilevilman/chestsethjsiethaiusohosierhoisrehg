@@ -1687,99 +1687,60 @@ UseItemSingular(ItemName) {
   Sleep(450)
   SendText ItemName
   Sleep(100)
-  ColorToFind := PixelGetColor(520, 410)
-
-  ItemCheckTimer := A_TickCount
-  LastTimerReCheck := A_TickCount
-  MaxLoopTime := A_TickCount
-  WhiteOverCheck := 0
-
 
   Sleep(100)
-  loop
-  {
-      CheckTimeVariable := A_TickCount - ItemCheckTimer
-      MaxCheckTimeVariable := A_tickCount - MaxLoopTime
-
-      if CheckTimeVariable >= 5000 {
-          Break
-      }
-
-      if MaxCheckTimeVariable >= 25000 {
-          Break
-      }
-
-      if not PixelSearch(&u,&u,1450-20, 280-20, 1450+20, 280+20, 0xFF0B4D, 10) {
-          Sleep(200)
-          OutputDebug("`n Failed Finding X")
-          if PixelSearch(&u,&u,958, 538, 976, 550, 0x9AAFD2, 15) {
-              Sleep(300)
-              SendEvent "{Click, " A_ScreenWidth/2 ", 735, 1}"
-              Sleep(300)
-              OutputDebug("`n Cat")
-              Break
-          } else {
-            SendEvent "{Click, 1494, 235, 1}"
-            Sleep(300)
-            SendEvent "{Click, 1311, 258, 1}"
-            Sleep(100)
-            SendEvent "{Click, " A_ScreenWidth/2 ", 923, 1}"
-            Sleep(1000)
-            SendEvent "{Click, 414, 395, 1}"
-            Sleep(800)
-              ItemCheckTimer += 3000
-              MaxCheckTimeVariable += 3000
-              OutputDebug("`n No Cat?")
-          }
-      }
-
-      if PixelSearch(&u,&u,500, 390, 540, 430, ColorToFind, 10) {
-        OutputDebug("`n FoundFunny")
-          if not PixelSearch(&u,&u, 484, 415, 484, 415, 0xFFFFFF, 2)
-          {
-            OutputDebug("`n Clikgin")
-              SendEvent "{Click, 520, 410, 1}"
-              ItemCheckTimer := A_TickCount
-              break
-          } else {
-              WhiteOverCheck += 1
-              OutputDebug("`n THEWHITE")
-
-              if (WhiteOverCheck >= 3)
-              {
-                  SendEvent "{Click, " A_ScreenWidth/2 ", 40, 1}"
-                  Break
-              }
-          }
-      } else {
-        OutputDebug("`n Not FInd Funny")
-          if PixelSearch(&u,&u,958, 538, 976, 550, 0x9AAFD2, 15) {
-              Sleep(20)
-              SendEvent "{Click, " A_ScreenWidth/2 ", 735, 1}"
-              Sleep(300)
-              OutputDebug("`n Cat23")
-              Break
-          } else {
-              ReTypeCheck := A_TickCount - LastTimerReCheck
-              if ReTypeCheck >= 1500
-              {
-                  SendEvent " {Click, " A_ScreenWidth/2 ", 40, 1}"
-                  Sleep(650)
-                  SendEvent "{Click, 1300, 260, 1}"
-                  Sleep(650)
-                  SendText ItemName
-                  LastTimerReCheck := A_TickCount
-                  OutputDebug("`n idk")
-              }
-          }
-      }
-
-      if PixelSearch(&u,&u, 965-5, 560-5, 965+5, 560+5, 0x95AACD, 15) {
+  if not PixelSearch(&u,&u,1450-20, 280-20, 1450+20, 280+20, 0xFF0B4D, 10) {
+      Sleep(200)
+      OutputDebug("`n Failed Finding X")
+      if PixelSearch(&u,&u,958, 538, 976, 550, 0x9AAFD2, 15) {
           Sleep(300)
           SendEvent "{Click, " A_ScreenWidth/2 ", 735, 1}"
-          Sleep(400)
-          Break
+          Sleep(300)
+          OutputDebug("`n Cat")
+
+      } else {
+        SendEvent "{Click, 1494, 235, 1}"
+        Sleep(300)
+        SendEvent "{Click, 1311, 258, 1}"
+        Sleep(100)
+        SendEvent "{Click, " A_ScreenWidth/2 ", 923, 1}"
+        Sleep(1000)
+        SendEvent "{Click, 414, 395, 1}"
+        Sleep(800)
+
+          OutputDebug("`n No Cat?")
       }
+  }
+
+  Sleep(100)
+  SendEvent "{Click, 520, 410, 1}"
+
+  if not PixelSearch(&u,&u,1450-20, 280-20, 1450+20, 280+20, 0xFF0B4D, 10) { 
+    Sleep(200)
+    OutputDebug("`n Failed Finding X")
+    if PixelSearch(&u,&u,958, 538, 976, 550, 0x9AAFD2, 15) {
+        Sleep(300)
+        SendEvent "{Click, " A_ScreenWidth/2 ", 735, 1}"
+        Sleep(300)
+        OutputDebug("`n Cat")
+    } else {
+      SendEvent "{Click, 1494, 235, 1}"
+      Sleep(300)
+      SendEvent "{Click, 1311, 258, 1}"
+      Sleep(100)
+      SendEvent "{Click, " A_ScreenWidth/2 ", 923, 1}"
+      Sleep(1000)
+      SendEvent "{Click, 414, 395, 1}"
+      Sleep(800)
+
+        OutputDebug("`n No Cat?")
+    }
+  }
+
+  if PixelSearch(&u,&u, 965-5, 560-5, 965+5, 560+5, 0x95AACD, 15) {
+      Sleep(300)
+      SendEvent "{Click, " A_ScreenWidth/2 ", 735, 1}"
+      Sleep(400)
   }
 }
 
@@ -2271,4 +2232,3 @@ Jxon_Dump(obj, indent:="", lvl:=1) {
         return '"' obj '"'
     }
 }
-
