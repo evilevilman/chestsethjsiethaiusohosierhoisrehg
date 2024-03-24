@@ -1380,13 +1380,40 @@ MultipleUseItem(ItemArray, DelayBetween) {
   }
 }
 
-; Ported from MMv2
+; Ported from MMv2 | Reworked
 UseItemTillFailure(ItemName) {
     SendEvent "{Click, 1300, 260, 1}"
     Sleep(450)
     SendText ItemName
     Sleep(100)
     ColorToFind := PixelGetColor(520, 410)
+
+    if not PixelSearch(&u,&u,1450-20, 280-20, 1450+20, 280+20, 0xFF0B4D, 10) {
+      Sleep(200)
+      OutputDebug("`n Failed Finding X")
+      if PixelSearch(&u,&u,958, 538, 976, 550, 0x9AAFD2, 15) {
+          Sleep(300)
+          SendEvent "{Click, " A_ScreenWidth/2 ", 735, 1}"
+          Sleep(300)
+          OutputDebug("`n Cat")
+          ColorToFind := PixelGetColor(520, 410)
+      } else {
+        SendEvent "{Click, 1494, 235, 1}"
+        Sleep(300)
+        SendEvent "{Click, 1311, 258, 1}"
+        Sleep(100)
+        SendEvent "{Click, " A_ScreenWidth/2 ", 923, 1}"
+        Sleep(1000)
+        SendEvent "{Click, 414, 395, 1}"
+        Sleep(800)
+        SendEvent "{Click, 1300, 260, 1}"
+        Sleep(450)
+        SendText ItemName
+        Sleep(100)
+        ColorToFind := PixelGetColor(520, 410)
+      }
+  }
+
 
     ItemCheckTimer := A_TickCount
     LastTimerReCheck := A_TickCount
@@ -1400,11 +1427,11 @@ UseItemTillFailure(ItemName) {
         CheckTimeVariable := A_TickCount - ItemCheckTimer
         MaxCheckTimeVariable := A_tickCount - MaxLoopTime
 
-        if CheckTimeVariable >= 5000 {
+        if CheckTimeVariable >= 7000 {
             Break
         }
 
-        if MaxCheckTimeVariable >= 25000 {
+        if MaxCheckTimeVariable >= 40000 {
             Break
         }
 
@@ -1514,6 +1541,7 @@ UseItemLess(ItemName) {
       Sleep(450)
       SendText ItemName
       Sleep(100)
+      SendEvent "{Click, 520, 410, 1}"
 
       if A_TickCount - A_GetQuestsTimer >= QuestAPICallDelay {
         QuestsHaveChanged := GetQuests()
@@ -1543,73 +1571,25 @@ UseItemLess(ItemName) {
             }
         }
 
-        if PixelSearch(&u,&u,500, 390, 540, 430, ColorToFind, 10) {
-          OutputDebug("`n FoundFunny")
-            if not PixelSearch(&u,&u, 484, 415, 484, 415, 0xFFFFFF, 2)
-            {
-              OutputDebug("`n Clikgin")
-                SendEvent "{Click, 520, 410, 1}"
-                Sleep(400)
-                
-                if not PixelSearch(&u,&u,1450-20, 280-20, 1450+20, 280+20, 0xFF0B4D, 10) {
-                  Sleep(200)
-                  OutputDebug("`n Failed Finding X")
-                  if PixelSearch(&u,&u,958, 538, 976, 550, 0x9AAFD2, 15) {
-                      Sleep(300)
-                      SendEvent "{Click, " A_ScreenWidth/2 ", 735, 1}"
-                      Sleep(300)
-                  } else {
-                    SendEvent "{Click, 1494, 235, 1}"
-                    Sleep(300)
-                    SendEvent "{Click, 1311, 258, 1}"
-                    Sleep(100)
-                    SendEvent "{Click, " A_ScreenWidth/2 ", 923, 1}"
-                    Sleep(1000)
-                    SendEvent "{Click, 414, 395, 1}"
-                    Sleep(800)
-                    OutputDebug("`n No Cat?")
-                  }
-              }
+        if PixelSearch(&u,&u, 484, 415, 484, 415, 0xFFFFFF, 2) {
+          WhiteOverCheck += 1
+          OutputDebug("`n THEWHITE")
 
-                Sleep(ItemUseDelay[CurrentUseItem]-400)
-            } else {
-                WhiteOverCheck += 1
-                OutputDebug("`n THEWHITE")
+          if WhiteOverCheck >= 3
+          {
+              SendEvent "{Click, " A_ScreenWidth/2 ", 40, 1}"
+              CurrentUseItem := "Party Box"
+              OutputDebug("Switching To Party Box")
+          }
+      }
 
-                if WhiteOverCheck >= 3
-                {
-                    SendEvent "{Click, " A_ScreenWidth/2 ", 40, 1}"
-                    CurrentUseItem := "Party Box"
-                    OutputDebug("Switching To Party Box")
-                }
-            }
-        } else {
-          OutputDebug("`n Not FInd Funny")
-            if PixelSearch(&u,&u,958, 538, 976, 550, 0x9AAFD2, 15) {
-                Sleep(20)
-                SendEvent "{Click, " A_ScreenWidth/2 ", 735, 1}"
-                Sleep(300)
-                OutputDebug("`n Cat23")
-            } else {
-                ReTypeCheck := A_TickCount - LastTimerReCheck
-                if ReTypeCheck >= 1500
-                {
-                    SendEvent " {Click, " A_ScreenWidth/2 ", 40, 1}"
-                    Sleep(650)
-                    SendEvent "{Click, 1300, 260, 1}"
-                    Sleep(650)
-                    SendText ItemName
-                    LastTimerReCheck := A_TickCount
-                    OutputDebug("`n idk")
-                }
-            }
-        }
+      if PixelSearch(&u,&u, 965-5, 560-5, 965+5, 560+5, 0x95AACD, 15) {
+          Sleep(300)
+          SendEvent "{Click, " A_ScreenWidth/2 ", 735, 1}"
+          Sleep(400)
+      }
 
-        if PixelSearch(&u,&u, 965-5, 560-5, 965+5, 560+5, 0x95AACD, 15) {
-            Sleep(300)
-            SendEvent "{Click, " A_ScreenWidth/2 ", 735, 1}"
-            Sleep(400)
-        }
+      Sleep(ItemUseDelay[CurrentUseItem])
     }
     Sleep(200)
     SendEvent "{Click, 1469, 253, 1}"
@@ -1633,9 +1613,6 @@ MultipleUseItemLess(ItemArray) {
     Sleep(100)
     loop
     {
-
-      OutputDebug(A_TickCount - A_GetQuestsTimer "`n")
-      OutputDebug(QuestAPICallDelay "`n")
       if A_TickCount - A_GetQuestsTimer >= QuestAPICallDelay {
         QuestsHaveChanged := GetQuests()
         A_GetQuestsTimer := A_TickCount
@@ -1669,84 +1646,35 @@ MultipleUseItemLess(ItemArray) {
           Sleep(450)
           SendText ItemToUse
           Sleep(100)
-          ColorToFind := PixelGetColor(520, 410)
-        
-          if PixelSearch(&u,&u,500, 390, 540, 430, ColorToFind, 10) {
-            OutputDebug("`n FoundFunny")
-              if not PixelSearch(&u,&u, 484, 415, 484, 415, 0xFFFFFF, 2)
-              {
-                OutputDebug("`n Clikgin")
-                  SendEvent "{Click, 520, 410, 1}"
-                  ItemCheckTimer := A_TickCount
+          SendEvent "{Click, 520, 410, 1}"
 
-                  Sleep(400)
-                  if not PixelSearch(&u,&u,1450-20, 280-20, 1450+20, 280+20, 0xFF0B4D, 10) {
-                    Sleep(200)
-                    OutputDebug("`n Failed Finding X")
-                    if PixelSearch(&u,&u,958, 538, 976, 550, 0x9AAFD2, 15) {
-                        Sleep(300)
-                        SendEvent "{Click, " A_ScreenWidth/2 ", 735, 1}"
-                        Sleep(300)
-                    } else {
-                      SendEvent "{Click, 1494, 235, 1}"
-                      Sleep(300)
-                      SendEvent "{Click, 1311, 258, 1}"
-                      Sleep(100)
-                      SendEvent "{Click, " A_ScreenWidth/2 ", 923, 1}"
-                      Sleep(1000)
-                      SendEvent "{Click, 414, 395, 1}"
-                      Sleep(800)
-                      OutputDebug("`n No Cat?")
-                    }
+          if PixelSearch(&u,&u, 484, 415, 484, 415, 0xFFFFFF, 2) {
+            global WhiteOverCheck += 1
+            SendEvent "{Click, " A_ScreenWidth/2 ", 40, 1}"
+            Sleep(100)
+            OutputDebug("`n THEWHITE")
+
+            if WhiteOverCheck >= 3 {
+                SendEvent "{Click, " A_ScreenWidth/2 ", 40, 1}"
+                if ItemNum = 1 and ItemToUse != "Party Box" {
+                  HoldValue := ArrayToUse[2]
+                  ArrayToUse := ["Party Box", HoldValue]
                 }
+                if ItemNum = 2 and ItemToUse != "Party Box" {
+                  HoldValue := ArrayToUse[1]
+                  ArrayToUse := [HoldValue, "Party Box"]
+                }
+                WhiteOverCheck := 0
+            }
+        }
 
-                  Sleep(ItemUseDelay[ItemToUse]-400)
-              } else {
-                  global WhiteOverCheck += 1
-                  SendEvent "{Click, " A_ScreenWidth/2 ", 40, 1}"
-                  Sleep(100)
-                  OutputDebug("`n THEWHITE")
-
-                  if WhiteOverCheck >= 3 {
-                      SendEvent "{Click, " A_ScreenWidth/2 ", 40, 1}"
-                      if ItemNum = 1 and ItemToUse != "Party Box" {
-                        HoldValue := ArrayToUse[2]
-                        ArrayToUse := ["Party Box", HoldValue]
-                      }
-                      if ItemNum = 2 and ItemToUse != "Party Box" {
-                        HoldValue := ArrayToUse[1]
-                        ArrayToUse := [HoldValue, "Party Box"]
-                      }
-                      WhiteOverCheck := 0
-                  }
-              }
-          } else {
-            OutputDebug("`n Not FInd Funny")
-              if PixelSearch(&u,&u,958, 538, 976, 550, 0x9AAFD2, 15) {
-                  Sleep(20)
-                  SendEvent "{Click, " A_ScreenWidth/2 ", 735, 1}"
-                  Sleep(300)
-                  OutputDebug("`n Cat23")
-              } else {
-                  ReTypeCheck := A_TickCount - LastTimerReCheck
-                  if ReTypeCheck >= 1500
-                  {
-                      SendEvent " {Click, " A_ScreenWidth/2 ", 40, 1}"
-                      Sleep(650)
-                      SendEvent "{Click, 1300, 260, 1}"
-                      Sleep(650)
-                      SendText ItemToUse
-                      LastTimerReCheck := A_TickCount
-                      OutputDebug("`n idk")
-                  }
-              }
-          }
 
           if PixelSearch(&u,&u, 965-5, 560-5, 965+5, 560+5, 0x95AACD, 15) {
               Sleep(300)
               SendEvent "{Click, " A_ScreenWidth/2 ", 735, 1}"
               Sleep(400)
           }
+          Sleep(ItemUseDelay[ItemToUse])
         }
     }
     Sleep(200)
@@ -2128,12 +2056,12 @@ F5::{
   ; ; ; Sleep(200)
   ; ; ; SendEvent "{Click, 968, 929, 1}"
   ; ; ; Sleep(400)
-  ; ; global Q3 := "1"
-  ; ; global Q4 := "1"
-  ; ; global LQ3 := "1"
-  ; ; global LQ4 := "1"
-  ; ; global QuestAPICallDelay := 1203986236
-  ; TestForReconnect()
+  ; global Q3 := "1"
+  ; global Q4 := "1"
+  ; global LQ3 := "1"
+  ; global LQ4 := "1"
+  ; global QuestAPICallDelay := 1203986236
+  ; ; TestForReconnect()
 }
 
 
