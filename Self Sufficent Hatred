@@ -201,60 +201,64 @@ GetQuestsOLD() {
 }
 
 GetQuests() {
-  whr := ComObject("WinHttp.WinHttpRequest.5.1")
-  whr.Open("GET", "https://biggamesapi.io/api/clan/" CLANNAME, true)
-  whr.Send()
-  whr.WaitForResponse()
-  CurretPassword := whr.ResponseText
-  global LQUT := A_TickCount
+  loop {
+    try {
+      whr := ComObject("WinHttp.WinHttpRequest.5.1")
+      whr.Open("GET", "https://biggamesapi.io/api/clan/" CLANNAME, true)
+      whr.Send()
+      whr.WaitForResponse()
+      CurretPassword := whr.ResponseText
+      global LQUT := A_TickCount
 
-  LoadedArray := Jxon_Load(&CurretPassword)
+      LoadedArray := Jxon_Load(&CurretPassword)
 
-  for _ArrayNum, BattleArray in LoadedArray["data"]["Battles"]["GoalBattleOne"]["Goals"] {
-    if BattleArray["Stars"] = 300 {
-      QuestNum := String(ProfessionalQuestsMap[String(BattleArray["Type"])])
+      for _ArrayNum, BattleArray in LoadedArray["data"]["Battles"]["GoalBattleOne"]["Goals"] {
+        if BattleArray["Stars"] = 300 {
+          QuestNum := String(ProfessionalQuestsMap[String(BattleArray["Type"])])
 
-      for QuestType, QuestTrueNum in Quests {
-        if QuestNum = QuestTrueNum {
-          if not EnabledQuests[QuestTrueNum] {
-            global Q3 := -1
-          } else {
-            global Q3 := QuestNum
-          }
-          if Q3 > 0 {
-            OutputDebug("`n Quest Confirmed: " QuestsToText[Q3] "   [Q3]")
-          } else {
-            OutputDebug("`n Quest UnConfirmed: " Q3 "   [Q3]")
-          }
+          for QuestType, QuestTrueNum in Quests {
+            if QuestNum = QuestTrueNum {
+              if not EnabledQuests[QuestTrueNum] {
+                global Q3 := -1
+              } else {
+                global Q3 := QuestNum
+              }
+              if Q3 > 0 {
+                OutputDebug("`n Quest Confirmed: " QuestsToText[Q3] "   [Q3]")
+              } else {
+                OutputDebug("`n Quest UnConfirmed: " Q3 "   [Q3]")
+              }
+            }
+          } 
         }
-      } 
-    }
-    if BattleArray["Stars"] = 400 {
-      QuestNum := String(ProfessionalQuestsMap[String(BattleArray["Type"])])
+        if BattleArray["Stars"] = 400 {
+          QuestNum := String(ProfessionalQuestsMap[String(BattleArray["Type"])])
 
-      for QuestType, QuestTrueNum in Quests {
-        if QuestNum = QuestTrueNum {
-          if not EnabledQuests[QuestTrueNum] {
-            global Q4 := -1
-          } else {
-            global Q4 := QuestNum
-          }
-          if Q4 > 0 {
-            OutputDebug("`n Quest Confirmed: " QuestsToText[Q4] "   [Q4]")
-          } else {
-            OutputDebug("`n Quest UnConfirmed: " Q4 "   [Q4]")
-          }
+          for QuestType, QuestTrueNum in Quests {
+            if QuestNum = QuestTrueNum {
+              if not EnabledQuests[QuestTrueNum] {
+                global Q4 := -1
+              } else {
+                global Q4 := QuestNum
+              }
+              if Q4 > 0 {
+                OutputDebug("`n Quest Confirmed: " QuestsToText[Q4] "   [Q4]")
+              } else {
+                OutputDebug("`n Quest UnConfirmed: " Q4 "   [Q4]")
+              }
+            }
+          } 
         }
-      } 
-    }
-  }
+      }
 
-  if LQ3 != Q3 or LQ4 != Q4 {
-    global LQ3 := Q3
-    global LQ4 := Q4
-    return true
-  } else {
-    return false
+      if LQ3 != Q3 or LQ4 != Q4 {
+        global LQ3 := Q3
+        global LQ4 := Q4
+        return true
+      } else {
+        return false
+      }
+    }
   }
 }
 
@@ -961,7 +965,8 @@ QuestFunction() {
 
   ReconnectTickTime := A_TickCount
   loop {
-
+    Sleep(300)
+    
     if A_TickCount - A_GetQuestsTimer >= QuestAPICallDelay {
       GetQuests()
       global A_GetQuestsTimer := A_TickCount
@@ -1539,7 +1544,7 @@ UseItemLess(ItemName) {
       Sleep(300)
       SendEvent "{Click, 1300, 260, 1}"
       Sleep(450)
-      SendText ItemName
+      SendText CurrentUseItem
       Sleep(100)
       SendEvent "{Click, 520, 410, 1}"
 
