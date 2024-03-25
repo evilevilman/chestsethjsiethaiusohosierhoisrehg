@@ -201,11 +201,6 @@ GetQuestsOLD() {
 }
 
 GetQuests() {
-loop {
-  GotQuests := false
-
-  ReconnectTest()
-  try {
   whr := ComObject("WinHttp.WinHttpRequest.5.1")
   whr.Open("GET", "https://biggamesapi.io/api/clan/" CLANNAME, true)
   whr.Send()
@@ -261,8 +256,6 @@ loop {
   } else {
     return false
   }
-  }
-}
 }
 
 LoadSettings()
@@ -814,15 +807,6 @@ Escape() {
     SendText "Mushroom Lab"
     Sleep(300)
     SendEvent "{Click, 958, 356, 1}"
-    loop 5 {
-      if PixelSearch(&u,&u, 965-5, 560-5, 965+5, 560+5, 0x95AACD, 15) {
-        Sleep(300)
-        SendEvent "{Click, " A_ScreenWidth/2 ", 735, 1}"
-        Sleep(400)
-      }
-      Sleep(100)
-    }
-
     Sleep(TpWaitTime)
     global CurrentZone := "106"
 }
@@ -977,7 +961,7 @@ QuestFunction() {
 
   ReconnectTickTime := A_TickCount
   loop {
-    Sleep(500)
+
     if A_TickCount - A_GetQuestsTimer >= QuestAPICallDelay {
       GetQuests()
       global A_GetQuestsTimer := A_TickCount
